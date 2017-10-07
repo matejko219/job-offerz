@@ -7,13 +7,14 @@ var jwtGuard = function(req, res, next) {
 
     var token = req.headers['authorization'];
 
-
     if (token) {
         // verifies secret and checks exp
         token = token.substring(7, token.length);
         jwt.verify(token, req.app.get('config').jwtSecret, function(err, decoded) {
             if (err) {
-                return res.json({ success: false, message: 'Failed to authenticate token.' });
+                var err = new Error('Failed to authenticate token.');
+                err.status = 403;
+                next(err);
             } else {
                 req.decodedUser = decoded.user;
                 next();
@@ -21,10 +22,9 @@ var jwtGuard = function(req, res, next) {
         });
 
     } else {
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided.'
-        });
+        var err = new Error('No token provided.');
+        err.status = 403;
+        next(err);
     }
 };
 

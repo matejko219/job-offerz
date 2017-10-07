@@ -14,7 +14,7 @@ var errorHandlers = {
         next(err);
     },
     apiErrorHandler: function (err, req, res, next) {
-        if (req.is('application/*')) {
+        if (isApiRequest(req)) {
             res.status(err.status || 500).send({ error: err.message });
         } else {
             next(err);
@@ -30,5 +30,10 @@ var errorHandlers = {
         res.render('error');
     }
 };
+
+function isApiRequest(req) {
+    var contentType = req.headers['content-type'];
+    return ['application/json', 'application/x-www-form-urlencoded'].indexOf(contentType) !== -1;
+}
 
 module.exports = errorHandlers;

@@ -5,8 +5,9 @@ var express = require('express');
 var router = express.Router();
 var jwtGuard = require('../../middlewares/jwt-guard');
 
-// Set REST API routes
+// Set Authentication Guard
 router.use(jwtGuard);
+// Set REST API routes
 router.use('/users', require('./users'));
 
 module.exports = router;

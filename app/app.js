@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var environments = require('./config/environments');
 var config = require('./config/config');
 var initDbScript = require('./config/init-db-script');
 var errorHandlers = require('./middlewares/error-handlers');
@@ -15,13 +14,12 @@ var appRoutes = require('./routes');
 var app = express();
 
 // database connection
-mongoose.connect(environments.dbUrl, { useMongoClient: true, promiseLibrary: global.Promise });
+mongoose.connect(config.dbUrl, { useMongoClient: true, promiseLibrary: global.Promise });
 mongoose.set('debug', app.get('env') === 'development');
 initDbScript();
 
-// set configuration objects
+// set configuration object
 app.set('config', config);
-app.set('environments', environments);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

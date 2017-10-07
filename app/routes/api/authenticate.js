@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
-var User = require('../models/user');
+var User = require('../../models/user');
 
 /* POST authenticate user. */
 router.post('/', function(req, res, next) {
@@ -16,10 +16,14 @@ router.post('/', function(req, res, next) {
 
         if (!user) {
             console.log('User: ' + req.body.login + ' not found');
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            var err = new Error('Authentication failed. User not found.');
+            err.status = 400;
+            return next(err);
         } else {
             if (user.password !== req.body.password) {
-                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+                var err = new Error('Authentication failed. Wrong password.');
+                err.status = 400;
+                return next(err);
             } else {
                 const payload = {
                     user: {
@@ -33,14 +37,13 @@ router.post('/', function(req, res, next) {
                         expiresIn: '1h'
                     });
 
-                    res.json({
-                        success: true,
-                        message: 'Authentication succes!',
+                    return res.json({
                         token: token
                     });
                 } catch (err) {
-                    console.log(err.stack);
-                    res.json({ success: false, message: 'Authentication failed.' });
+                    var err = new Error('Authentication failed. JWT not generated.');
+                    err.status = 400;
+                    next(err);
                 }
 
             }
