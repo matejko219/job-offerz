@@ -8,6 +8,6 @@ router.get('/', function(req, res, next) {
 
 // Set REST API routes
 router.use('/api/authenticate', require('./authenticate'));
-router.use('/api', require('./api'));
+router.use('/api', require('./api/index'));
 
 module.exports = router;
