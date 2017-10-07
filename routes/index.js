@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+// Set REST API routes
+router.use('/api/authenticate', require('./authenticate'));
+router.use('/api', require('./api'));
+
 module.exports = router;
