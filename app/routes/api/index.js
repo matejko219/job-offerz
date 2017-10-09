@@ -8,6 +8,7 @@ var jwtGuard = require('../../middlewares/jwt-guard');
 // Set Authentication Guard
 router.use(jwtGuard);
 // Set REST API routes
+router.use('/logout', require('./logout'));
 router.use('/users', require('./users'));
 
 module.exports = router;

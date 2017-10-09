@@ -3,48 +3,65 @@
  */
 var express = require('express');
 var router = express.Router();
-var jwt = require('jsonwebtoken');
 var User = require('../../models/user');
+var GrantedToken = require('../../models/granted-token');
+var JwtService = require('../../services/jwt-service');
+var handleError = require('../../middlewares/error-handlers').handleError;
 
 /* POST authenticate user. */
 router.post('/', function(req, res, next) {
-    console.log('Req: ', JSON.stringify(req.body));
     User.findOne({
         login: req.body.login
     }, function (err, user) {
-        if (err) res.json({ success: false, message: err.message });
+        if (err) {
+            return handleError('Authentication failed. DB error - User.', 500, next);
+        }
 
         if (!user) {
             console.log('User: ' + req.body.login + ' not found');
-            var err = new Error('Authentication failed. User not found.');
-            err.status = 400;
-            return next(err);
+            return handleError('Authentication failed. User not found.', 400, next);
         } else {
             if (user.password !== req.body.password) {
-                var err = new Error('Authentication failed. Wrong password.');
-                err.status = 400;
-                return next(err);
+                return handleError('Authentication failed. Wrong password.', 400, next);
             } else {
-                const payload = {
-                    user: {
-                        id: user._id,
-                        authority: user.authority
-                    }
-                };
 
+                var generatedToken;
                 try {
-                    var token = jwt.sign(payload, req.app.get('config').jwtSecret, {
-                        expiresIn: '1h'
-                    });
-
-                    return res.json({
-                        token: token
-                    });
+                    generatedToken = JwtService.generateToken(user);
                 } catch (err) {
-                    var err = new Error('Authentication failed. JWT not generated.');
-                    err.status = 400;
-                    next(err);
+                    return handleError('Authentication failed. JWT not generated.', 500, next);
                 }
+
+                GrantedToken.findOne({user_id: user._id}, function (err, grantedToken) {
+                    if (err) {
+                        return handleError('Authentication failed. DB error.', 500, next);
+                    }
+
+                    if (grantedToken) {
+                        grantedToken.token = generatedToken;
+                        grantedToken.date = Date.now();
+                        grantedToken.save(function (err, updatedToken) {
+                            if (err) {
+                                return handleError('Authentication failed. DB error - UT not saved.', 500, next);
+                            }
+                            console.log('Already granted token updated in db.')
+                        })
+                    } else {
+                        new GrantedToken({
+                            user_id: user._id,
+                            token: generatedToken
+                        }).save(function (err, newGrantedToken) {
+                            if (err) {
+                                return handleError('Authentication failed. DB error - GT not saved.', 500, next);
+                            }
+                            console.log('New granted token saved in db.')
+                        });
+                    }
+                });
+
+                return res.json({
+                    token: generatedToken
+                });
 
             }
         }

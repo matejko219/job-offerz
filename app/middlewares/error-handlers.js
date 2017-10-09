@@ -28,6 +28,12 @@ var errorHandlers = {
         // render the error page
         res.status(err.status || 500);
         res.render('error');
+    },
+    //only for use in services
+    handleError: function (msg, status, next) {
+        var err = new Error(msg);
+        err.status = status;
+        return next(err);
     }
 };
 
