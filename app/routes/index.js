@@ -7,7 +7,10 @@ router.get('/', function(req, res, next) {
 });
 
 // Set REST API routes
+//unprotected ones
 router.use('/api/authenticate', require('./api/authenticate'));
+router.use('/api/signup', require('./api/signup'));
+//protected ones
 router.use('/api', require('./api/index'));
 
 module.exports = router;

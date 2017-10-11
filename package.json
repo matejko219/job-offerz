@@ -7,6 +7,7 @@
     "start-dev": "set WORKERS=1& node ./app/bin/www"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.18.2",
     "cluster": "^0.7.7",
     "cookie-parser": "~1.4.3",

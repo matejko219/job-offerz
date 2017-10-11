@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 module.exports = mongoose.model('User', new Schema({
-    login: String,
-    password: String,
-    authority: String
+    login: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    authority: { type: String, default: 'ROLE_USER' }
 }));

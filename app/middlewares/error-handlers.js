@@ -33,7 +33,7 @@ var errorHandlers = {
     handleError: function (msg, status, next) {
         var err = new Error(msg);
         err.status = status;
-        return next(err);
+        next(err);
     }
 };
 

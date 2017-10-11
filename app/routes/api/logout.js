@@ -6,7 +6,7 @@ var router = express.Router();
 var GrantedToken = require('../../models/granted-token');
 var handleError = require('../../middlewares/error-handlers').handleError;
 
-/* POST authenticate user. */
+/* GET logout user. */
 router.get('/', function(req, res, next) {
     GrantedToken.remove({user_id: req.decodedUser.id}, function (err) {
         if (err) handleError('Error while logout', 500, next);
