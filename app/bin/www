@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 var cluster = require('cluster');
 
-var workers = process.env.WORKERS || require('os').cpus().length;
+//var workers = process.env.WORKERS || require('os').cpus().length;
+var workers = process.env.WORKERS || 1;
 
 if (cluster.isMaster) {
     console.log('start cluster with %s workers', workers);
