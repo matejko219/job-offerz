@@ -1,16 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'Aplikacje Internetowe API' });
 });
 
 // Set REST API routes
-//unprotected ones
-router.use('/api/authenticate', require('./api/authenticate'));
-router.use('/api/signup', require('./api/signup'));
-//protected ones
-router.use('/api', require('./api/index'));
+router.use('/api', require('./api'));
 
 module.exports = router;

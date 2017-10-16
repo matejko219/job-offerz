@@ -1,14 +1,13 @@
 /**
  * Created by DELL on 2017-10-07.
  */
-var express = require('express');
-var router = express.Router();
-var jwtGuard = require('../../middlewares/jwt-guard');
+const express = require('express');
+const router = express.Router();
 
-// Set Authentication Guard
-router.use(jwtGuard);
+// Set security REST API
+// and set Authentication Guard (inside ./security routes)
+router.use('/', require('./security'));
 // Set REST API routes
-router.use('/logout', require('./logout'));
 router.use('/users', require('./users'));
 
 module.exports = router;

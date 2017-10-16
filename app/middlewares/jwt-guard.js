@@ -1,22 +1,22 @@
 /**
  * Created by DELL on 2017-10-07.
  */
-var jwt = require('jsonwebtoken');
-var handleError = require('./error-handlers').handleError;
-var JwtService = require('../services/jwt-service');
-var GrantedToken = require('../models/granted-token');
+const jwt = require('jsonwebtoken');
+const handleError = require('./error-handlers').handleError;
+const JwtService = require('../services/jwt-service');
+const GrantedToken = require('../models/granted-token');
 
-var jwtGuard = function(req, res, next) {
+const jwtGuard = (req, res, next) => {
 
-    var token = req.headers['authorization'];
+    const token = req.headers['authorization'];
 
     if (token) {
-        JwtService.verifyToken(token, function(err, decoded) {
+        JwtService.verifyToken(token, (err, decoded) => {
             if (err) {
                 console.log('JWT not verified: ' + err.message);
                 return handleError('Failed to authenticate token.', 401, next);
             } else {
-                GrantedToken.findOne({token: token.substring(7, token.length)}, function (err, grantedToken) {
+                GrantedToken.findOne({token: token.substring(7, token.length)}, (err, grantedToken) => {
                     if (err) {
                         return handleError('Error while looking for registered token in db.', 401, next);
                     }
@@ -25,7 +25,7 @@ var jwtGuard = function(req, res, next) {
                         return handleError('JWT not registered in db.', 401, next);
                     }
 
-                    var user = decoded.user;
+                    const user = decoded.user;
                     if (grantedToken.user_id != user.id) {
                         return handleError('Token registered already for another user.', 401, next);
                     }

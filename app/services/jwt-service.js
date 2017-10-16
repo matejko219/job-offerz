@@ -1,11 +1,11 @@
 /**
  * Created by DELL on 2017-10-09.
  */
-var jwt = require('jsonwebtoken');
-var config = require('../config/config');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
-var JwtService = {
-    generateToken: function (user) {
+const JwtService = {
+    generateToken: (user) => {
         const payload = {
             user: {
                 id: user._id,
@@ -19,11 +19,11 @@ var JwtService = {
             });
         } catch (err) {
             console.log('JWT not generated: ' + err.message);
-            var err = new Error('JWT not generated.');
+            const err = new Error('JWT not generated.');
             throw err;
         }
     },
-    verifyToken: function (token, callback) {
+    verifyToken: (token, callback) => {
         token = token.substring(7, token.length);
         jwt.verify(token, config.jwtSecret, callback);
     }
