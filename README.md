@@ -25,7 +25,7 @@ npm install
 ```
 
 ```
-cd job-offerz-client &amp;&amp; npm install
+cd job-offerz-client && npm install
 ```
 
 Jeżeli właśnie sklonowaliśmy repozytorium należy zbudować aplikację kliencką aby serwer posiadał plik `index.html`:
@@ -44,7 +44,7 @@ Dzięki temu serwer aplikacji udostępniający REST API jest uruchomiony pod adr
 
 Aby uruchomić aplikację kliencką (Angular) należy wykonać następujące polecenie:
 ```
-cd job-offerz-client &amp;&amp; npm run start
+cd job-offerz-client && npm run start
 ```
 
 Aplikacja kliencka natomiast widoczna jest pod adresem `http://localhost:4200` i wykorzystuje `WDS` dzięki czemu możemy "na żywo" pracować nad kodem aplikacji.
