@@ -1,10 +1,12 @@
 {
-  "name": "job-offerz",
+  "name": "job-offerz-server",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set NODE_ENV=production& node ./app/bin/www",
-    "start-dev": "node ./app/bin/www"
+    "start": "set NODE_ENV=production& npm run start-dev",
+    "start-dev": "node ./job-offerz-server/bin/www",
+    "build": "cd job-offerz-client & ng build --prod --aot",
+    "build-start-dev": "npm run build & npm run start-dev"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
