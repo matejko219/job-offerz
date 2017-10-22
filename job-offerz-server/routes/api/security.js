@@ -9,6 +9,7 @@ const JwtService = require('../../services/jwt-service');
 const handleError = require('../../middlewares/error-handlers').handleError;
 const BCryptService = require('../../services/bcrypt-service');
 const jwtGuard = require('../../middlewares/jwt-guard');
+const AuthoritiesConsts = require('../../models/utils/authorities-consts');
 
 /* POST /api/authenticate user. */
 router.post('/authenticate', (req, res, next) =>{
@@ -92,7 +93,7 @@ router.post('/signup', (req, res, next) =>{
             new User({
                 login: login,
                 password: hash,
-                authority: 'ROLE_USER'
+                authority: AuthoritiesConsts.ROLE_USER
             }).save(err =>{
                 if (err) return handleError('Error while signup new user', 500, next);
                 else return res.json({

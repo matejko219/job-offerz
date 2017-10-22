@@ -3,9 +3,10 @@
  */
 const User = require('../models/user');
 const BCryptService = require('../services/bcrypt-service');
+const AuthoritiesConsts = require('../models/utils/authorities-consts');
 
 function initDbScript() {
-    User.findOne({login: 'admin', authority: 'ROLE_ADMIN'}, (err, user) =>{
+    User.findOne({login: 'admin', authority: AuthoritiesConsts.ROLE_ADMIN}, (err, user) =>{
         if (err) throw err;
 
         if (!user) {
@@ -14,7 +15,7 @@ function initDbScript() {
             const admin = new User({
                 login: 'admin',
                 password: hash,
-                authority: 'ROLE_ADMIN'
+                authority: AuthoritiesConsts.ROLE_ADMIN
             });
 
             admin.save(err =>{

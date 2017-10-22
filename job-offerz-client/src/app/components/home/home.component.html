@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <a class="fab"
+     (click)="sidenav.toggle()">
+    <mat-icon>{{sidenav.opened ? 'close' : 'menu'}}</mat-icon>
+  </a>
+  <span>JobOffeRz</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="push" opened="false">
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon>home</mat-icon>
+        <a [routerLink]="['/']">
+          Strona główna
+        </a>
+      </mat-list-item>
+      <mat-list-item *ngIf="!authService.isUserLogged()">
+        <mat-icon>exit_to_app</mat-icon>
+        <a [routerLink]="['/login']">
+          Zaloguj się
+        </a>
+      </mat-list-item>
+      <mat-list-item *ngIf="authService.isUserLogged()">
+        <mat-icon>power_settings_new</mat-icon>
+        <a (click)="logout()">
+          Wyloguj się
+        </a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-sidenav-container>

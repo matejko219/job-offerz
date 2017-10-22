@@ -1,0 +1,38 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="wrapper">
+  <div fxFlex.gt-sm="30" fxFlex.sm="50" fxFlex.lt-sm="80" fxLayout="column" fxLayoutAlign="center center" class="container">
+    <h1>Logowanie</h1>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <div fxlayout="column">
+        <mat-form-field>
+          <input #name
+                 matInput
+                 type="text"
+                 name="login"
+                 placeholder="Login"
+                 [(ngModel)]="credentials.login"
+                 required>
+        </mat-form-field>
+      </div>
+
+      <div fxlayout="column">
+        <mat-form-field>
+          <input #password
+                 matInput
+                 type="password"
+                 name="password"
+                 placeholder="Hasło"
+                 [(ngModel)]="credentials.password"
+                 required>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column">
+        <button color="primary"
+                mat-raised-button
+                [disabled]="loginForm.invalid"
+                type="submit">Zaloguj</button>
+      </div>
+    </form>
+  </div>
+</div>
