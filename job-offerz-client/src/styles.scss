@@ -4,13 +4,18 @@
 
 body {
   margin: 0px;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
-div.container {
-  border-radius: 5px;
-  box-shadow: 0 2px 5px 0 rgba(52, 47, 51, 0.63);
-  padding: 10px;
+.wrapper {
+  margin: 20px;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0px;
 }
 
 

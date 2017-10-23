@@ -1,0 +1,12 @@
+.app-footer.mat-toolbar {
+  min-height: 32px;
+  align-items: center;
+  font-size: 12px;
+}
+
+/deep/ app-footer {
+  .mat-toolbar-row {
+    height: 32px;
+  }
+}
+

@@ -1,5 +1,5 @@
-<div fxLayout="row" fxLayoutAlign="center center" class="wrapper">
-  <div fxFlex.gt-sm="30" fxFlex.sm="50" fxFlex.lt-sm="80" fxLayout="column" fxLayoutAlign="center center" class="container">
+<div class="wrapper" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card fxFlex.gt-sm="30" fxFlex.sm="50" fxFlex.lt-sm="80" fxLayout="column" fxLayoutAlign="center center">
     <h1>Logowanie</h1>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
 
@@ -31,8 +31,12 @@
         <button color="primary"
                 mat-raised-button
                 [disabled]="loginForm.invalid"
-                type="submit">Zaloguj</button>
+                type="submit">Zaloguj
+        </button>
       </div>
     </form>
-  </div>
+  </mat-card>
+</div>
+<div class="footer">
+  <app-footer></app-footer>
 </div>
