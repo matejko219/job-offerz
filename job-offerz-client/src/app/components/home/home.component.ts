@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
+import {AppConsts} from "../../utils/app-consts";
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,8 @@ import {SnackBarService} from "../../shared/services/snack-bar.service";
   styleUrls: ['home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  appName: string = AppConsts.APP_NAME;
 
   constructor(public authService: AuthenticationService,
               private router: Router,

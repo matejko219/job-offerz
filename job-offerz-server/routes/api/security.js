@@ -23,9 +23,7 @@ router.post('/authenticate', (req, res, next) =>{
         return handleError('password property is required.', 400, next);
     }
 
-    User.findOne({
-        login: login
-    }, (err, user) =>{
+    User.findOne({$or: [{login: login}, {email: login}]}, (err, user) =>{
         if (err) {
             return handleError('Authentication failed. DB error - User.', 500, next);
         }
@@ -82,17 +80,27 @@ router.post('/signup', (req, res, next) =>{
         return handleError('password property is required.', 400, next);
     }
 
-    User.findOne({login: login}, (err, user) =>{
+    const email = req.body.email;
+    if (!email || email === '') {
+        return handleError('email property is required.', 400, next);
+    }
+
+    User.findOne({$or: [{login: login}, {email: email}]}, (err, user) =>{
         if (err) return handleError('Error while signup new user', 500, next);
 
         if (user) {
-            return handleError('User with login: ' + login + ' already exist.', 400, next);
+            if (user.login === login) {
+                return handleError('User with login: ' + login + ' already exist.', 400, next);
+            } else {
+                return handleError('User with email: ' + email + ' already exist.', 400, next);
+            }
         } else {
             const hash = BCryptService.generateHash(password);
 
             new User({
                 login: login,
                 password: hash,
+                email: email,
                 authority: AuthoritiesConsts.ROLE_USER
             }).save(err =>{
                 if (err) return handleError('Error while signup new user', 500, next);

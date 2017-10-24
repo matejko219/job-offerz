@@ -1,0 +1,69 @@
+<mat-card>
+
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon color="primary" class="avatar">assignment_ind</mat-icon>
+    </div>
+    <mat-card-title>Utwórz nowe konto</mat-card-title>
+    <mat-card-subtitle>Rejestracja</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <div fxlayout="column">
+        <mat-form-field>
+          <input #login
+                 matInput
+                 type="text"
+                 name="login"
+                 placeholder="Login"
+                 [(ngModel)]="user.login"
+                 required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input #email
+                 matInput
+                 type="text"
+                 name="email"
+                 placeholder="Email"
+                 [(ngModel)]="user.email"
+                 required>
+        </mat-form-field>
+      </div>
+
+      <div fxlayout="column">
+        <mat-form-field>
+          <input #password
+                 matInput
+                 type="password"
+                 name="password"
+                 placeholder="Hasło"
+                 [(ngModel)]="user.password"
+                 required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input #repeatPassword
+                 matInput
+                 type="password"
+                 name="repeatPassword"
+                 placeholder="Powtórz hasło"
+                 [(ngModel)]="repeatPasswd"
+                 required
+                 matchPassword>
+        </mat-form-field>
+      </div>
+
+      <div fxlayout="column">
+        <button color="primary"
+                mat-raised-button
+                [disabled]="registerForm.invalid"
+                type="submit">Utwórz konto
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+
+</mat-card>

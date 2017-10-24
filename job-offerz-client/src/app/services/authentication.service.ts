@@ -4,13 +4,14 @@ import {Credentials} from "../models/credentials";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import 'rxjs/add/operator/map'
+import {AppConsts} from "../utils/app-consts";
 
 @Injectable()
 export class AuthenticationService {
 
   private token: string;
-  private tokenStorageKey = 'token';
-  apiUrl = environment.apiUrl;
+  private tokenStorageKey = AppConsts.TOKEN_STORAGE_KEY;
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: Http) {
 

@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
+import { LandingRoutingModule } from './landing-routing.module';
 import {SharedModule} from "../../shared/modules/shared.module";
+import {LandingComponent} from "./landing.component";
 
 @NgModule({
   imports: [
     CommonModule,
-    LoginRoutingModule,
+    LandingRoutingModule,
     SharedModule
   ],
-  declarations: [LoginComponent]
+  declarations: [
+    LandingComponent
+  ]
 })
-export class LoginModule { }
+export class LandingModule { }

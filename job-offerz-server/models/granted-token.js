@@ -7,5 +7,5 @@ const Schema = mongoose.Schema;
 module.exports = mongoose.model('GrantedToken', new Schema({
     user_id: { type: Schema.Types.ObjectId, unique: true, required: true },
     token: { type: String, unique: true, required: true },
-    create_date: { type: Date, default: Date.now }
+    createDate: { type: Date, default: Date.now }
 }));

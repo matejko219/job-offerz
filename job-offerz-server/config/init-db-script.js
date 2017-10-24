@@ -15,6 +15,7 @@ function initDbScript() {
             const admin = new User({
                 login: 'admin',
                 password: hash,
+                email: 'admin@test.pl',
                 authority: AuthoritiesConsts.ROLE_ADMIN
             });
 

@@ -3,6 +3,7 @@ import {Credentials} from "../../models/credentials";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
+import {AppConsts} from "../../utils/app-consts";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import {SnackBarService} from "../../shared/services/snack-bar.service";
 export class LoginComponent implements OnInit {
 
   credentials: Credentials = new Credentials();
+  appName: string = AppConsts.APP_NAME;
 
   constructor(private authService: AuthenticationService,
               private router: Router,

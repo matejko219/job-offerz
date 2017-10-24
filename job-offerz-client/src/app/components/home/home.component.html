@@ -1,24 +1,27 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="push" opened="false">
-    <mat-nav-list>
-      <mat-list-item>
-        <mat-icon>home</mat-icon>
-        <a [routerLink]="['/']">
-          Strona główna
-        </a>
+    <mat-nav-list (click)="sidenav.toggle()">
+
+      <mat-list-item [routerLink]="['/']">
+        <mat-icon color="primary">home</mat-icon>
+        <span>Strona główna</span>
       </mat-list-item>
-      <mat-list-item *ngIf="!authService.isUserLogged()">
-        <mat-icon>exit_to_app</mat-icon>
-        <a [routerLink]="['/login']">
-          Zaloguj się
-        </a>
+
+      <mat-list-item *ngIf="!authService.isUserLogged()" [routerLink]="['/signup']">
+        <mat-icon color="primary">assignment_ind</mat-icon>
+        <span>Rejestracja</span>
       </mat-list-item>
-      <mat-list-item *ngIf="authService.isUserLogged()">
-        <mat-icon>power_settings_new</mat-icon>
-        <a (click)="logout()">
-          Wyloguj się
-        </a>
+
+      <mat-list-item *ngIf="!authService.isUserLogged()" [routerLink]="['/login']">
+        <mat-icon color="primary">exit_to_app</mat-icon>
+        <span>Zaloguj się</span>
       </mat-list-item>
+
+      <mat-list-item *ngIf="authService.isUserLogged()" (click)="logout()">
+        <mat-icon color="primary">power_settings_new</mat-icon>
+        <span>Wyloguj się</span>
+      </mat-list-item>
+
     </mat-nav-list>
   </mat-sidenav>
 
@@ -27,13 +30,16 @@
        (click)="sidenav.toggle()">
       <mat-icon>{{sidenav.opened ? 'close' : 'menu'}}</mat-icon>
     </a>
-    <span>JobOffeRz</span>
+    <span>{{appName}}</span>
   </mat-toolbar>
 
-  <router-outlet></router-outlet>
+  <div class="wrapper">
+    <router-outlet></router-outlet>
+  </div>
 
   <div class="footer">
     <app-footer></app-footer>
   </div>
+
 </mat-sidenav-container>
 
