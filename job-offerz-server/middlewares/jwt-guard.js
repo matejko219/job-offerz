@@ -14,20 +14,20 @@ const jwtGuard = (req, res, next) => {
         JwtService.verifyToken(token, (err, decoded) => {
             if (err) {
                 console.log('JWT not verified: ' + err.message);
-                return handleError('Failed to authenticate token.', 401, next);
+                return handleError('Błąd podczas weryfikacji tokenu.', 401, next);
             } else {
                 GrantedToken.findOne({token: token.substring(7, token.length)}, (err, grantedToken) => {
                     if (err) {
-                        return handleError('Error while looking for registered token in db.', 401, next);
+                        return handleError('Błąd podczas autentykacji tokenu.', 401, next);
                     }
 
                     if (!grantedToken) {
-                        return handleError('JWT not registered in db.', 401, next);
+                        return handleError('Token nie zarejestrowany w systemie.', 401, next);
                     }
 
                     const user = decoded.user;
                     if (grantedToken.user_id != user.id) {
-                        return handleError('Token registered already for another user.', 401, next);
+                        return handleError('Token zarejestrowany na innego użytkownika.', 401, next);
                     }
 
                     req.decodedUser = user;
@@ -36,7 +36,7 @@ const jwtGuard = (req, res, next) => {
             }
         });
     } else {
-        return handleError('No token provided.', 401, next);
+        return handleError('Rządanie nie zawiera tokenu.', 401, next);
     }
 };
 

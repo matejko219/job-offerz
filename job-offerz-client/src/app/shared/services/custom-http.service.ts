@@ -6,12 +6,17 @@ import {
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../services/authentication.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class CustomHttpService extends Http {
 
-  constructor(backend: XHRBackend, defaultOptions: RequestOptions,
-              private router: Router, private injector: Injector) {
+  apiUrl = environment.apiUrl;
+
+  constructor(backend: XHRBackend,
+              defaultOptions: RequestOptions,
+              private router: Router,
+              private injector: Injector) {
     super(backend, defaultOptions);
   }
 
@@ -21,11 +26,24 @@ export class CustomHttpService extends Http {
         options = { headers: new Headers() };
       }
       this.setHeaders(options);
+      url = this.addApiUrl(url);
     } else {
       this.setHeaders(url);
+      url.url = this.addApiUrl(url.url);
     }
 
-    return super.request(url, options).catch(this.catchErrors);
+    return super.request(url, options).catch((error) => {
+      if (error.status === 401 || error.status === 403) {
+        this.router.navigate(['login']);
+      }
+      return this.catchErrors(error);
+    });
+  }
+
+  private addApiUrl(url: string): string {
+    if (!url.startsWith('http')) {
+      return `${this.apiUrl}${url}`;
+    } else return url;
   }
 
   private catchErrors(error: Response | any) {
@@ -40,19 +58,20 @@ export class CustomHttpService extends Http {
     }
     console.log(errMsg);
 
-    if (error.status === 401 || error.status === 403) {
-      this.router.navigate(['login']);
-    }
-
     return Observable.throw(err || errMsg);
   }
 
   private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
-    objectToSetHeadersTo.headers.set('Authorization', `Bearer ${this.authService.getToken()}`);
-    objectToSetHeadersTo.headers.set('Content-Type', 'application/json');
+    if (!objectToSetHeadersTo.headers.getAll('Authorization')) {
+      objectToSetHeadersTo.headers.set('Authorization', `Bearer ${this.authService.getToken()}`);
+    }
+    if (!objectToSetHeadersTo.headers.getAll('Content-Type')) {
+      objectToSetHeadersTo.headers.set('Content-Type', 'application/json');
+    }
   }
 
-  public get authService(): AuthenticationService {
+  private get authService(): AuthenticationService {
     return this.injector.get(AuthenticationService);
   }
+
 }

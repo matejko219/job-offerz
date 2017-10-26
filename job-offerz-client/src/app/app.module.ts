@@ -7,6 +7,7 @@ import {HttpModule, Http, XHRBackend, RequestOptions} from "@angular/http";
 import {AuthenticationService} from "./services/authentication.service";
 import {Router} from "@angular/router";
 import {CustomHttpFactory} from "./factories/custom-http-factory";
+import {OnlyLoggedOut} from "./shared/guards/only-logged-out.service";
 
 @NgModule({
   declarations: [
@@ -20,10 +21,11 @@ import {CustomHttpFactory} from "./factories/custom-http-factory";
   ],
   providers: [
     AuthenticationService,
+    OnlyLoggedOut,
     {
       provide: Http,
       useFactory: CustomHttpFactory,
-      deps: [ XHRBackend, RequestOptions, Router,  Injector]
+      deps: [ XHRBackend, RequestOptions, Router, Injector]
     }
   ],
   bootstrap: [AppComponent]

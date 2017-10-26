@@ -22,14 +22,11 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe((result) => {
-        if (result) {
-          this.snackBarService.success('Wylogowano');
-          this.router.navigate(['login']);
-        } else {
-          this.snackBarService.error('Błąd podczas wylogowywania');
-        }
+      this.snackBarService.success('Wylogowano');
     },err => {
       this.snackBarService.error(err);
+    },() => {
+      this.router.navigate(['login']);
     });
   }
 

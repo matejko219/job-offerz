@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="center center">
-  <mat-card fxFlex.gt-sm="30" fxFlex.sm="50" fxFlex.lt-sm="80" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card fxLayout="column" fxLayoutAlign="center center">
     <mat-card-header>
       <div mat-card-avatar>
         <mat-icon color="primary" class="avatar">exit_to_app</mat-icon>
@@ -11,8 +11,11 @@
       <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
 
         <div fxlayout="column">
+          <div class="form-alert" *ngIf="login.errors && (login.dirty || login.touched || loginForm.submitted)">
+              Login jest wymagany
+          </div>
           <mat-form-field>
-            <input #login
+            <input #login="ngModel"
                    matInput
                    type="text"
                    name="login"
@@ -23,8 +26,11 @@
         </div>
 
         <div fxlayout="column">
+          <div class="form-alert" *ngIf="password.errors && (password.dirty || password.touched || loginForm.submitted)">
+            Hasło jest wymagane
+          </div>
           <mat-form-field>
-            <input #password
+            <input #password="ngModel"
                    matInput
                    type="password"
                    name="password"

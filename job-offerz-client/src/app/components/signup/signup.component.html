@@ -1,4 +1,5 @@
-<mat-card>
+<div fxLayout="column" fxLayoutAlign="center center">
+<mat-card fxLayout="column" fxLayoutAlign="center center">
 
   <mat-card-header>
     <div mat-card-avatar>
@@ -10,10 +11,21 @@
 
   <mat-card-content>
     <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
-
       <div fxlayout="column">
+        <div class="form-alert alert-padding"
+             *ngIf="login?.errors?.required && (login.dirty || login.touched || registerForm.submitted)">
+          Login jest wymagany
+        </div>
+        <div class="form-alert alert-padding"
+             *ngIf="email?.errors?.required && (email.dirty || email.touched || registerForm.submitted)">
+          Email jest wymagany
+        </div>
+        <div class="form-alert alert-padding"
+             *ngIf="email?.errors?.email && (email.dirty || email.touched || registerForm.submitted)">
+          Email niepoprawny
+        </div>
         <mat-form-field>
-          <input #login
+          <input #login="ngModel"
                  matInput
                  type="text"
                  name="login"
@@ -23,19 +35,28 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input #email
+          <input #email="ngModel"
                  matInput
-                 type="text"
+                 type="email"
                  name="email"
                  placeholder="Email"
                  [(ngModel)]="user.email"
-                 required>
+                 required
+                 email>
         </mat-form-field>
       </div>
 
-      <div fxlayout="column">
+      <div fxlayout="column" class="form-row-wrapper">
+        <div class="form-alert alert-padding"
+             *ngIf="password?.errors?.required && (password.dirty || password.touched || registerForm.submitted)">
+          Hasło jest wymagane
+        </div>
+        <div class="form-alert alert-padding"
+             *ngIf="repeatPassword?.errors?.matchPassword && (repeatPassword.dirty || repeatPassword.touched || registerForm.submitted)">
+          Hasła nie zgadzają się
+        </div>
         <mat-form-field>
-          <input #password
+          <input #password="ngModel"
                  matInput
                  type="password"
                  name="password"
@@ -45,7 +66,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input #repeatPassword
+          <input #repeatPassword="ngModel"
                  matInput
                  type="password"
                  name="repeatPassword"
@@ -56,14 +77,16 @@
         </mat-form-field>
       </div>
 
-      <div fxlayout="column">
+      <div fxlayout="column" fxLayoutAlign="center center">
         <button color="primary"
                 mat-raised-button
                 [disabled]="registerForm.invalid"
                 type="submit">Utwórz konto
         </button>
       </div>
+
     </form>
   </mat-card-content>
 
 </mat-card>
+</div>

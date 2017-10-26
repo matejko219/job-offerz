@@ -6,6 +6,6 @@ import {Injector} from "@angular/core";
 /**
  * Created by DELL on 2017-10-22.
  */
-export function CustomHttpFactory(backend: XHRBackend, options: RequestOptions, route: Router, injector: Injector) {
-  return new CustomHttpService(backend, options, route, injector);
+export function CustomHttpFactory(backend: XHRBackend, options: RequestOptions, router: Router, injector: Injector) {
+  return new CustomHttpService(backend, options, router, injector);
 }

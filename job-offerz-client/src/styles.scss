@@ -10,4 +10,17 @@ body {
   font-size: 40px;
 }
 
+.form-alert {
+  background-color: #ffe3e1;
+  color: #ff0000;
+  border-radius: 2px;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid #ff0000;
+  box-shadow: 1px 1px #ffe3e1;
+}
+
+.alert-padding {
+  margin-bottom: 5px;
+}
 
