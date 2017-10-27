@@ -6,11 +6,9 @@ const config = require('../config/config');
 
 const JwtService = {
     generateToken: (user) => {
+        user.password = '';
         const payload = {
-            user: {
-                id: user._id,
-                authority: user.authority
-            }
+            user
         };
 
         try {

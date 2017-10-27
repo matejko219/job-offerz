@@ -1,6 +1,11 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav mode="push" opened="false">
     <mat-nav-list (click)="sidenav.toggle()">
+
+      <mat-list-item *ngIf="authService.isUserLogged()">
+        <mat-icon color="primary">person</mat-icon>
+        <span>Witaj {{(user | async)?.login}}</span>
+      </mat-list-item>
 
       <mat-list-item [routerLink]="['/']">
         <mat-icon color="primary">home</mat-icon>
@@ -25,7 +30,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" class="mat-elevation-z7 fixed-header">
     <a class="fab"
        (click)="sidenav.toggle()">
       <mat-icon>{{sidenav.opened ? 'close' : 'menu'}}</mat-icon>
@@ -33,13 +38,11 @@
     <span>{{appName}}</span>
   </mat-toolbar>
 
-  <div class="wrapper">
+  <div class="main-wrapper">
     <router-outlet></router-outlet>
   </div>
 
-  <div class="footer">
-    <app-footer></app-footer>
-  </div>
+  <app-footer></app-footer>
 
 </mat-sidenav-container>
 

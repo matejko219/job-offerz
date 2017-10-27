@@ -8,6 +8,7 @@ import {AuthenticationService} from "./services/authentication.service";
 import {Router} from "@angular/router";
 import {CustomHttpFactory} from "./factories/custom-http-factory";
 import {OnlyLoggedOut} from "./shared/guards/only-logged-out.service";
+import {JwtHelper} from "angular2-jwt";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {OnlyLoggedOut} from "./shared/guards/only-logged-out.service";
   ],
   providers: [
     AuthenticationService,
+    JwtHelper,
     OnlyLoggedOut,
     {
       provide: Http,

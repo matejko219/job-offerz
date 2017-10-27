@@ -2,8 +2,8 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "assets/styles/snackbar";
 
-body {
-  margin: 0px;
+html, body {
+  margin: 0;
 }
 
 .avatar.material-icons {
@@ -23,4 +23,3 @@ body {
 .alert-padding {
   margin-bottom: 5px;
 }
-

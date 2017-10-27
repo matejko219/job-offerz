@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers, RequestOptionsArgs} from "@angular/http";
+import {Http, Response} from "@angular/http";
 import {Credentials} from "../models/credentials";
-import {Observable} from "rxjs";
+import {Observable, BehaviorSubject} from "rxjs";
 import 'rxjs/add/operator/map'
 import {AppConsts} from "../utils/app-consts";
-import {Router} from "@angular/router";
+import {JwtHelper} from "angular2-jwt";
+import {User} from "../models/user";
 
 @Injectable()
 export class AuthenticationService {
 
   private token: string;
+  private user: BehaviorSubject<User>;
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: Http, private jwtHelper: JwtHelper) {
+    this.user = new BehaviorSubject<User>(new User());
+    this.nextUserFromToken();
+  }
 
   public authenticate(credentials: Credentials): Observable<boolean> {
     return this.http.post('/authenticate', credentials)
@@ -19,7 +24,8 @@ export class AuthenticationService {
         const grantedToken = resp.json().token;
         if (grantedToken) {
           this.token = grantedToken;
-          localStorage.setItem(AppConsts.TOKEN_STORAGE_KEY, grantedToken);
+          localStorage.setItem(AppConsts.TOKEN_STORAGE_KEY, this.token);
+          this.nextUserFromToken();
           return true;
         } else {
           return false;
@@ -30,17 +36,22 @@ export class AuthenticationService {
   public logout(): Observable<boolean> {
     return this.http.get('/logout')
       .map((resp: Response) => {
-        this.removeToken();
+        this.removeTokenAndUser();
         return resp.json().success;
       }).catch(err => {
-        this.removeToken();
+        this.removeTokenAndUser();
         return Observable.throw(err);
       });
   }
 
-  private removeToken() {
+  private removeTokenAndUser() {
     this.token = null;
     localStorage.removeItem(AppConsts.TOKEN_STORAGE_KEY);
+  }
+
+  private nextUserFromToken() {
+    const token = this.getToken();
+    if (token)this.user.next(this.jwtHelper.decodeToken(token).user);
   }
 
   public getToken(): string {
@@ -49,6 +60,10 @@ export class AuthenticationService {
 
   public isUserLogged(): boolean {
     return this.getToken() != null;
+  }
+
+  public getLoggedUser(): Observable<User> {
+    return this.user.asObservable();
   }
 
 }
