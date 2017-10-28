@@ -1,0 +1,22 @@
+<mat-list>
+  <mat-list-item class="mat-elevation-z3" *ngFor="let offer of offers">
+    <h3 matLine> {{offer.position}} </h3>
+    <p matLine>
+      <span> @{{offer.company}} </span>
+    </p>
+    <p matLine class="category-wrapper">
+      <mat-icon color="warn">label_outline</mat-icon>
+      <span>{{offer.category}}</span>
+    </p>
+    <div fxLayout="row" fxHide.lt-sm>
+      <mat-icon color="warn">location_on</mat-icon>
+      <span style="margin-right: 5px;"> {{offer.location}} </span>
+      <mat-icon color="warn">event</mat-icon>
+      <span> {{offer.createDate | date:'dd.MM.yyyy'}} </span>
+    </div>
+  </mat-list-item>
+</mat-list>
+<mat-paginator [length]="30"
+               [pageSize]="5"
+               [pageSizeOptions]="[5, 10]">
+</mat-paginator>

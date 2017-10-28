@@ -1,0 +1,23 @@
+<mat-card>
+
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon color="primary" class="avatar">local_offer</mat-icon>
+    </div>
+    <mat-card-title>Wyszukiwanie ogłoszeń</mat-card-title>
+    <mat-card-subtitle>Oferty</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <app-offers-filter></app-offers-filter>
+
+    <mat-tab-group (selectedIndexChange)="selectedIndexChange($event)">
+      <mat-tab *ngFor="let category of categories" [label]="category"></mat-tab>
+    </mat-tab-group>
+
+    <app-offers-list [offers]="offers"></app-offers-list>
+
+  </mat-card-content>
+
+</mat-card>

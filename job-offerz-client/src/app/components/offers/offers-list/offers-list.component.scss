@@ -1,0 +1,14 @@
+mat-list-item {
+  border: #969696 1px solid;
+  border-radius: 2px;
+  margin-bottom: 5px;
+}
+
+.category-wrapper {
+  display: inline-flex !important;;
+  vertical-align: middle !important;
+}
+
+.category-wrapper > span {
+  line-height: 2;
+}

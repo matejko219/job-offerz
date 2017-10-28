@@ -4,6 +4,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import {SharedModule} from "../../shared/modules/shared.module";
 import {FooterComponent} from "./footer/footer.component";
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {FooterComponent} from "./footer/footer.component";
   ],
   declarations: [
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    SidenavComponent
   ]
 })
 export class HomeModule { }

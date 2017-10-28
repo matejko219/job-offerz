@@ -34,6 +34,7 @@ export class CustomHttpService extends Http {
 
     return super.request(url, options).catch((error) => {
       if (error.status === 401 || error.status === 403) {
+        this.authService.removeToken();
         this.router.navigate(['login']);
       }
       return this.catchErrors(error);

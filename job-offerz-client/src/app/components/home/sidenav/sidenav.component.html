@@ -1,0 +1,33 @@
+<mat-nav-list (click)="emitToggle()">
+
+  <mat-list-item *ngIf="isUserLogged">
+    <mat-icon matListIcon color="primary">person</mat-icon>
+    <span>Witaj {{(user | async)?.login}}</span>
+  </mat-list-item>
+
+  <mat-list-item [routerLink]="['/']">
+    <mat-icon matListIcon color="primary">home</mat-icon>
+    <span>Strona główna</span>
+  </mat-list-item>
+
+  <mat-list-item [routerLink]="['/offers']">
+    <mat-icon matListIcon color="primary">local_offer</mat-icon>
+    <span>Oferty</span>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="!isUserLogged" [routerLink]="['/signup']">
+    <mat-icon matListIcon color="primary">assignment_ind</mat-icon>
+    <span>Rejestracja</span>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="!isUserLogged" [routerLink]="['/login']">
+    <mat-icon matListIcon color="primary">exit_to_app</mat-icon>
+    <span>Zaloguj się</span>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="isUserLogged" (click)="emitLogout()">
+    <mat-icon matListIcon color="primary">power_settings_new</mat-icon>
+    <span>Wyloguj się</span>
+  </mat-list-item>
+
+</mat-nav-list>

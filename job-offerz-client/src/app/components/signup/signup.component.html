@@ -1,92 +1,96 @@
 <div fxLayout="column" fxLayoutAlign="center center">
-<mat-card fxLayout="column" fxLayoutAlign="center center">
+  <mat-card fxLayout="column" fxLayoutAlign="center center">
 
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon color="primary" class="avatar">assignment_ind</mat-icon>
-    </div>
-    <mat-card-title>Utwórz nowe konto</mat-card-title>
-    <mat-card-subtitle>Rejestracja</mat-card-subtitle>
-  </mat-card-header>
-
-  <mat-card-content>
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
-      <div fxlayout="column">
-        <div class="form-alert alert-padding"
-             *ngIf="login?.errors?.required && (login.dirty || login.touched || registerForm.submitted)">
-          Login jest wymagany
-        </div>
-        <div class="form-alert alert-padding"
-             *ngIf="email?.errors?.required && (email.dirty || email.touched || registerForm.submitted)">
-          Email jest wymagany
-        </div>
-        <div class="form-alert alert-padding"
-             *ngIf="email?.errors?.email && (email.dirty || email.touched || registerForm.submitted)">
-          Email niepoprawny
-        </div>
-        <mat-form-field>
-          <input #login="ngModel"
-                 matInput
-                 type="text"
-                 name="login"
-                 placeholder="Login"
-                 [(ngModel)]="user.login"
-                 required>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input #email="ngModel"
-                 matInput
-                 type="email"
-                 name="email"
-                 placeholder="Email"
-                 [(ngModel)]="user.email"
-                 required
-                 email>
-        </mat-form-field>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon color="primary" class="avatar">assignment_ind</mat-icon>
       </div>
+      <mat-card-title>Utwórz nowe konto</mat-card-title>
+      <mat-card-subtitle>Rejestracja</mat-card-subtitle>
+    </mat-card-header>
 
-      <div fxlayout="column">
-        <div class="form-alert alert-padding"
-             *ngIf="password?.errors?.required && (password.dirty || password.touched || registerForm.submitted)">
-          Hasło jest wymagane
+    <mat-card-content>
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+        <div fxLayout="column">
+          <div class="form-alert alert-padding"
+               *ngIf="login?.errors?.required && (login.dirty || login.touched || registerForm.submitted)">
+            Login jest wymagany
+          </div>
+          <div class="form-alert alert-padding"
+               *ngIf="email?.errors?.required && (email.dirty || email.touched || registerForm.submitted)">
+            Email jest wymagany
+          </div>
+          <div class="form-alert alert-padding"
+               *ngIf="email?.errors?.email && (email.dirty || email.touched || registerForm.submitted)">
+            Email niepoprawny
+          </div>
         </div>
-        <div class="form-alert alert-padding"
-             *ngIf="repeatPassword?.errors?.matchPassword && (repeatPassword.dirty || repeatPassword.touched || registerForm.submitted)">
-          Hasła nie zgadzają się
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-form-field>
+            <input #login="ngModel"
+                   matInput
+                   type="text"
+                   name="login"
+                   placeholder="Login"
+                   [(ngModel)]="user.login"
+                   required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input #email="ngModel"
+                   matInput
+                   type="email"
+                   name="email"
+                   placeholder="Email"
+                   [(ngModel)]="user.email"
+                   required
+                   email>
+          </mat-form-field>
         </div>
-        <mat-form-field>
-          <input #password="ngModel"
-                 matInput
-                 type="password"
-                 name="password"
-                 placeholder="Hasło"
-                 [(ngModel)]="user.password"
-                 required>
-        </mat-form-field>
 
-        <mat-form-field>
-          <input #repeatPassword="ngModel"
-                 matInput
-                 type="password"
-                 name="repeatPassword"
-                 placeholder="Powtórz hasło"
-                 [(ngModel)]="repeatPasswd"
-                 required
-                 matchPassword>
-        </mat-form-field>
-      </div>
+        <div fxLayout="column">
+          <div class="form-alert alert-padding"
+               *ngIf="password?.errors?.required && (password.dirty || password.touched || registerForm.submitted)">
+            Hasło jest wymagane
+          </div>
+          <div class="form-alert alert-padding"
+               *ngIf="repeatPassword?.errors?.matchPassword && (repeatPassword.dirty || repeatPassword.touched || registerForm.submitted)">
+            Hasła nie zgadzają się
+          </div>
+        </div>
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-form-field>
+            <input #password="ngModel"
+                   matInput
+                   type="password"
+                   name="password"
+                   placeholder="Hasło"
+                   [(ngModel)]="user.password"
+                   required>
+          </mat-form-field>
 
-      <div fxlayout="column" fxLayoutAlign="center center">
-        <button color="primary"
-                mat-raised-button
-                [disabled]="registerForm.invalid"
-                type="submit">Utwórz konto
-        </button>
-      </div>
+          <mat-form-field>
+            <input #repeatPassword="ngModel"
+                   matInput
+                   type="password"
+                   name="repeatPassword"
+                   placeholder="Powtórz hasło"
+                   [(ngModel)]="repeatPasswd"
+                   required
+                   matchPassword>
+          </mat-form-field>
+        </div>
 
-    </form>
-  </mat-card-content>
+        <div fxlayout="column" fxLayoutAlign="center center">
+          <button color="primary"
+                  mat-raised-button
+                  [disabled]="registerForm.invalid"
+                  type="submit">Utwórz konto
+          </button>
+        </div>
 
-</mat-card>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
 </div>

@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'signup',
         loadChildren:  'app/components/signup/signup.module#SignupModule',
         canActivate: [OnlyLoggedOut]
+      },
+      {
+        path: 'offers',
+        loadChildren:  'app/components/offers/offers.module#OffersModule'
       }
     ]
   },

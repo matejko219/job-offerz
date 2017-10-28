@@ -36,15 +36,15 @@ export class AuthenticationService {
   public logout(): Observable<boolean> {
     return this.http.get('/logout')
       .map((resp: Response) => {
-        this.removeTokenAndUser();
+        this.removeToken();
         return resp.json().success;
       }).catch(err => {
-        this.removeTokenAndUser();
+        this.removeToken();
         return Observable.throw(err);
       });
   }
 
-  private removeTokenAndUser() {
+  public removeToken() {
     this.token = null;
     localStorage.removeItem(AppConsts.TOKEN_STORAGE_KEY);
   }
