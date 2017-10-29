@@ -6,6 +6,7 @@ import { OffersComponent } from './offers.component';
 import {SharedModule} from "../../shared/modules/shared.module";
 import { OffersListComponent } from './offers-list/offers-list.component';
 import { OffersFilterComponent } from './offers-filter/offers-filter.component';
+import { OfferDetailsComponent } from './offer-details/offer-details.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { OffersFilterComponent } from './offers-filter/offers-filter.component';
     OffersRoutingModule,
     SharedModule
   ],
-  declarations: [OffersComponent, OffersListComponent, OffersFilterComponent]
+  declarations: [OffersComponent, OffersListComponent, OffersFilterComponent, OfferDetailsComponent]
 })
 export class OffersModule { }

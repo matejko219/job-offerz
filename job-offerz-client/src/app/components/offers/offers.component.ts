@@ -20,7 +20,7 @@ export class OffersComponent implements OnInit {
         createDate: new Date(2017, 9, 28)
       },
     {
-      _id: 1,
+      _id: 2,
       position: 'Junior frontend developer (React.js)',
       company: 'PGS Software',
       category: 'Frontend',
@@ -28,7 +28,7 @@ export class OffersComponent implements OnInit {
       createDate: new Date(2017, 8, 22)
     },
     {
-      _id: 1,
+      _id: 3,
       position: 'Frontend developer (Vue.js)',
       company: 'Ailleron S.A.',
       category: 'Frontend',
@@ -39,7 +39,7 @@ export class OffersComponent implements OnInit {
 
   back: Offer[] = [
     {
-      _id: 1,
+      _id: 4,
       position: 'Senior Java developer',
       company: 'Comarch S.A.',
       category: 'Backend',
@@ -47,7 +47,7 @@ export class OffersComponent implements OnInit {
       createDate: new Date(2017, 9, 23)
     },
     {
-      _id: 1,
+      _id: 5,
       position: 'Junior Scala developer',
       company: 'Comarch S.A.',
       category: 'Backend',
@@ -55,7 +55,7 @@ export class OffersComponent implements OnInit {
       createDate: new Date(2017, 5, 18)
     },
     {
-      _id: 1,
+      _id: 6,
       position: 'Python developer',
       company: 'PGS Software',
       category: 'Backend',

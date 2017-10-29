@@ -2,6 +2,7 @@ mat-list-item {
   border: #969696 1px solid;
   border-radius: 2px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .category-wrapper {
@@ -11,4 +12,9 @@ mat-list-item {
 
 .category-wrapper > span {
   line-height: 2;
+}
+
+img.company-logo {
+  width: 64px !important;
+  height: 64px !important;
 }

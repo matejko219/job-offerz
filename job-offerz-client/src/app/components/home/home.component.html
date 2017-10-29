@@ -9,10 +9,12 @@
   </mat-sidenav>
 
   <mat-toolbar color="primary" class="mat-elevation-z7 fixed-header">
-    <a class="fab"
-       (click)="sidenav.toggle()">
-      <mat-icon>{{sidenav.opened ? 'close' : 'menu'}}</mat-icon>
-    </a>
+    <mat-icon
+      class="fab"
+      (click)="sidenav.toggle()"
+      mat-card-avatar>
+      {{sidenav.opened ? 'close' : 'menu'}}
+    </mat-icon>
     <span>{{appName}}</span>
   </mat-toolbar>
 

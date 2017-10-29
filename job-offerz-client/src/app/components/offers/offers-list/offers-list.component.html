@@ -1,5 +1,9 @@
 <mat-list>
-  <mat-list-item class="mat-elevation-z3" *ngFor="let offer of offers">
+  <mat-list-item
+    *ngFor="let offer of offers"
+    class="mat-elevation-z3"
+    [routerLink]="[offer._id]">
+    <img [ngClass.gt-sm]="'company-logo'" mat-list-icon src="assets/img/ca.png" alt="company logo">
     <h3 matLine> {{offer.position}} </h3>
     <p matLine>
       <span> @{{offer.company}} </span>
