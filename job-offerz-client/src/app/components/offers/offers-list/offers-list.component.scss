@@ -14,7 +14,12 @@ mat-list-item {
   line-height: 2;
 }
 
-img.company-logo {
+img.company-logo-big {
   width: 64px !important;
   height: 64px !important;
+}
+
+img.company-logo {
+  width: 44px !important;
+  height: 44px !important;
 }

@@ -15,6 +15,7 @@ export class AuthenticationService {
 
   constructor(private http: Http, private jwtHelper: JwtHelper) {
     this.user = new BehaviorSubject<User>(new User());
+    this.token = this.getToken();
     this.nextUserFromToken();
   }
 
@@ -51,7 +52,7 @@ export class AuthenticationService {
 
   private nextUserFromToken() {
     const token = this.getToken();
-    if (token)this.user.next(this.jwtHelper.decodeToken(token).user);
+    if (token) this.user.next(this.jwtHelper.decodeToken(token).user);
   }
 
   public getToken(): string {
