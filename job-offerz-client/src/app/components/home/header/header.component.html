@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="mat-elevation-z7 fixed-header">
+  <mat-icon
+    class="fab"
+    (click)="emitOpenSidenav()"
+    mat-card-avatar>
+    {{sidenavOpened ? 'close' : 'menu'}}
+  </mat-icon>
+  <span>{{appName}}</span>
+</mat-toolbar>

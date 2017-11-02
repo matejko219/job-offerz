@@ -1,18 +1,5 @@
-.fab {
-  cursor: pointer;
-  margin: 5px;
-}
-
 .main-wrapper {
   padding-top: 64px;
   margin: 20px;
   min-height: calc(100% - 144px);
-}
-
-.fixed-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%  !important;
 }

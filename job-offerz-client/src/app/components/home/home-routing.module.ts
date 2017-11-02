@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from "./home.component";
 import {OnlyLoggedOut} from "../../shared/guards/only-logged-out.service";
+import {OnlyLoggedIn} from "../../shared/guards/only-logged-in.service";
 
 const routes: Routes = [
   { path: '',
@@ -21,6 +22,11 @@ const routes: Routes = [
       {
         path: 'offers',
         loadChildren:  'app/components/offers/offers.module#OffersModule'
+      },
+      {
+        path: 'my-offers',
+        loadChildren:  'app/components/my-offers/my-offers.module#MyOffersModule',
+        canActivate: [OnlyLoggedIn]
       }
     ]
   },

@@ -42,7 +42,7 @@ router.post('/authenticate', (req, res, next) =>{
                     return handleError('Błąd podczas generowania tokenu.', 500, next);
                 }
 
-                GrantedToken.remove({user_id: user._id}, (err, deletedTokens) =>{
+                GrantedToken.remove({user: user._id}, (err, deletedTokens) =>{
                     if (err) {
                         console.log('Authentication failed. Remove token error.')
                         return handleError('Błąd podczas zapisu tokenu w systemie', 500, next);
@@ -51,7 +51,7 @@ router.post('/authenticate', (req, res, next) =>{
                     console.log('Removed ' + deletedTokens.result.n +' previously granted tokens');
 
                     new GrantedToken({
-                        user_id: user._id,
+                        user: user._id,
                         token: generatedToken
                     }).save((err, grantedToken) =>{
                         if (err) {
@@ -118,7 +118,7 @@ router.use(jwtGuard);
 
 /* GET /api/logout user. */
 router.get('/logout', (req, res, next) =>{
-    GrantedToken.remove({user_id: req.decodedUser._id}, err =>{
+    GrantedToken.remove({user: req.decodedUser._id}, err =>{
         if (err) handleError('Błąd podczas wylogowywania', 500, next);
         else return res.json({
             success: true

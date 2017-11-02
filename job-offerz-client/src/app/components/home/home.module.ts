@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import {SharedModule} from "../../shared/modules/shared.module";
 import {FooterComponent} from "./footer/footer.component";
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
   declarations: [
     HomeComponent,
     FooterComponent,
-    SidenavComponent
+    SidenavComponent,
+    HeaderComponent
   ]
 })
 export class HomeModule { }

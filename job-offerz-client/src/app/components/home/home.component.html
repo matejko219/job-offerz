@@ -8,15 +8,10 @@
     </app-sidenav>
   </mat-sidenav>
 
-  <mat-toolbar color="primary" class="mat-elevation-z7 fixed-header">
-    <mat-icon
-      class="fab"
-      (click)="sidenav.toggle()"
-      mat-card-avatar>
-      {{sidenav.opened ? 'close' : 'menu'}}
-    </mat-icon>
-    <span>{{appName}}</span>
-  </mat-toolbar>
+  <app-header
+    [sidenavOpened]="sidenav.opened"
+    (openSidenav)="sidenav.toggle()">
+  </app-header>
 
   <div class="main-wrapper">
     <router-outlet></router-outlet>

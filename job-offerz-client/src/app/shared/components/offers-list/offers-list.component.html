@@ -1,0 +1,58 @@
+<mat-list>
+  <mat-list-item
+    *ngFor="let offer of offers"
+    class="mat-elevation-z3"
+    [routerLink]="['/offers', offer._id]">
+    <img [ngClass.gt-sm]="'company-logo-big'" [ngClass.lt-sm]="'company-logo'" [ngClass.sm]="'company-logo'" mat-list-icon src="assets/img/ca.png"
+         alt="company logo">
+    <h3 matLine> {{offer.position}} </h3>
+    <p matLine>
+      <span> @{{offer.company}} </span>
+    </p>
+    <p matLine class="category-wrapper">
+      <mat-icon color="warn">label_outline</mat-icon>
+      <span>{{offer.category}}</span>
+    </p>
+    <div fxLayout="column" fxFlex.lt-sm="20">
+      <div fxLayout="row" fxHide.lt-sm>
+        <mat-icon color="accent">location_on</mat-icon>
+        <span style="margin-right: 5px;"> {{offer.location}} </span>
+        <mat-icon color="accent">event</mat-icon>
+        <span> {{offer.createDate | date:'dd.MM.yyyy'}} </span>
+      </div>
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center">
+
+        <button mat-button
+                *ngIf="editEnabled"
+                matTooltip="Edytuj oferte"
+                [matTooltipPosition]="'above'"
+                aria-label="Edytuj oferte"
+                color="primary">
+          <mat-icon color="warn">edit</mat-icon>
+        </button>
+
+        <button mat-button
+                *ngIf="editEnabled"
+                matTooltip="Usuń oferte"
+                [matTooltipPosition]="'above'"
+                aria-label="Usuń oferte"
+                color="primary">
+          <mat-icon color="warn">delete</mat-icon>
+        </button>
+
+        <button mat-button
+                [fxHide.lt-sm]="editEnabled"
+                matTooltip="Usuń z ulubionych"
+                [matTooltipPosition]="'above'"
+                aria-label="Usuń z ulubionych"
+                color="primary">
+          <mat-icon color="warn">bookmark</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>
+<mat-paginator [length]="30"
+               [pageSize]="5"
+               [pageSizeOptions]="[5, 10]">
+</mat-paginator>

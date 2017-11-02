@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Http, Response} from "@angular/http";
-import {Credentials} from "../models/credentials";
+import {Credentials} from "../../models/credentials";
 import {Observable, BehaviorSubject} from "rxjs";
 import 'rxjs/add/operator/map'
-import {AppConsts} from "../utils/app-consts";
+import {AppConsts} from "../../utils/app-consts";
 import {JwtHelper} from "angular2-jwt";
-import {User} from "../models/user";
+import {User} from "../../models/user";
 
 @Injectable()
 export class AuthenticationService {
@@ -35,14 +35,21 @@ export class AuthenticationService {
   }
 
   public logout(): Observable<boolean> {
-    return this.http.get('/logout')
-      .map((resp: Response) => {
-        this.removeToken();
-        return resp.json().success;
-      }).catch(err => {
-        this.removeToken();
-        return Observable.throw(err);
-      });
+    const token = this.getToken();
+    if (token) {
+      if (!this.jwtHelper.isTokenExpired(token)) {
+        return this.http.get('/logout')
+          .map((resp: Response) => {
+            this.removeToken();
+            return resp.json().success;
+          }).catch(err => {
+            this.removeToken();
+            return Observable.throw(err);
+          });
+      } else this.removeToken();
+    }
+
+    return Observable.of(true);
   }
 
   public removeToken() {

@@ -5,7 +5,7 @@ import {
 } from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {AuthenticationService} from "../../services/authentication.service";
+import {AuthenticationService} from "./authentication.service";
 import {environment} from "../../../environments/environment";
 
 @Injectable()

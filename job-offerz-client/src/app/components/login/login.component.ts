@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Credentials} from "../../models/credentials";
-import {AuthenticationService} from "../../services/authentication.service";
+import {AuthenticationService} from "../../shared/services/authentication.service";
 import {Router} from "@angular/router";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
 import {AppConsts} from "../../utils/app-consts";

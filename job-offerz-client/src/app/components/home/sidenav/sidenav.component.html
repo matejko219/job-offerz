@@ -15,6 +15,11 @@
     <span>Oferty</span>
   </mat-list-item>
 
+  <mat-list-item *ngIf="isUserLogged" [routerLink]="['/my-offers']">
+    <mat-icon matListIcon color="primary">library_books</mat-icon>
+    <span>Moje oferty</span>
+  </mat-list-item>
+
   <mat-list-item *ngIf="!isUserLogged" [routerLink]="['/signup']">
     <mat-icon matListIcon color="primary">assignment_ind</mat-icon>
     <span>Rejestracja</span>

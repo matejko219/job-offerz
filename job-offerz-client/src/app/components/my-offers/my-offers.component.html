@@ -1,0 +1,44 @@
+<mat-card>
+
+  <mat-card-header>
+    <mat-icon mat-card-avatar color="primary" class="avatar">library_books</mat-icon>
+    <mat-card-title>Zarządzaj ogłoszeniami</mat-card-title>
+    <mat-card-subtitle>Moje oferty</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <mat-tab-group>
+      <mat-tab [label]="addedLabel" #addedTab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">add</mat-icon> {{addedLabel}}
+        </ng-template>
+      </mat-tab>
+      <mat-tab [label]="favoriteLabel" #favoriteTab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">bookmark</mat-icon> {{favoriteLabel}}
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+
+    <app-offers-filter></app-offers-filter>
+
+    <div *ngIf="addedTab.isActive" [routerLink]="['add']">
+      <button mat-raised-button aria-label="Dodaj oferte" color="primary">
+        <mat-icon>add</mat-icon>
+        Dodaj oferte
+      </button>
+    </div>
+
+    <mat-tab-group (selectedIndexChange)="selectedIndexChange($event)">
+      <mat-tab *ngFor="let category of categories" [label]="category"></mat-tab>
+    </mat-tab-group>
+
+    <app-offers-list
+      [offers]="offers"
+      [editEnabled]="addedTab.isActive">
+    </app-offers-list>
+
+  </mat-card-content>
+
+</mat-card>

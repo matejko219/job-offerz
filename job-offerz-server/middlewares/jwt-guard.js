@@ -26,7 +26,7 @@ const jwtGuard = (req, res, next) => {
                     }
 
                     const user = decoded.user;
-                    if (grantedToken.user_id != user._id) {
+                    if (grantedToken.user != user._id) {
                         return handleError('Token zarejestrowany na innego użytkownika.', 401, next);
                     }
 
