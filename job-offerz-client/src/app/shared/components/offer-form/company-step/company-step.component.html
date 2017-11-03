@@ -1,5 +1,5 @@
 <div fxLayoutAlign="center center" fxFlex="100">
-  <form [formGroup]="formGroup">
+  <form [formGroup]="formGroup" fxHide="showCompanyForm">
     <div fxLayout="column" fxLayoutGap="10px" fxFlex="100" *ngIf="!showCompanyForm">
 
       <div>
@@ -24,9 +24,6 @@
           </mat-autocomplete>
         </mat-form-field>
       </div>
-      <!--<div>-->
-      <!--Wybrano: {{companyIdCtrl?.value?.name}}-->
-      <!--</div>-->
 
       <button mat-raised-button aria-label="Dodaj nową firme" color="primary" (click)="showNewCompanyForm()">
         <mat-icon>add</mat-icon>
@@ -36,13 +33,13 @@
     </div>
   </form>
 
-  <form [formGroup]="newCompanyFormGroup">
+  <form [formGroup]="newCompanyFormGroup" fxHide="!showCompanyForm">
     <div fxLayout="column" fxLayoutGap="10px" fxFlex="100" *ngIf="showCompanyForm">
 
       <div>
         <mat-form-field fxFlex="100">
           <input matInput
-                 formControlName="nameCtrl"
+                 formControlName="name"
                  type="text"
                  placeholder="Nazwa firmy"
                  required>
@@ -69,7 +66,12 @@
       </div>
 
       <div fxLayout.lt-sm="column" fxLayout="row" fxLayoutGap="10px">
-        <button mat-raised-button aria-label="Dodaj" color="primary" (click)="addCompany()" fxFlex="50">
+        <button mat-raised-button
+                aria-label="Dodaj"
+                color="primary"
+                (click)="addCompany()"
+                [disabled]="!newCompanyFormGroup.valid"
+                fxFlex="50">
           <mat-icon>add</mat-icon>
           Dodaj
         </button>

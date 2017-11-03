@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AddOfferRoutingModule } from './add-offer-routing.module';
 import { AddOfferComponent } from './add-offer.component';
 import {SharedModule} from "../../shared/modules/shared.module";
+import {CompanyService} from "../../services/company.service";
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import {SharedModule} from "../../shared/modules/shared.module";
     AddOfferRoutingModule,
     SharedModule
   ],
-  declarations: [AddOfferComponent]
+  declarations: [AddOfferComponent],
+  providers: [CompanyService]
 })
 export class AddOfferModule { }
