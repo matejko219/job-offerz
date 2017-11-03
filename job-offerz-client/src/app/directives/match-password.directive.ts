@@ -26,7 +26,7 @@ const returnFalse = () => {
     { provide: NG_VALIDATORS, useExisting: MatchPasswordDirective, multi: true }
   ]
 })
-export class MatchPasswordDirective implements Validator{
+export class MatchPasswordDirective implements Validator {
 
   validator: ValidatorFn;
 

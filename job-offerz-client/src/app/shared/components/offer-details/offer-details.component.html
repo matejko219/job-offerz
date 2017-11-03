@@ -7,6 +7,7 @@
     <div fxFlex="auto" style="text-align: right;">
       <mat-icon color="primary">event</mat-icon>
       <span>28.10.2017</span>
+      <app-fav-button [favEnabled]="authService.isUserLogged()"></app-fav-button>
     </div>
   </mat-card-header>
 
@@ -16,7 +17,7 @@
 
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
 
-        <mat-card fxFlex.gt-sm="50" fxFlex.lt-sm="100">
+        <mat-card fxFlex.gt-sm="50" fxFlex="100">
           <mat-card-header class="details-header">
             <mat-icon mat-card-avatar color="primary" class="avatar">description</mat-icon>
             <mat-card-title class="detail-group-title">Opis stanowiska</mat-card-title>
@@ -29,7 +30,7 @@
           </mat-card-content>
         </mat-card>
 
-        <mat-card fxFlex.gt-sm="50" fxFlex.lt-sm="100">
+        <mat-card fxFlex.gt-sm="50" fxFlex="100">
           <mat-card-header class="details-header">
             <mat-icon mat-card-avatar color="primary" class="avatar">assignment_turned_in</mat-icon>
             <mat-card-title class="detail-group-title">Wymagania</mat-card-title>

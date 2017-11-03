@@ -20,7 +20,7 @@
         <mat-icon color="accent">event</mat-icon>
         <span> {{offer.createDate | date:'dd.MM.yyyy'}} </span>
       </div>
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center">
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center" *ngIf="editEnabled || favEnabled">
 
         <button mat-button
                 *ngIf="editEnabled"
@@ -40,14 +40,7 @@
           <mat-icon color="warn">delete</mat-icon>
         </button>
 
-        <button mat-button
-                [fxHide.lt-sm]="editEnabled"
-                matTooltip="Usuń z ulubionych"
-                [matTooltipPosition]="'above'"
-                aria-label="Usuń z ulubionych"
-                color="primary">
-          <mat-icon color="warn">bookmark</mat-icon>
-        </button>
+        <app-fav-button [favEnabled]="favEnabled"></app-fav-button>
       </div>
     </div>
   </mat-list-item>

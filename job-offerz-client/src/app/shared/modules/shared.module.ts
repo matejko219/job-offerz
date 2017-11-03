@@ -7,6 +7,11 @@ import {OffersListComponent} from "../components/offers-list/offers-list.compone
 import {RouterModule} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {OfferFormComponent} from "../components/offer-form/offer-form.component";
+import {FavButtonComponent} from "../components/fav-button/fav-button.component";
+import {BasicInfoStepComponent} from "../components/offer-form/basic-info-step/basic-info-step.component";
+import {DescriptionStepComponent} from "../components/offer-form/description-step/description-step.component";
+import {CompanyStepComponent} from "../components/offer-form/company-step/company-step.component";
+import {OptionHasIdDirective} from "../../directives/option-has-id.directive";
 
 @NgModule({
   imports: [
@@ -20,7 +25,12 @@ import {OfferFormComponent} from "../components/offer-form/offer-form.component"
     OfferDetailsComponent,
     OffersFilterComponent,
     OffersListComponent,
-    OfferFormComponent
+    OfferFormComponent,
+    FavButtonComponent,
+    BasicInfoStepComponent,
+    DescriptionStepComponent,
+    CompanyStepComponent,
+    OptionHasIdDirective
   ],
   exports: [
     MaterialModule,
@@ -28,7 +38,9 @@ import {OfferFormComponent} from "../components/offer-form/offer-form.component"
     OfferDetailsComponent,
     OffersFilterComponent,
     OffersListComponent,
-    OfferFormComponent
+    OfferFormComponent,
+    FavButtonComponent,
+    OptionHasIdDirective
   ]
 })
 export class SharedModule { }

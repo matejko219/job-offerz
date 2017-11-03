@@ -1,0 +1,33 @@
+img.image-preview {
+  width: 64px !important;
+  height: 64px !important;
+  opacity: 1;
+  display: block;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.image-preview-container {
+  position: relative;
+  width: 64px !important;
+  height: 64px !important;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.image-preview-container:hover .image-preview {
+  opacity: 0.3;
+}
+
+.image-preview-container:hover .middle {
+  opacity: 1;
+}

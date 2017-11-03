@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, Validators, FormBuilder} from "@angular/forms";
+import {FormGroup, Validators, FormBuilder, FormControl} from "@angular/forms";
+import {optionHasIdFactory} from "../../../directives/option-has-id.directive";
 
 @Component({
   selector: 'app-offer-form',
@@ -8,30 +9,30 @@ import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 })
 export class OfferFormComponent implements OnInit {
 
-  form =  {
-    title: '',
-    description: ''
-  };
+  basicInfoFormGroup: FormGroup;
+  companyFormGroup: FormGroup;
+  descriptionFormGroup: FormGroup;
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-
-  categories = ['Frontend', 'Backend'];
+  companyIdCtrl: FormControl;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.firstFormGroup = this.formBuilder.group({
+    this.basicInfoFormGroup = this.formBuilder.group({
       titleCtrl: ['', Validators.required],
       categoryCtrl: ['', Validators.required],
       locationCtrl: ['', Validators.required]
     });
-    this.secondFormGroup = this.formBuilder.group({
+
+    this.companyIdCtrl = new FormControl('', Validators.compose([Validators.required, optionHasIdFactory]));
+
+    this.companyFormGroup = this.formBuilder.group({
+      companyIdCtrl: this.companyIdCtrl
+    });
+
+    this.descriptionFormGroup = this.formBuilder.group({
       descCtrl: ['', Validators.required]
     });
   }
 
-  onSubmit() {
-
-  }
 }

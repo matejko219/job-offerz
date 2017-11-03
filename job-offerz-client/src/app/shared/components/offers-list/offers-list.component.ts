@@ -14,6 +14,9 @@ export class OffersListComponent implements OnInit {
   @Input('editEnabled')
   editEnabled: boolean = false;
 
+  @Input('favEnabled')
+  favEnabled: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
