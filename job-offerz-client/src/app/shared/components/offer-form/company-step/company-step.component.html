@@ -1,87 +1,43 @@
-<div fxLayoutAlign="center center" fxFlex="100">
-  <form [formGroup]="formGroup" fxHide="showCompanyForm">
-    <div fxLayout="column" fxLayoutGap="10px" fxFlex="100" *ngIf="!showCompanyForm">
+<div fxLayoutAlign="center center">
+  <div fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100">
+    <form [formGroup]="formGroup" fxHide="showCompanyForm">
+      <div fxLayout="column" fxLayoutGap="10px" fxFlex="100" *ngIf="!showCompanyForm">
 
-      <div>
-        <mat-form-field fxFlex="100">
-          <input matInput
-                 placeholder="Wyszukaj firmę"
-                 aria-label="Wyszukaj firmę"
-                 [matAutocomplete]="companyAutoComp"
-                 [formControl]="companyIdCtrl"
-                 required>
+        <div>
+          <mat-form-field fxFlex="100">
+            <input matInput
+                   placeholder="Wyszukaj firmę"
+                   aria-label="Wyszukaj firmę"
+                   [matAutocomplete]="companyAutoComp"
+                   [formControl]="companyIdCtrl"
+                   required>
 
-          <mat-autocomplete #companyAutoComp="matAutocomplete" [displayWith]="companyDisplayFn">
-            <mat-option *ngIf="(filteredCompanies | async)?.length === 0" [value]="-1" [disabled]="true">
-              <span>Nie znaleziono</span>
-            </mat-option>
+            <mat-autocomplete #companyAutoComp="matAutocomplete" [displayWith]="companyDisplayFn">
+              <mat-option *ngIf="filteredCompanies?.length === 0" [value]="-1" [disabled]="true">
+                <span>Nie znaleziono</span>
+              </mat-option>
 
-            <mat-option *ngFor="let company of filteredCompanies | async" [value]="company">
-              <!--<img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />-->
-              <span>{{ company.name }}</span>
-            </mat-option>
+              <mat-option *ngFor="let company of filteredCompanies" [value]="company">
+                <!--<img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />-->
+                <span>{{ company?.name }}</span>
+              </mat-option>
 
-          </mat-autocomplete>
-        </mat-form-field>
-      </div>
-
-      <button mat-raised-button aria-label="Dodaj nową firme" color="primary" (click)="showNewCompanyForm()">
-        <mat-icon>add</mat-icon>
-        Dodaj nową firme
-      </button>
-
-    </div>
-  </form>
-
-  <form [formGroup]="newCompanyFormGroup" fxHide="!showCompanyForm">
-    <div fxLayout="column" fxLayoutGap="10px" fxFlex="100" *ngIf="showCompanyForm">
-
-      <div>
-        <mat-form-field fxFlex="100">
-          <input matInput
-                 formControlName="name"
-                 type="text"
-                 placeholder="Nazwa firmy"
-                 required>
-        </mat-form-field>
-      </div>
-
-      <span>Logo</span>
-      <div fxLayoutAlign="center center">
-        <div *ngIf="imagePreview" class="image-preview-container">
-          <img mat-card-avatar class="image-preview" [src]="imagePreview.src" alt="logo firmy">
-          <div class="middle" style="cursor: pointer;" (click)="removeImage()">
-            <mat-icon color="primary">delete</mat-icon>
-          </div>
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
-      </div>
 
-      <div>
-        <input #imageInput
-               fxFlex="100"
-               (change)="loadImage($event)"
-               accept="image/*"
-               type="file"
-               required>
-      </div>
-
-      <div fxLayout.lt-sm="column" fxLayout="row" fxLayoutGap="10px">
-        <button mat-raised-button
-                aria-label="Dodaj"
-                color="primary"
-                (click)="addCompany()"
-                [disabled]="!newCompanyFormGroup.valid"
-                fxFlex="50">
+        <button mat-raised-button aria-label="Dodaj nową firme" color="primary" (click)="showNewCompanyForm()">
           <mat-icon>add</mat-icon>
-          Dodaj
+          Dodaj nową firme
         </button>
 
-        <button mat-raised-button aria-label="Anuluj" color="primary" (click)="cancelAdd()" fxFlex="50">
-          <mat-icon>cancel</mat-icon>
-          Anuluj
-        </button>
       </div>
+    </form>
 
-    </div>
-  </form>
+    <app-company-form *ngIf="showCompanyForm"
+                      (add)="onAddCompany($event)"
+                      (cancel)="onCancelAdd()"
+                      [initName]="newCompanyName">
+    </app-company-form>
+  </div>
 </div>

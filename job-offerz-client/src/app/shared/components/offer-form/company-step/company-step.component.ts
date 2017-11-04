@@ -1,17 +1,18 @@
-import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
-import {FormGroup, FormControl, FormBuilder, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
-import {SnackBarService} from "../../../services/snack-bar.service";
-import {AppConsts} from "../../../../utils/app-consts";
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {FormGroup, FormControl} from "@angular/forms";
 import {CompanyService} from "../../../../services/company.service";
 import {Company} from "../../../../models/company";
+import {Subscription} from "rxjs";
+import {SnackBarService} from "../../../services/snack-bar.service";
 
 @Component({
   selector: 'app-company-step',
   templateUrl: './company-step.component.html',
   styleUrls: ['./company-step.component.scss']
 })
-export class CompanyStepComponent implements OnInit {
+export class CompanyStepComponent implements OnInit, OnDestroy {
+
+  companyAutoCompleteSub: Subscription;
 
   @Input('formGroup')
   formGroup: FormGroup;
@@ -19,45 +20,32 @@ export class CompanyStepComponent implements OnInit {
   @Input('companyIdCtrl')
   companyIdCtrl: FormControl;
 
-  @ViewChild('imageInput')
-  imageInput: ElementRef;
-
-  newCompanyFormGroup: FormGroup;
-
-  companies = [
-    {id: 1, name: 'Comarch S.A.'},
-    {id: 2, name: 'PGS Software'},
-    {id: 3, name: 'Ailleron S.A.'}
-  ];
-
-  filteredCompanies: Observable<any>;
+  filteredCompanies: Company[];
   showCompanyForm: boolean = false;
-  imagePreview;
+  newCompanyName: string;
 
-  constructor(private formBuilder: FormBuilder,
-              private snackBarService: SnackBarService,
-              private companyService: CompanyService) {
+  constructor(private companyService: CompanyService,
+              private snackBarService: SnackBarService) {
 
   }
 
   ngOnInit() {
-
-    this.filteredCompanies = this.companyIdCtrl.valueChanges
+    this.companyAutoCompleteSub = this.companyIdCtrl.valueChanges
       .startWith(null)
-      .map(companyName => companyName ? this.filterCompanies(companyName) : this.companies.slice());
-
-    this.newCompanyFormGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      logo: ['']
-    });
-
+      .subscribe((value) => {
+        if (value && value !== '') {
+          const name = value.name || value;
+          this.companyService.getAllByName(name).subscribe((companies) => {
+              this.filteredCompanies = companies;
+          }, err => {
+            this.snackBarService.error(err);
+          });
+        } else this.filteredCompanies = null;
+      });
   }
 
-  filterCompanies(name: string) {
-    return this.companies.filter(company =>
-      company.name.toString().toLowerCase()
-        .includes(name.toString().toLowerCase())
-    );
+  ngOnDestroy(): void {
+    this.companyAutoCompleteSub.unsubscribe();
   }
 
   companyDisplayFn(value: any) {
@@ -65,72 +53,18 @@ export class CompanyStepComponent implements OnInit {
   }
 
   showNewCompanyForm() {
-    const companyName = this.companyIdCtrl.value.name || this.companyIdCtrl.value;
-    this.newCompanyFormGroup.patchValue({name: companyName});
+    this.newCompanyName = this.companyIdCtrl.value ? (this.companyIdCtrl.value.name || this.companyIdCtrl.value) : '';
     this.showCompanyForm = true;
   }
 
-  addCompany() {
-    const company: Company = this.newCompanyFormGroup.getRawValue();
-    this.companyService.add(company).subscribe((data: Company) => {
-      this.companyIdCtrl.setValue({_id: data._id, name: data.name, logo: data.logo});
-      this.showCompanyForm = false;
-      this.snackBarService.success('Dodano firme');
-    },err => {
-      this.snackBarService.error(err);
-    });
-  }
-
-  cancelAdd() {
-    this.newCompanyFormGroup.patchValue({name: '', logo: ''});
+  onAddCompany(company: Company) {
+    this.companyIdCtrl.setValue(company);
     this.showCompanyForm = false;
-    this.imagePreview = null;
   }
 
-  loadImage(event) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-
-      reader.onload = (readerEvent) => {
-        this.imagePreview = new Image();
-
-        this.imagePreview.onload = (imageEvent) => {
-          if (this.imagePreview.width > AppConsts.MAX_WIDTH || this.imagePreview.height > AppConsts.MAX_HEIGHT) {
-            this.handleImageError(`Dozwolone wymiary to ${AppConsts.MAX_WIDTH}x${AppConsts.MAX_HEIGHT} px`);
-            return;
-          }
-        };
-
-        this.imagePreview.src = reader.result;
-        this.newCompanyFormGroup.patchValue({logo: this.imagePreview.src});
-      };
-
-      const imageFile = event.target.files[0];
-
-      if (!imageFile.type.startsWith('image/')) {
-        this.handleImageError('Dozwolone tylko pliki graficzne');
-
-      } else if (imageFile.size > (AppConsts.MAX_FILE_SIZE * 1024)) {
-        this.handleImageError(`Dozwolony rozmiar to maks. ${AppConsts.MAX_FILE_SIZE}KB`);
-
-      } else reader.readAsDataURL(imageFile);
-
-    } else {
-      this.handleImageError();
-      this.imagePreview = null;
-      event.target.value = '';
-    }
-  }
-
-  handleImageError(msg?: string) {
-    if (msg) this.snackBarService.error(msg);
-    this.removeImage();
-  }
-
-  removeImage() {
-    this.imagePreview = null;
-    this.imageInput.nativeElement.value = '';
-    this.newCompanyFormGroup.patchValue({logo: ''});
+  onCancelAdd() {
+    this.showCompanyForm = false;
+    this.companyIdCtrl.setValue(null);
   }
 
 }

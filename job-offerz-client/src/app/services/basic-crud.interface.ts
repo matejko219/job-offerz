@@ -5,8 +5,8 @@ import {Observable} from "rxjs";
 
 export interface BasicCrud<T> {
   getAll(): Observable<T[]>
-  get(id: string): Observable<T>
+  get(_id: string): Observable<T>
   add(obj: T): Observable<T>
   update(obj: T): Observable<T>
-  remove(id: string): Observable<boolean>
+  remove(_id: string): Observable<boolean>
 }

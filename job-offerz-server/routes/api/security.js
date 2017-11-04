@@ -11,7 +11,11 @@ const BCryptService = require('../../services/bcrypt-service');
 const jwtGuard = require('../../middlewares/jwt-guard');
 const AuthoritiesConsts = require('../../models/utils/authorities-consts');
 
-/* POST /api/authenticate user. */
+/**
+ * POST /api/authenticate
+ * @param obiekt klasy Credentials
+ * @return wygenerowany token dostępu
+ */
 router.post('/authenticate', (req, res, next) =>{
     const login = req.body.login;
     if (!login || login === '') {
@@ -69,7 +73,11 @@ router.post('/authenticate', (req, res, next) =>{
     });
 });
 
-/* POST /api/signup new user. */
+/**
+ * POST /api/signup
+ * @param  obiekt klasy User
+ * @return true jeśli operacja się powiodła
+ */
 router.post('/signup', (req, res, next) =>{
     const login = req.body.login;
     if (!login || login === '') {
@@ -116,7 +124,10 @@ router.post('/signup', (req, res, next) =>{
 // Set route jwt guard
 router.use(jwtGuard);
 
-/* GET /api/logout user. */
+/**
+ * GET /api/logout
+ * @return true jeśli wylogowywanie się powiodło
+ */
 router.get('/logout', (req, res, next) =>{
     GrantedToken.remove({user: req.decodedUser._id}, err =>{
         if (err) handleError('Błąd podczas wylogowywania', 500, next);

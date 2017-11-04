@@ -4,7 +4,7 @@ import {Response} from "@angular/http";
  */
 
 export class HttpUtils {
-  public static mapResponse(resp: Response) {
-    return resp.json;
+  public static mapResponse(resp: Response): any {
+    return resp.json();
   }
 }

@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import {Validator, AbstractControl, ValidationErrors, ValidatorFn, NG_VALIDATORS} from "@angular/forms";
 
 export const optionHasIdFactory = (c: AbstractControl) => {
-  return c.value.id ? null : returnFalse();
+  return (c.value && c.value._id) ? null : returnFalse();
 };
 
 const returnFalse = () => {
