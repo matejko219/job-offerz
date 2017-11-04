@@ -1,9 +1,10 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {FormGroup, FormControl} from "@angular/forms";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {CompanyService} from "../../../../services/company.service";
 import {Company} from "../../../../models/company";
 import {Subscription} from "rxjs";
 import {SnackBarService} from "../../../services/snack-bar.service";
+import {optionHasIdFactory} from "../../../../directives/option-has-id.directive";
 
 @Component({
   selector: 'app-company-step',
@@ -12,14 +13,11 @@ import {SnackBarService} from "../../../services/snack-bar.service";
 })
 export class CompanyStepComponent implements OnInit, OnDestroy {
 
-  companyAutoCompleteSub: Subscription;
-
   @Input('formGroup')
   formGroup: FormGroup;
 
-  @Input('companyIdCtrl')
-  companyIdCtrl: FormControl;
-
+  companyAutoCompleteSub: Subscription;
+  companyAutoCtrl: FormControl;
   filteredCompanies: Company[];
   showCompanyForm: boolean = false;
   newCompanyName: string;
@@ -30,11 +28,15 @@ export class CompanyStepComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.companyAutoCompleteSub = this.companyIdCtrl.valueChanges
+    this.companyAutoCtrl = new FormControl('', Validators.compose([Validators.required, optionHasIdFactory]));
+
+    this.companyAutoCompleteSub = this.companyAutoCtrl.valueChanges
       .startWith(null)
       .subscribe((value) => {
+        this.patchCompanyValueToFormGroup(value);
         if (value && value !== '') {
           const name = value.name || value;
+
           this.companyService.getAllByName(name).subscribe((companies) => {
               this.filteredCompanies = companies;
           }, err => {
@@ -53,18 +55,24 @@ export class CompanyStepComponent implements OnInit, OnDestroy {
   }
 
   showNewCompanyForm() {
-    this.newCompanyName = this.companyIdCtrl.value ? (this.companyIdCtrl.value.name || this.companyIdCtrl.value) : '';
+    this.newCompanyName = this.companyAutoCtrl.value ? (this.companyAutoCtrl.value.name || this.companyAutoCtrl.value) : '';
     this.showCompanyForm = true;
   }
 
   onAddCompany(company: Company) {
-    this.companyIdCtrl.setValue(company);
+    this.companyAutoCtrl.setValue(company);
     this.showCompanyForm = false;
   }
 
   onCancelAdd() {
     this.showCompanyForm = false;
-    this.companyIdCtrl.setValue(null);
+    this.companyAutoCtrl.setValue(null);
+  }
+
+  patchCompanyValueToFormGroup(value) {
+    if (this.companyAutoCtrl.valid) {
+      this.formGroup.patchValue({companyCtrl: value});
+    } else this.formGroup.patchValue({companyCtrl: null});
   }
 
 }

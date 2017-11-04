@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center center">
   <div fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100">
-    <form [formGroup]="formGroup" fxHide="showCompanyForm">
-      <div fxLayout="column" fxLayoutGap="10px" fxFlex="100" *ngIf="!showCompanyForm">
+    <form [formGroup]="formGroup" [fxHide]="showCompanyForm">
+      <div fxLayout="column" fxLayoutGap="10px" fxFlex="100">
 
         <div>
           <mat-form-field fxFlex="100">
@@ -9,7 +9,7 @@
                    placeholder="Wyszukaj firmę"
                    aria-label="Wyszukaj firmę"
                    [matAutocomplete]="companyAutoComp"
-                   [formControl]="companyIdCtrl"
+                   [formControl]="companyAutoCtrl"
                    required>
 
             <mat-autocomplete #companyAutoComp="matAutocomplete" [displayWith]="companyDisplayFn">
@@ -18,7 +18,12 @@
               </mat-option>
 
               <mat-option *ngFor="let company of filteredCompanies" [value]="company">
-                <!--<img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />-->
+                <img *ngIf="company?.logo"
+                     mat-card-avatar
+                     style="vertical-align:middle;"
+                     aria-hidden
+                     [src]="company.logo"
+                     height="25" />
                 <span>{{ company?.name }}</span>
               </mat-option>
 

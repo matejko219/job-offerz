@@ -14,6 +14,10 @@ router.post('/', (req, res, next) => {
         return handleError('Parametr name jest wymagany.', 400, next);
     }
 
+    if (name.includes('\\')) {
+        return handleError('Nazwa nie może zawierać znaku "\\".', 400, next);
+    }
+
     const logo = req.body.logo;
     if (!logo || logo === '') {
         return handleError('Parametr logo jest wymagany.', 400, next);

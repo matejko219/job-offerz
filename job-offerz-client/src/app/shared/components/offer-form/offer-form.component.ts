@@ -13,8 +13,6 @@ export class OfferFormComponent implements OnInit {
   companyFormGroup: FormGroup;
   descriptionFormGroup: FormGroup;
 
-  companyIdCtrl: FormControl;
-
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -24,10 +22,8 @@ export class OfferFormComponent implements OnInit {
       locationCtrl: ['', Validators.required]
     });
 
-    this.companyIdCtrl = new FormControl('', Validators.compose([Validators.required, optionHasIdFactory]));
-
     this.companyFormGroup = this.formBuilder.group({
-      companyIdCtrl: this.companyIdCtrl
+      companyCtrl: ['', Validators.required]
     });
 
     this.descriptionFormGroup = this.formBuilder.group({

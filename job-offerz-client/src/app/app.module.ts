@@ -10,10 +10,12 @@ import {CustomHttpFactory} from "./factories/custom-http-factory";
 import {OnlyLoggedOut} from "./shared/guards/only-logged-out.service";
 import {JwtHelper} from "angular2-jwt";
 import {OnlyLoggedIn} from "./shared/guards/only-logged-in.service";
+import { ContactStepComponent } from './shared/components/offer-form/contact-step/contact-step.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ContactStepComponent
   ],
   imports: [
     BrowserModule,
