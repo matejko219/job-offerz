@@ -71,8 +71,8 @@ export class CompanyStepComponent implements OnInit, OnDestroy {
 
   patchCompanyValueToFormGroup(value) {
     if (this.companyAutoCtrl.valid) {
-      this.formGroup.patchValue({companyCtrl: value});
-    } else this.formGroup.patchValue({companyCtrl: null});
+      this.formGroup.patchValue({company: value});
+    } else this.formGroup.patchValue({company: null});
   }
 
 }

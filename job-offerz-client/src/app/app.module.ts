@@ -14,8 +14,7 @@ import { ContactStepComponent } from './shared/components/offer-form/contact-ste
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ContactStepComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

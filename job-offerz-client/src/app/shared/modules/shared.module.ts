@@ -13,6 +13,7 @@ import {DescriptionStepComponent} from "../components/offer-form/description-ste
 import {CompanyStepComponent} from "../components/offer-form/company-step/company-step.component";
 import {OptionHasIdDirective} from "../../directives/option-has-id.directive";
 import {CompanyFormComponent} from "../components/company-form/company-form.component";
+import {ContactStepComponent} from "../components/offer-form/contact-step/contact-step.component";
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {CompanyFormComponent} from "../components/company-form/company-form.comp
     DescriptionStepComponent,
     CompanyStepComponent,
     OptionHasIdDirective,
-    CompanyFormComponent
+    CompanyFormComponent,
+    ContactStepComponent
   ],
   exports: [
     MaterialModule,
@@ -43,7 +45,8 @@ import {CompanyFormComponent} from "../components/company-form/company-form.comp
     OfferFormComponent,
     FavButtonComponent,
     OptionHasIdDirective,
-    CompanyFormComponent
+    CompanyFormComponent,
+    ContactStepComponent
   ]
 })
 export class SharedModule { }

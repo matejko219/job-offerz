@@ -23,7 +23,7 @@
 
     <app-offers-filter></app-offers-filter>
 
-    <div *ngIf="addedTab.isActive" [routerLink]="['add']">
+    <div *ngIf="addedTab?.isActive" [routerLink]="['add']">
       <button mat-raised-button aria-label="Dodaj oferte" color="primary">
         <mat-icon>add</mat-icon>
         Dodaj oferte
@@ -36,8 +36,8 @@
 
     <app-offers-list
       [offers]="offers"
-      [editEnabled]="addedTab.isActive"
-      [favEnabled]="favoriteTab.isActive">
+      [editEnabled]="addedTab?.isActive"
+      [favEnabled]="favoriteTab?.isActive">
     </app-offers-list>
 
   </mat-card-content>

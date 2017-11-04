@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, Validators, FormBuilder, FormControl} from "@angular/forms";
-import {optionHasIdFactory} from "../../../directives/option-has-id.directive";
+import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-offer-form',
@@ -12,22 +11,31 @@ export class OfferFormComponent implements OnInit {
   basicInfoFormGroup: FormGroup;
   companyFormGroup: FormGroup;
   descriptionFormGroup: FormGroup;
+  contactFormGroup: FormGroup;
+
+  maxDescLength = 500;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.basicInfoFormGroup = this.formBuilder.group({
-      titleCtrl: ['', Validators.required],
-      categoryCtrl: ['', Validators.required],
-      locationCtrl: ['', Validators.required]
+      title: ['', Validators.required],
+      category: ['', Validators.required],
+      location: ['', Validators.required]
     });
 
     this.companyFormGroup = this.formBuilder.group({
-      companyCtrl: ['', Validators.required]
+      company: ['', Validators.required]
     });
 
     this.descriptionFormGroup = this.formBuilder.group({
-      descCtrl: ['', Validators.required]
+      description: ['', Validators.compose([Validators.required, Validators.maxLength(this.maxDescLength)])]
+    });
+
+    this.contactFormGroup = this.formBuilder.group({
+      phone: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      www: ['', Validators.required]
     });
   }
 
