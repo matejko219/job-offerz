@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {NgModule, Injector} from '@angular/core';
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
@@ -10,14 +10,16 @@ import {CustomHttpFactory} from "./factories/custom-http-factory";
 import {OnlyLoggedOut} from "./shared/guards/only-logged-out.service";
 import {JwtHelper} from "angular2-jwt";
 import {OnlyLoggedIn} from "./shared/guards/only-logged-in.service";
+import 'hammerjs';
+import {GestureConfig} from "@angular/material";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
     HttpModule,
     AppRoutingModule
   ],
@@ -30,7 +32,8 @@ import {OnlyLoggedIn} from "./shared/guards/only-logged-in.service";
       provide: Http,
       useFactory: CustomHttpFactory,
       deps: [ XHRBackend, RequestOptions, Router, Injector]
-    }
+    },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
   ],
   bootstrap: [AppComponent]
 })

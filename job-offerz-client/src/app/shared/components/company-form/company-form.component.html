@@ -18,13 +18,13 @@
     <div fxLayout="column" fxLayoutAlign="center center">
       <div *ngIf="imagePreview" class="image-preview-container">
         <img mat-card-avatar class="image-preview" [src]="imagePreview.src" alt="logo firmy">
-        <div fxHide.xs fxHide.lt-xs class="preview-icon-wrapper remove" (click)="removeImage()">
+        <div class="preview-icon-wrapper remove" (click)="removeImage()">
           <mat-icon color="primary">delete</mat-icon>
         </div>
       </div>
-      <div *ngIf="imagePreview" fxHide.gt-xs class="remove" (click)="removeImage()">
-        <mat-icon color="primary">delete</mat-icon>
-      </div>
+      <!--<div *ngIf="imagePreview" fxHide.gt-xs class="remove" (click)="removeImage()">-->
+        <!--<mat-icon color="primary">delete</mat-icon>-->
+      <!--</div>-->
     </div>
 
     <div>

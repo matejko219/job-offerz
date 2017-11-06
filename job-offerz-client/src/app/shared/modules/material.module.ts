@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatFormFieldModule,
   MatInputModule, MatButtonModule, MatSnackBarModule, MatCardModule, MatPaginatorModule, MatTabsModule,
-  MatSlideToggleModule, MatTooltipModule, MatStepperModule, MatSelectModule, MatAutocompleteModule
+  MatSlideToggleModule, MatTooltipModule, MatStepperModule, MatSelectModule, MatAutocompleteModule, MatSliderModule
 } from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {SnackBarService} from "../services/snack-bar.service";
@@ -25,7 +25,8 @@ import {SnackBarService} from "../services/snack-bar.service";
     MatTooltipModule,
     MatStepperModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSliderModule
   ],
   exports: [
     FlexLayoutModule,
@@ -44,7 +45,8 @@ import {SnackBarService} from "../services/snack-bar.service";
     MatTooltipModule,
     MatStepperModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSliderModule
   ],
   providers: [
     SnackBarService

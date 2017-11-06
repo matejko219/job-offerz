@@ -19,8 +19,9 @@
     <ng-template matStepLabel>Wymagania</ng-template>
   </mat-step>
 
-  <mat-step>
+  <mat-step [stepControl]="termsBonusesFormGroup">
     <ng-template matStepLabel>Warunki/Dodatki</ng-template>
+    <app-terms-bonuses-step [formGroup]="termsBonusesFormGroup"></app-terms-bonuses-step>
   </mat-step>
 
   <mat-step [stepControl]="contactFormGroup">
