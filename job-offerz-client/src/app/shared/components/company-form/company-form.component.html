@@ -14,19 +14,23 @@
       </mat-form-field>
     </div>
 
-    <span>Logo</span>
-    <div fxLayoutAlign="center center">
+    <span [ngClass]="{'error': isImageInputClicked && !formGroup.valid && formGroup.hasError('required', ['logo'])}">Logo*</span>
+    <div fxLayout="column" fxLayoutAlign="center center">
       <div *ngIf="imagePreview" class="image-preview-container">
         <img mat-card-avatar class="image-preview" [src]="imagePreview.src" alt="logo firmy">
-        <div class="middle" style="cursor: pointer;" (click)="removeImage()">
+        <div fxHide.xs fxHide.lt-xs class="preview-icon-wrapper remove" (click)="removeImage()">
           <mat-icon color="primary">delete</mat-icon>
         </div>
+      </div>
+      <div *ngIf="imagePreview" fxHide.gt-xs class="remove" (click)="removeImage()">
+        <mat-icon color="primary">delete</mat-icon>
       </div>
     </div>
 
     <div>
       <input #imageInput
              fxFlex="100"
+             (click)="imageInputClicked()"
              (change)="loadImage($event)"
              accept="image/*"
              type="file"

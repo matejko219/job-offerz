@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {OfferFormConsts} from "../../../utils/offer-form-consts";
+import {validPhoneFactory} from "../../../directives/valid-phone.directive";
+import {validUrlFactory} from "../../../directives/valid-url.directive";
 
 @Component({
   selector: 'app-offer-form',
@@ -32,9 +34,9 @@ export class OfferFormComponent implements OnInit {
     });
 
     this.contactFormGroup = this.formBuilder.group({
-      phone: ['', Validators.required],
+      phone: ['', Validators.compose([Validators.required, validPhoneFactory])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      www: ['', Validators.required]
+      www: ['', Validators.compose([Validators.required, validUrlFactory])]
     });
   }
 

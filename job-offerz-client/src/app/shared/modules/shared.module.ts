@@ -14,6 +14,8 @@ import {CompanyStepComponent} from "../components/offer-form/company-step/compan
 import {OptionHasIdDirective} from "../../directives/option-has-id.directive";
 import {CompanyFormComponent} from "../components/company-form/company-form.component";
 import {ContactStepComponent} from "../components/offer-form/contact-step/contact-step.component";
+import {ValidPhoneDirective} from "../../directives/valid-phone.directive";
+import {ValidUrlDirective} from "../../directives/valid-url.directive";
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import {ContactStepComponent} from "../components/offer-form/contact-step/contac
     CompanyStepComponent,
     OptionHasIdDirective,
     CompanyFormComponent,
-    ContactStepComponent
+    ContactStepComponent,
+    ValidPhoneDirective,
+    ValidUrlDirective
   ],
   exports: [
     MaterialModule,
@@ -46,7 +50,9 @@ import {ContactStepComponent} from "../components/offer-form/contact-step/contac
     FavButtonComponent,
     OptionHasIdDirective,
     CompanyFormComponent,
-    ContactStepComponent
+    ContactStepComponent,
+    ValidPhoneDirective,
+    ValidUrlDirective
   ]
 })
 export class SharedModule { }

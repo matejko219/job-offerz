@@ -20,6 +20,7 @@ export class CompanyFormComponent implements OnInit {
   imageInput: ElementRef;
 
   imagePreview;
+  isImageInputClicked = false;
 
   @Output('cancel')
   cancelEvent: EventEmitter<void> = new EventEmitter<void>();
@@ -104,6 +105,10 @@ export class CompanyFormComponent implements OnInit {
     this.imagePreview = null;
     this.imageInput.nativeElement.value = '';
     this.formGroup.patchValue({logo: ''});
+  }
+
+  imageInputClicked() {
+    this.isImageInputClicked = true;
   }
 
 }

@@ -1,6 +1,39 @@
 <div fxLayoutAlign="center center">
   <div fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100">
     <form [formGroup]="formGroup">
+      <div fxLayout="column" fxFlex="100">
+
+        <div>
+          <mat-form-field fxFlex="100">
+            <input matInput
+                   formControlName="phone"
+                   type="text"
+                   placeholder="Telefon"
+                   required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field fxFlex="100">
+            <input matInput
+                   formControlName="email"
+                   type="email"
+                   placeholder="Email"
+                   required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field fxFlex="100">
+            <input matInput
+                   formControlName="www"
+                   type="url"
+                   placeholder="WWW"
+                   required>
+          </mat-form-field>
+        </div>
+
+      </div>
     </form>
   </div>
 </div>

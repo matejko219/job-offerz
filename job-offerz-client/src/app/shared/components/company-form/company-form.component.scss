@@ -1,6 +1,6 @@
 img.image-preview {
-  width: 64px !important;
-  height: 64px !important;
+  width: 80px !important;
+  height: 80px !important;
   opacity: 1;
   display: block;
   height: auto;
@@ -10,11 +10,12 @@ img.image-preview {
 
 .image-preview-container {
   position: relative;
-  width: 64px !important;
-  height: 64px !important;
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50%;
 }
 
-.middle {
+.preview-icon-wrapper {
   transition: .5s ease;
   opacity: 0;
   position: absolute;
@@ -28,6 +29,10 @@ img.image-preview {
   opacity: 0.3;
 }
 
-.image-preview-container:hover .middle {
+.image-preview-container:hover .preview-icon-wrapper {
   opacity: 1;
+}
+
+.remove {
+  cursor: pointer;
 }
