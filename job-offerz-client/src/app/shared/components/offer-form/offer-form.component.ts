@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
+import {OfferFormConsts} from "../../../utils/offer-form-consts";
 
 @Component({
   selector: 'app-offer-form',
@@ -13,15 +14,13 @@ export class OfferFormComponent implements OnInit {
   descriptionFormGroup: FormGroup;
   contactFormGroup: FormGroup;
 
-  maxDescLength = 500;
-
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.basicInfoFormGroup = this.formBuilder.group({
-      title: ['', Validators.required],
+      title: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_TITLE_LENGTH)])],
       category: ['', Validators.required],
-      location: ['', Validators.required]
+      location: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_LOCATION_LENGTH)])]
     });
 
     this.companyFormGroup = this.formBuilder.group({
@@ -29,7 +28,7 @@ export class OfferFormComponent implements OnInit {
     });
 
     this.descriptionFormGroup = this.formBuilder.group({
-      description: ['', Validators.compose([Validators.required, Validators.maxLength(this.maxDescLength)])]
+      description: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_DESC_LENGTH)])]
     });
 
     this.contactFormGroup = this.formBuilder.group({

@@ -1,5 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {FormGroup} from "@angular/forms";
+import {OfferFormConsts} from "../../../../utils/offer-form-consts";
+import {FormUtils} from "../../../../utils/form-utils";
 
 @Component({
   selector: 'app-basic-info-step',
@@ -12,6 +14,10 @@ export class BasicInfoStepComponent implements OnInit {
   formGroup: FormGroup;
 
   categories = ['Frontend', 'Backend'];
+
+  titleMaxLength = OfferFormConsts.MAX_TITLE_LENGTH;
+  locationMaxLength = OfferFormConsts.MAX_LOCATION_LENGTH;
+  checkInputLength = FormUtils.checkInputLength;
 
   constructor() { }
 

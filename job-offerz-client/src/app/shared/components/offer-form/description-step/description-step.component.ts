@@ -1,5 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {FormGroup} from "@angular/forms";
+import {OfferFormConsts} from "../../../../utils/offer-form-consts";
+import {FormUtils} from "../../../../utils/form-utils";
 
 @Component({
   selector: 'app-description-step',
@@ -11,21 +13,12 @@ export class DescriptionStepComponent implements OnInit {
   @Input('formGroup')
   formGroup: FormGroup;
 
-  @Input('maxLength')
-  maxLength: number = 500;
+  maxLength: number = OfferFormConsts.MAX_DESC_LENGTH;
+  checkInputLength = FormUtils.checkInputLength;
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  checkInputLength(event) {
-    if (event.which < 0x20) return;
-    if (event.target.value.length == this.maxLength) {
-      event.preventDefault();
-    } else if (event.target.value.length > this.maxLength) {
-      event.target.value = event.target.value.substring(0, this.maxLength);
-    }
   }
 
 }

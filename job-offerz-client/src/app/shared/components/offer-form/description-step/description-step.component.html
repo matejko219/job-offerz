@@ -3,7 +3,7 @@
     <form [formGroup]="formGroup">
       <mat-form-field fxFlex="100">
         <textarea #desc
-                  (keypress)="checkInputLength($event)"
+                  (keypress)="checkInputLength($event, maxLength)"
                   matInput
                   matTextareaAutosize matAutosizeMinRows="10"
                   placeholder="Opis oferty"
@@ -11,7 +11,7 @@
                   formControlName="description"
                   required>
         </textarea>
-        <span class="length-limit">Pozostało: {{maxLength - desc?.value?.length}} znaków</span>
+        <span class="length-limit">{{desc?.value?.length}}/{{maxLength}}</span>
       </mat-form-field>
     </form>
   </div>

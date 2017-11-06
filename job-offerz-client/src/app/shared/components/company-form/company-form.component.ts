@@ -4,6 +4,8 @@ import {Company} from "../../../models/company";
 import {CompanyService} from "../../../services/company.service";
 import {AppConsts} from "../../../utils/app-consts";
 import {SnackBarService} from "../../services/snack-bar.service";
+import {OfferFormConsts} from "../../../utils/offer-form-consts";
+import {FormUtils} from "../../../utils/form-utils";
 
 @Component({
   selector: 'app-company-form',
@@ -28,13 +30,16 @@ export class CompanyFormComponent implements OnInit {
   @Input('initName')
   initName: string = '';
 
+  nameMaxLength = OfferFormConsts.MAX_COMP_NAME_LENGTH;
+  checkInputLength = FormUtils.checkInputLength;
+
   constructor(private formBuilder: FormBuilder,
               private snackBarService: SnackBarService,
               private companyService: CompanyService) { }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      name: [this.initName, Validators.required],
+      name: [this.initName, Validators.compose([Validators.required, Validators.maxLength(this.nameMaxLength)])],
       logo: ['', Validators.required]
     });
   }
@@ -63,8 +68,8 @@ export class CompanyFormComponent implements OnInit {
         this.imagePreview = new Image();
 
         this.imagePreview.onload = (imageEvent) => {
-          if (this.imagePreview.width > AppConsts.MAX_WIDTH || this.imagePreview.height > AppConsts.MAX_HEIGHT) {
-            this.handleImageError(`Dozwolone wymiary to ${AppConsts.MAX_WIDTH}x${AppConsts.MAX_HEIGHT} px`);
+          if (this.imagePreview.width > AppConsts.MAX_IMAGE_WIDTH || this.imagePreview.height > AppConsts.MAX_IMAGE_HEIGHT) {
+            this.handleImageError(`Dozwolone wymiary to ${AppConsts.MAX_IMAGE_WIDTH}x${AppConsts.MAX_IMAGE_HEIGHT} px`);
             return;
           }
         };

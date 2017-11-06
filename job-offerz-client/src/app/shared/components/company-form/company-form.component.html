@@ -3,11 +3,14 @@
 
     <div>
       <mat-form-field fxFlex="100">
-        <input matInput
+        <input #name
+               (keypress)="checkInputLength($event, nameMaxLength)"
+               matInput
                formControlName="name"
                type="text"
                placeholder="Nazwa firmy"
                required>
+        <span class="length-limit">{{name?.value?.length}}/{{nameMaxLength}}</span>
       </mat-form-field>
     </div>
 
