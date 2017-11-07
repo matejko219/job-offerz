@@ -5,35 +5,73 @@
 
         <div>
           <mat-form-field fxFlex="100">
-            <input matInput
-                   formControlName="formOfEmployment"
-                   type="text"
-                   placeholder="Forma zatrudnienia"
-                   required>
+            <mat-select
+              formControlName="formOfEmployment"
+              required
+              placeholder="Forma zatrudnienia">
+              <mat-option *ngFor="let form of formOfEmployment" [value]="form">
+                {{ form }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
 
-        <div>
+        <div fxLayout="column">
+          <span class="field-placeholder required">Wymiar etatu</span>
           <mat-slider fxFlex="100"
+                      matInput
                       color="primary"
                       formControlName="jobTime"
                       thumbLabel
                       tickInterval="5"
-                      [min]="0"
+                      [min]="5"
                       [max]="100"
                       [step]="5">
-
           </mat-slider>
         </div>
 
-        <div>
+        <div formGroupName="salary">
           <mat-form-field fxFlex="100">
             <input matInput
-                   formControlName="salary"
+                   formControlName="amount"
                    type="text"
-                   placeholder="Zarobki"
+                   placeholder="Wynagrodzenie"
                    required>
           </mat-form-field>
+
+          <mat-form-field fxFlex="100">
+          <mat-select
+            formControlName="currency"
+            required
+            placeholder="Waluta">
+            <mat-option *ngFor="let currency of currencies" [value]="currency">
+              {{ currency }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="100">
+          <mat-select
+            formControlName="type"
+            required
+            placeholder="Typ">
+            <mat-option *ngFor="let type of salaryTypes" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="100">
+          <mat-select
+            formControlName="period"
+            required
+            placeholder="Okres">
+            <mat-option *ngFor="let period of periods" [value]="period">
+              {{ period }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
         </div>
 
       </div>

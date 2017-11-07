@@ -67,7 +67,8 @@ export class AuthenticationService {
   }
 
   public isUserLogged(): boolean {
-    return this.getToken() != null;
+    const token = this.getToken();
+    return  (token && !this.jwtHelper.isTokenExpired(token));
   }
 
   public getLoggedUser(): Observable<User> {

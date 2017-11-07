@@ -37,7 +37,12 @@ export class OfferFormComponent implements OnInit {
     this.termsBonusesFormGroup = this.formBuilder.group({
       formOfEmployment: ['', Validators.required],
       jobTime: ['', Validators.required],
-      salary: ['', Validators.required],
+      salary: this.formBuilder.group({
+        amount: ['', Validators.required],
+        currency: ['', Validators.required],
+        type: ['', Validators.required],
+        period: ['', Validators.required]
+      })
     });
 
     this.contactFormGroup = this.formBuilder.group({

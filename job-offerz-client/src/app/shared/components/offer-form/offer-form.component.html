@@ -2,31 +2,70 @@
 
   <mat-step [stepControl]="basicInfoFormGroup">
     <ng-template matStepLabel>Informacje podstawowe</ng-template>
+
     <app-basic-info-step [formGroup]="basicInfoFormGroup"></app-basic-info-step>
+
+    <div fxLayoutAlign="end">
+      <button mat-button matStepperNext type="button">Dalej</button>
+    </div>
   </mat-step>
 
   <mat-step [stepControl]="companyFormGroup">
+
     <ng-template matStepLabel>Firma</ng-template>
+
     <app-company-step [formGroup]="companyFormGroup"></app-company-step>
+
+    <div fxLayoutAlign="end" style="padding-top: 20px">
+      <button mat-button matStepperPrevious type="button">Wstecz</button>
+      <button mat-button matStepperNext type="button">Dalej</button>
+    </div>
   </mat-step>
 
   <mat-step [stepControl]="descriptionFormGroup">
+
     <ng-template matStepLabel>Opis</ng-template>
+
     <app-description-step [formGroup]="descriptionFormGroup"></app-description-step>
+
+    <div fxLayoutAlign="end">
+      <button mat-button matStepperPrevious type="button">Wstecz</button>
+      <button mat-button matStepperNext type="button">Dalej</button>
+    </div>
   </mat-step>
 
   <mat-step>
+
     <ng-template matStepLabel>Wymagania</ng-template>
+
+    <div fxLayoutAlign="end">
+      <button mat-button matStepperPrevious type="button">Wstecz</button>
+      <button mat-button matStepperNext type="button">Dalej</button>
+    </div>
   </mat-step>
 
   <mat-step [stepControl]="termsBonusesFormGroup">
+
     <ng-template matStepLabel>Warunki/Dodatki</ng-template>
+
     <app-terms-bonuses-step [formGroup]="termsBonusesFormGroup"></app-terms-bonuses-step>
+
+    <div fxLayoutAlign="end">
+      <button mat-button matStepperPrevious type="button">Wstecz</button>
+      <button mat-button matStepperNext type="button">Dalej</button>
+    </div>
   </mat-step>
 
   <mat-step [stepControl]="contactFormGroup">
+
     <ng-template matStepLabel>Kontakt</ng-template>
+
     <app-contact-step [formGroup]="contactFormGroup"></app-contact-step>
+
+    <div fxLayoutAlign="end">
+      <button mat-button matStepperPrevious type="button">Wstecz</button>
+      <button mat-raised-button color="primary" type="button">Dodaj ofertę</button>
+    </div>
   </mat-step>
 
 </mat-horizontal-stepper>

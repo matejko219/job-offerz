@@ -14,7 +14,7 @@
       </mat-form-field>
     </div>
 
-    <span [ngClass]="{'error': isImageInputClicked && !formGroup.valid && formGroup.hasError('required', ['logo'])}">Logo*</span>
+    <span class="field-placeholder required" [ngClass]="{'error': isImageInputClicked && !formGroup.valid && formGroup.hasError('required', ['logo'])}">Logo</span>
     <div fxLayout="column" fxLayoutAlign="center center">
       <div *ngIf="imagePreview" class="image-preview-container">
         <img mat-card-avatar class="image-preview" [src]="imagePreview.src" alt="logo firmy">

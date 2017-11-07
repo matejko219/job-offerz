@@ -11,6 +11,7 @@ export class OnlyLoggedIn implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean {
     if (!this.authService.isUserLogged()) {
+      this.authService.removeToken();
       this.router.navigate(['/login']);
       return false;
     } else return true;
