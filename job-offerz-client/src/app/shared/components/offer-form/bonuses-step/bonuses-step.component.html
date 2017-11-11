@@ -29,22 +29,20 @@
                     delete
                   </mat-icon>
                 </button>
-                <!--<mat-icon (click)="removeBonus(i)"-->
-                          <!--color="primary"-->
-                          <!--style="cursor: pointer">-->
-                  <!--delete-->
-                <!--</mat-icon>-->
               </div>
             </div>
 
             <div matLine [formGroupName]="i" fxFlex="100">
               <div>
                 <mat-form-field fxFlex="100">
-                  <input matInput
+                  <input #desc
+                         (keypress)="checkInputLength($event, descMaxLength)"
+                         matInput
                          formControlName="description"
                          type="text"
                          placeholder="Opis"
                          required>
+                  <span class="length-limit">{{desc?.value?.length}}/{{descMaxLength}}</span>
                 </mat-form-field>
               </div>
             </div>
