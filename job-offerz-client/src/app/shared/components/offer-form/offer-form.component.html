@@ -44,11 +44,23 @@
     </div>
   </mat-step>
 
-  <mat-step [stepControl]="termsBonusesFormGroup">
+  <mat-step [stepControl]="termsFormGroup">
 
-    <ng-template matStepLabel>Warunki/Dodatki</ng-template>
+    <ng-template matStepLabel>Warunki</ng-template>
 
-    <app-terms-bonuses-step [formGroup]="termsBonusesFormGroup"></app-terms-bonuses-step>
+    <app-terms-step [formGroup]="termsFormGroup"></app-terms-step>
+
+    <div fxLayoutAlign="end">
+      <button mat-button matStepperPrevious type="button">Wstecz</button>
+      <button mat-button matStepperNext type="button">Dalej</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="bonusesFormGroup">
+
+    <ng-template matStepLabel>Dodatki</ng-template>
+
+    <app-bonuses-step [formGroup]="bonusesFormGroup"></app-bonuses-step>
 
     <div fxLayoutAlign="end">
       <button mat-button matStepperPrevious type="button">Wstecz</button>
@@ -64,7 +76,11 @@
 
     <div fxLayoutAlign="end">
       <button mat-button matStepperPrevious type="button">Wstecz</button>
-      <button mat-raised-button color="primary" type="button">Dodaj ofertę</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!formGroupsWrapper.valid"
+        type="button">Dodaj ofertę</button>
     </div>
   </mat-step>
 

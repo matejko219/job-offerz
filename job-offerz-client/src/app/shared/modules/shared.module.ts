@@ -16,7 +16,8 @@ import {CompanyFormComponent} from "../components/company-form/company-form.comp
 import {ContactStepComponent} from "../components/offer-form/contact-step/contact-step.component";
 import {ValidPhoneDirective} from "../../directives/valid-phone.directive";
 import {ValidUrlDirective} from "../../directives/valid-url.directive";
-import {TermsBonusesStepComponent} from "../components/offer-form/terms-bonuses-step/terms-bonuses-step.component";
+import {TermsStepComponent} from "../components/offer-form/terms-step/terms-step.component";
+import {BonusesStepComponent} from "../components/offer-form/bonuses-step/bonuses-step.component";
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import {TermsBonusesStepComponent} from "../components/offer-form/terms-bonuses-
     ContactStepComponent,
     ValidPhoneDirective,
     ValidUrlDirective,
-    TermsBonusesStepComponent
+    TermsStepComponent,
+    BonusesStepComponent
   ],
   exports: [
     MaterialModule,
@@ -55,7 +57,8 @@ import {TermsBonusesStepComponent} from "../components/offer-form/terms-bonuses-
     ContactStepComponent,
     ValidPhoneDirective,
     ValidUrlDirective,
-    TermsBonusesStepComponent
+    TermsStepComponent,
+    BonusesStepComponent
   ]
 })
 export class SharedModule { }

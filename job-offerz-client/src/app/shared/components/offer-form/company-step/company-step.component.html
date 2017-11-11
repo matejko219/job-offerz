@@ -11,7 +11,7 @@
                    [matAutocomplete]="companyAutoComp"
                    [formControl]="companyAutoCtrl"
                    required>
-              <mat-icon matSuffix (click)="clearAutoComp()">close</mat-icon>
+              <mat-icon *ngIf="companyAutoCtrl.value" matSuffix style="cursor: pointer;" (click)="clearAutoComp()">close</mat-icon>
 
             <mat-autocomplete #companyAutoComp="matAutocomplete" [displayWith]="companyDisplayFn">
               <mat-option *ngIf="filteredCompanies?.length === 0" [value]="-1" [disabled]="true">

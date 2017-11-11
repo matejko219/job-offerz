@@ -11,10 +11,12 @@ import {validUrlFactory} from "../../../directives/valid-url.directive";
 })
 export class OfferFormComponent implements OnInit {
 
+  formGroupsWrapper: FormGroup;
   basicInfoFormGroup: FormGroup;
   companyFormGroup: FormGroup;
   descriptionFormGroup: FormGroup;
-  termsBonusesFormGroup: FormGroup;
+  termsFormGroup: FormGroup;
+  bonusesFormGroup: FormGroup;
   contactFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
@@ -34,7 +36,7 @@ export class OfferFormComponent implements OnInit {
       description: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_DESC_LENGTH)])]
     });
 
-    this.termsBonusesFormGroup = this.formBuilder.group({
+    this.termsFormGroup = this.formBuilder.group({
       formOfEmployment: ['', Validators.required],
       jobTime: ['', Validators.required],
       salary: this.formBuilder.group({
@@ -45,10 +47,23 @@ export class OfferFormComponent implements OnInit {
       })
     });
 
+    this.bonusesFormGroup = this.formBuilder.group({
+      bonuses: this.formBuilder.array([])
+    });
+
     this.contactFormGroup = this.formBuilder.group({
       phone: ['', Validators.compose([Validators.required, validPhoneFactory])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      www: ['', Validators.compose([Validators.required, validUrlFactory])]
+      www: ['', Validators.compose([validUrlFactory])]
+    });
+
+    this.formGroupsWrapper = this.formBuilder.group({
+      basicInfo: this.basicInfoFormGroup,
+      company: this.companyFormGroup,
+      description: this.descriptionFormGroup,
+      terms: this.termsFormGroup,
+      bonuses: this.bonusesFormGroup,
+      contact: this.contactFormGroup,
     });
   }
 

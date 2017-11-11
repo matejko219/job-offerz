@@ -3,7 +3,7 @@ import {NG_VALIDATORS, Validator, ValidatorFn, AbstractControl, ValidationErrors
 
 export const validUrlFactory = (c: AbstractControl) => {
   const value = c.value;
-  if (!value) return returnFalse();
+  if (!value) return null;
 
   const urlExpression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
   const regex = new RegExp(urlExpression);

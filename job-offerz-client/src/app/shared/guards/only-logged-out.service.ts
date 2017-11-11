@@ -12,7 +12,10 @@ export class OnlyLoggedOut implements CanActivate{
     if (this.authService.isUserLogged()) {
       this.router.navigate(['/']);
       return false;
-    } else return true;
+    } else {
+      this.authService.removeToken();
+      return true;
+    }
   }
 
 }

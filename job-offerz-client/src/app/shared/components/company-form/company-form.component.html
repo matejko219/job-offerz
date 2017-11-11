@@ -14,7 +14,8 @@
       </mat-form-field>
     </div>
 
-    <span class="field-placeholder required" [ngClass]="{'error': isImageInputClicked && !formGroup.valid && formGroup.hasError('required', ['logo'])}">Logo</span>
+    <span class="field-placeholder required"
+          [ngClass]="{'error': isImageInputClicked && !formGroup.valid && formGroup.hasError('required', ['logo'])}">Logo</span>
     <div fxLayout="column" fxLayoutAlign="center center">
       <div *ngIf="imagePreview" class="image-preview-container">
         <img mat-card-avatar class="image-preview" [src]="imagePreview.src" alt="logo firmy">
@@ -23,18 +24,23 @@
         </div>
       </div>
       <!--<div *ngIf="imagePreview" fxHide.gt-xs class="remove" (click)="removeImage()">-->
-        <!--<mat-icon color="primary">delete</mat-icon>-->
+      <!--<mat-icon color="primary">delete</mat-icon>-->
       <!--</div>-->
     </div>
 
     <div>
-      <input #imageInput
-             fxFlex="100"
-             (click)="imageInputClicked()"
-             (change)="loadImage($event)"
-             accept="image/*"
-             type="file"
-             required>
+      <label style="cursor: pointer">
+        <mat-icon>attach_file</mat-icon>
+        Wybierz plik
+        <input #imageInput
+               fxFlex="100"
+               style="display: none"
+               (click)="imageInputClicked()"
+               (change)="loadImage($event)"
+               accept="image/*"
+               type="file"
+               required>
+      </label>
     </div>
 
     <div fxLayout.lt-sm="column" fxLayout="row" fxLayoutGap="10px">

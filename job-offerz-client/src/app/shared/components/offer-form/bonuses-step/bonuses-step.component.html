@@ -1,0 +1,67 @@
+<div fxLayoutAlign="center center">
+  <div fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100">
+    <div>
+      Tutaj możesz wprowadzić informacje o dodatkach które mogą zachęcić potencjalnego kandydata. Może to być informacja
+      np. o karcie MultiSport, prywatnej opiece medycznej czy chociażby o liczbie monitorów która znajdzie się na jego
+      stanowisku pracy.
+    </div>
+
+    <form [formGroup]="formGroup">
+      <div fxLayout="column" fxFlex="100" formArrayName="bonuses">
+
+        <mat-list>
+          <mat-list-item class="mat-elevation-z3"
+                         *ngFor="let bonus of formGroup.controls.bonuses.controls; let i = index">
+
+            <div matLine fxLayout="row" fxFlex="100">
+              <div fxFlex="50" style="padding-top: 10px">
+                Dodatek {{i + 1}}
+              </div>
+              <div fxFlex="50" style="text-align: right">
+                <button mat-button
+                        matTooltip="Usuń dodatek"
+                        [matTooltipPosition]="'above'"
+                        aria-label="Usuń dodatek"
+                        color="primary">
+                  <mat-icon (click)="removeBonus(i)"
+                            color="primary"
+                            style="cursor: pointer">
+                    delete
+                  </mat-icon>
+                </button>
+                <!--<mat-icon (click)="removeBonus(i)"-->
+                          <!--color="primary"-->
+                          <!--style="cursor: pointer">-->
+                  <!--delete-->
+                <!--</mat-icon>-->
+              </div>
+            </div>
+
+            <div matLine [formGroupName]="i" fxFlex="100">
+              <div>
+                <mat-form-field fxFlex="100">
+                  <input matInput
+                         formControlName="description"
+                         type="text"
+                         placeholder="Opis"
+                         required>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </mat-list-item>
+        </mat-list>
+
+        <button mat-raised-button
+                color="primary"
+                aria-label="Dodaj dodatek"
+                (click)="addBonus()">
+          <mat-icon>add</mat-icon>
+          Dodaj
+        </button>
+
+      </div>
+    </form>
+
+  </div>
+</div>

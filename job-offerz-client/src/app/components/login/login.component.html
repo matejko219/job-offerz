@@ -1,55 +1,61 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-  <mat-card fxLayout="column" fxLayoutAlign="center center">
-    <mat-card-header>
-      <mat-icon mat-card-avatar color="primary" class="avatar">exit_to_app</mat-icon>
-      <mat-card-title>{{appName}}</mat-card-title>
-      <mat-card-subtitle>Logowanie</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+<div fxLayoutAlign="center center">
+  <div fxFlex="30" fxFlex.sm="40" fxFlex.lt-sm="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary" class="avatar">exit_to_app</mat-icon>
+        <mat-card-title>{{appName}}</mat-card-title>
+        <mat-card-subtitle>Logowanie</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+          <div fxLayout="column" fxFlex="100">
 
-        <div fxlayout="column">
-          <div class="form-alert" *ngIf="login.errors && (login.dirty || login.touched || loginForm.submitted)">
+            <div class="form-alert" *ngIf="login.errors && (login.dirty || login.touched || loginForm.submitted)">
               Login jest wymagany
+            </div>
+
+            <div>
+              <mat-form-field fxFlex="100">
+                <input #login="ngModel"
+                       matInput
+                       type="text"
+                       name="login"
+                       placeholder="Login lub email"
+                       [(ngModel)]="credentials.login"
+                       required>
+              </mat-form-field>
+            </div>
+
+            <div class="form-alert"
+                 *ngIf="password.errors && (password.dirty || password.touched || loginForm.submitted)">
+              Hasło jest wymagane
+            </div>
+
+            <div>
+              <mat-form-field fxFlex="100">
+                <input #password="ngModel"
+                       matInput
+                       type="password"
+                       name="password"
+                       placeholder="Hasło"
+                       [(ngModel)]="credentials.password"
+                       required>
+              </mat-form-field>
+            </div>
+
+            <button color="primary"
+                    mat-raised-button
+                    [disabled]="loginForm.invalid"
+                    type="submit">Zaloguj
+            </button>
+
           </div>
-          <mat-form-field>
-            <input #login="ngModel"
-                   matInput
-                   type="text"
-                   name="login"
-                   placeholder="Login lub email"
-                   [(ngModel)]="credentials.login"
-                   required>
-          </mat-form-field>
-        </div>
+        </form>
+      </mat-card-content>
 
-        <div fxlayout="column">
-          <div class="form-alert" *ngIf="password.errors && (password.dirty || password.touched || loginForm.submitted)">
-            Hasło jest wymagane
-          </div>
-          <mat-form-field>
-            <input #password="ngModel"
-                   matInput
-                   type="password"
-                   name="password"
-                   placeholder="Hasło"
-                   [(ngModel)]="credentials.password"
-                   required>
-          </mat-form-field>
-        </div>
-
-        <div fxLayout="column">
-          <button color="primary"
-                  mat-raised-button
-                  [disabled]="loginForm.invalid"
-                  type="submit">Zaloguj
-          </button>
-        </div>
-      </form>
-    </mat-card-content>
-
-    <mat-card-footer>
-      <button mat-button [routerLink]="['/signup']">Utwórz konto</button>
-    </mat-card-footer>
-  </mat-card>
+      <mat-card-footer fxLayoutAlign="center center">
+        <button mat-button [routerLink]="['/signup']">Utwórz konto</button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
 </div>
