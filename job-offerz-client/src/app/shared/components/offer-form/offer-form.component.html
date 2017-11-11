@@ -34,9 +34,11 @@
     </div>
   </mat-step>
 
-  <mat-step>
+  <mat-step [stepControl]="requirementsFormGroup">
 
     <ng-template matStepLabel>Wymagania</ng-template>
+
+    <app-requirements-step [formGroup]="requirementsFormGroup"></app-requirements-step>
 
     <div fxLayoutAlign="end">
       <button mat-button matStepperPrevious type="button">Wstecz</button>

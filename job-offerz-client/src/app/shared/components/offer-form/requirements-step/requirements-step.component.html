@@ -1,0 +1,69 @@
+<div fxLayoutAlign="center center">
+  <div fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100">
+    <div>
+      Tutaj możesz wprowadzić wymagane umiejętności i określić ich priorytet.
+    </div>
+
+    <form [formGroup]="formGroup">
+
+        <div fxLayout="column" fxFlex="100" formArrayName="requirements">
+
+          <mat-list>
+            <mat-list-item class="mat-elevation-z3"
+                           *ngFor="let requirement of formGroup.controls.requirements.controls; let i = index">
+
+              <div matLine fxLayout="row" fxFlex="100">
+                <div fxFlex="50" style="padding-top: 10px">
+                  Umiejętność {{i + 1}}
+                </div>
+                <div fxFlex="50" style="text-align: right">
+                  <button mat-button
+                          matTooltip="Usuń umiejętność"
+                          [matTooltipPosition]="'above'"
+                          aria-label="Usuń umiejętność"
+                          color="primary">
+                    <mat-icon (click)="removeRequirement(i)"
+                              color="primary"
+                              style="cursor: pointer">
+                      delete
+                    </mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div matLine [formGroupName]="i" fxFlex="100">
+                <div>
+                  <mat-form-field fxFlex="100">
+                    <input #name
+                           (keypress)="checkInputLength($event, nameMaxLength)"
+                           matInput
+                           formControlName="name"
+                           type="text"
+                           placeholder="Opis"
+                           required>
+                    <span class="length-limit">{{name?.value?.length}}/{{nameMaxLength}}</span>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </mat-list-item>
+          </mat-list>
+
+          <div fxLayout="column" fxFlex="100">
+
+            <button mat-raised-button
+                    color="primary"
+                    aria-label="Dodaj umiejętność"
+                    (click)="addRequirement()">
+              <mat-icon>add</mat-icon>
+              Dodaj umiejętność
+            </button>
+
+          </div>
+
+        </div>
+
+    </form>
+
+  </div>
+</div>

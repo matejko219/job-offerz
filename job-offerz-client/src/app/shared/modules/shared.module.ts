@@ -18,6 +18,7 @@ import {ValidPhoneDirective} from "../../directives/valid-phone.directive";
 import {ValidUrlDirective} from "../../directives/valid-url.directive";
 import {TermsStepComponent} from "../components/offer-form/terms-step/terms-step.component";
 import {BonusesStepComponent} from "../components/offer-form/bonuses-step/bonuses-step.component";
+import {RequirementsStepComponent} from "../components/offer-form/requirements-step/requirements-step.component";
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import {BonusesStepComponent} from "../components/offer-form/bonuses-step/bonuse
     ValidPhoneDirective,
     ValidUrlDirective,
     TermsStepComponent,
-    BonusesStepComponent
+    BonusesStepComponent,
+    RequirementsStepComponent
   ],
   exports: [
     MaterialModule,
@@ -58,7 +60,8 @@ import {BonusesStepComponent} from "../components/offer-form/bonuses-step/bonuse
     ValidPhoneDirective,
     ValidUrlDirective,
     TermsStepComponent,
-    BonusesStepComponent
+    BonusesStepComponent,
+    RequirementsStepComponent
   ]
 })
 export class SharedModule { }

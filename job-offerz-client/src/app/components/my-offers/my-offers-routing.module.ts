@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {MyOffersComponent} from "./my-offers.component";
-import {OfferDetailsComponent} from "../../shared/components/offer-details/offer-details.component";
 
 const routes: Routes = [
   {path: '', component: MyOffersComponent},

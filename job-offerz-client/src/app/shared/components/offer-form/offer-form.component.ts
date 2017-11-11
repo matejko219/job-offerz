@@ -15,6 +15,7 @@ export class OfferFormComponent implements OnInit {
   basicInfoFormGroup: FormGroup;
   companyFormGroup: FormGroup;
   descriptionFormGroup: FormGroup;
+  requirementsFormGroup: FormGroup;
   termsFormGroup: FormGroup;
   bonusesFormGroup: FormGroup;
   contactFormGroup: FormGroup;
@@ -34,6 +35,10 @@ export class OfferFormComponent implements OnInit {
 
     this.descriptionFormGroup = this.formBuilder.group({
       description: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_DESC_LENGTH)])]
+    });
+
+    this.requirementsFormGroup = this.formBuilder.group({
+      requirements: this.formBuilder.array([])
     });
 
     this.termsFormGroup = this.formBuilder.group({
@@ -61,6 +66,7 @@ export class OfferFormComponent implements OnInit {
       basicInfo: this.basicInfoFormGroup,
       company: this.companyFormGroup,
       description: this.descriptionFormGroup,
+      requirements: this.requirementsFormGroup,
       terms: this.termsFormGroup,
       bonuses: this.bonusesFormGroup,
       contact: this.contactFormGroup,
