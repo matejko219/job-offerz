@@ -3,6 +3,7 @@ import {FormGroup, Validators, FormArray, FormBuilder} from "@angular/forms";
 import {OfferFormConsts} from "../../../../utils/offer-form-consts";
 import {SnackBarService} from "../../../services/snack-bar.service";
 import {FormUtils} from "../../../../utils/form-utils";
+import {createStarRateValidator} from "../../star-rate/star-rate.component";
 
 @Component({
   selector: 'app-requirements-step',
@@ -28,7 +29,8 @@ export class RequirementsStepComponent implements OnInit {
     if (control.length < OfferFormConsts.MAX_REQ_ITEMS) {
       control.push(
         this.formBuilder.group({
-          name: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_REQ_NAME_LENGTH)])]
+          name: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_REQ_NAME_LENGTH)])],
+          rate: [1, Validators.compose([Validators.required, createStarRateValidator(1)])]
         })
       );
     } else {

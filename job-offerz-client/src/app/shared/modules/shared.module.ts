@@ -19,6 +19,8 @@ import {ValidUrlDirective} from "../../directives/valid-url.directive";
 import {TermsStepComponent} from "../components/offer-form/terms-step/terms-step.component";
 import {BonusesStepComponent} from "../components/offer-form/bonuses-step/bonuses-step.component";
 import {RequirementsStepComponent} from "../components/offer-form/requirements-step/requirements-step.component";
+import {StarRateComponent} from "../components/star-rate/star-rate.component";
+import {StarHoverDirective} from "../components/star-rate/directives/star-hover.directive";
 
 @NgModule({
   imports: [
@@ -44,7 +46,9 @@ import {RequirementsStepComponent} from "../components/offer-form/requirements-s
     ValidUrlDirective,
     TermsStepComponent,
     BonusesStepComponent,
-    RequirementsStepComponent
+    RequirementsStepComponent,
+    StarRateComponent,
+    StarHoverDirective
   ],
   exports: [
     MaterialModule,
@@ -61,7 +65,9 @@ import {RequirementsStepComponent} from "../components/offer-form/requirements-s
     ValidUrlDirective,
     TermsStepComponent,
     BonusesStepComponent,
-    RequirementsStepComponent
+    RequirementsStepComponent,
+    StarRateComponent,
+    StarHoverDirective
   ]
 })
 export class SharedModule { }
