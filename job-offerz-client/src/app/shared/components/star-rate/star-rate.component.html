@@ -1,5 +1,5 @@
-<div [starHover]="value" fxLayout="row" style="cursor: pointer">
-  <span (click)="changeValue(0)" style="min-width: 5px;"></span>
+<div [starHover]="value" [disabled]="disabled" fxLayout="row" [ngClass]="{'clickable': !disabled}">
+  <span (click)="changeValue(0)" [ngClass]="{'remove': !disabled}"></span>
   <mat-icon color="primary" (click)="changeValue(1)">star_border</mat-icon>
   <mat-icon color="primary" (click)="changeValue(2)">star_border</mat-icon>
   <mat-icon color="primary" (click)="changeValue(3)">star_border</mat-icon>

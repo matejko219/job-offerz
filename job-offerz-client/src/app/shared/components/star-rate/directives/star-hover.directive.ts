@@ -10,6 +10,9 @@ export class StarHoverDirective implements OnInit {
   isDivHover: boolean = false;
   lastHoverStarId: number = 0;
 
+  @Input()
+  disabled = false;
+
   @Input('starHover') set value(value: number) {
     this._value = value;
     this.setStarsBasedOnValue();
@@ -43,7 +46,7 @@ export class StarHoverDirective implements OnInit {
   private setStarsBasedOnValue() {
     if (this.starNodes) {
       this.starNodes.forEach((node, idx) => {
-        if (this.isDivHover) {
+        if (this.isDivHover && !this.disabled) {
           if (idx <= this.lastHoverStarId) {
             this.renderer.setProperty(node, 'innerText', 'star');
           } else this.renderer.setProperty(node, 'innerText', 'star_border');

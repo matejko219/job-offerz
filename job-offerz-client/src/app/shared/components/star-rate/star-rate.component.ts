@@ -28,8 +28,11 @@ export function createStarRateValidator(minValue) {
 })
 export class StarRateComponent implements OnInit, ControlValueAccessor {
 
-  @Input()
+  @Input('value')
   _value = 1;
+
+  @Input()
+  disabled = false;
 
   get value(): number {
     return this._value;
@@ -48,7 +51,7 @@ export class StarRateComponent implements OnInit, ControlValueAccessor {
   }
 
   changeValue(value: number) {
-    this.value = value;
+    if (!this.disabled) this.value = value;
   }
 
   writeValue(value: number): void {
