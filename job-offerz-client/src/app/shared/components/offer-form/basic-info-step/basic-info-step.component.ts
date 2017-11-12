@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {OfferFormConsts} from "../../../../utils/offer-form-consts";
 import {FormUtils} from "../../../../utils/form-utils";
+import {Category} from "../../../../models/category";
 
 @Component({
   selector: 'app-basic-info-step',
@@ -13,9 +14,12 @@ export class BasicInfoStepComponent implements OnInit {
   @Input('formGroup')
   formGroup: FormGroup;
 
-  categories = ['Frontend', 'Backend'];
+  categories: Category[] = [
+    {_id: '1', name: 'Frontend'},
+    {_id: '2', name: 'Backend'}
+  ];
 
-  titleMaxLength = OfferFormConsts.MAX_TITLE_LENGTH;
+  positionMaxLength = OfferFormConsts.MAX_POSITION_LENGTH;
   locationMaxLength = OfferFormConsts.MAX_LOCATION_LENGTH;
   checkInputLength = FormUtils.checkInputLength;
 

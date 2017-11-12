@@ -48,14 +48,22 @@ export class StarHoverDirective implements OnInit {
       this.starNodes.forEach((node, idx) => {
         if (this.isDivHover && !this.disabled) {
           if (idx <= this.lastHoverStarId) {
-            this.renderer.setProperty(node, 'innerText', 'star');
-          } else this.renderer.setProperty(node, 'innerText', 'star_border');
+            this.setChecked(node);
+          } else this.setUnchecked(node);
         }else {
           if (this.value >= idx + 1) {
-            this.renderer.setProperty(node, 'innerText', 'star');
-          } else this.renderer.setProperty(node, 'innerText', 'star_border');
+            this.setChecked(node);
+          } else this.setUnchecked(node);
         }
       });
     }
+  }
+
+  private setChecked(node) {
+    this.renderer.setProperty(node, 'innerText', 'star');
+  }
+
+  private setUnchecked(node) {
+    this.renderer.setProperty(node, 'innerText', 'star_border');
   }
 }

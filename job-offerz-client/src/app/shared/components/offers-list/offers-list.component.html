@@ -7,11 +7,11 @@
          alt="company logo">
     <h3 matLine> {{offer.position}} </h3>
     <p matLine>
-      <span> @{{offer.company}} </span>
+      <span> @{{offer.company.name}} </span>
     </p>
     <p matLine class="category-wrapper">
       <mat-icon color="warn">label_outline</mat-icon>
-      <span>{{offer.category}}</span>
+      <span>{{offer.category.name}}</span>
     </p>
     <div fxLayout="column" fxFlex.lt-sm="20">
       <div fxLayout="row" fxHide.lt-sm>

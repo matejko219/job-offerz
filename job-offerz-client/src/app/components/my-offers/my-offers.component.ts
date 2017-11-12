@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Offer} from "../../models/offer";
+import {Category} from "../../models/category";
 
 @Component({
   selector: 'app-my-offers',
@@ -11,63 +12,200 @@ export class MyOffersComponent implements OnInit {
   addedLabel = 'Dodane';
   favoriteLabel = 'Ulubione';
 
-  categories: string[] = ['Frontend', 'Backend'];
+  categories: Category[] = [
+    {
+      _id: '1',
+      name: 'Frontend'
+    },
+    {
+      _id: '2',
+      name: 'Backend'
+    }
+  ];
+
   offers: Offer[] = [];
   front: Offer[] = [
     {
-      _id: 1,
+      _id: '1',
       position: 'Senior frontend developer (Angular4)',
-      company: 'Comarch S.A.',
-      category: 'Frontend',
+      company: {_id: '1', name: 'Comarch S.A.', logo: ''},
+      category: {_id: '1', name: 'Frontend'},
       location: 'Rzeszów',
+      offerDetails: {
+        _id: '1',
+        description: '',
+        requirements: [],
+        terms: {
+          formOfEmployment: '',
+          jobTime: 100,
+          salary: {
+            amount: 1,
+            currency: '',
+            type: '',
+            period: ''
+          }
+        },
+        bonuses: [],
+        contactDetails: {
+          phone: '',
+          email: '',
+          www: ''
+        }
+      },
       createDate: new Date(2017, 9, 28)
     },
     {
-      _id: 2,
+      _id: '2',
       position: 'Junior frontend developer (React.js)',
-      company: 'PGS Software',
-      category: 'Frontend',
+      company: {_id: '1', name: 'PGS Software', logo: ''},
+      category: {_id: '1', name: 'Frontend'},
       location: 'Rzeszów',
+      offerDetails: {
+        _id: '1',
+        description: '',
+        requirements: [],
+        terms: {
+          formOfEmployment: '',
+          jobTime: 100,
+          salary: {
+            amount: 1,
+            currency: '',
+            type: '',
+            period: ''
+          }
+        },
+        bonuses: [],
+        contactDetails: {
+          phone: '',
+          email: '',
+          www: ''
+        }
+      },
       createDate: new Date(2017, 8, 22)
     },
     {
-      _id: 3,
+      _id: '3',
       position: 'Frontend developer (Vue.js)',
-      company: 'Ailleron S.A.',
-      category: 'Frontend',
+      company: {_id: '1', name: 'Ailleron S.A.', logo: ''},
+      category: {_id: '1', name: 'Frontend'},
       location: 'Rzeszów',
+      offerDetails: {
+        _id: '1',
+        description: '',
+        requirements: [],
+        terms: {
+          formOfEmployment: '',
+          jobTime: 100,
+          salary: {
+            amount: 1,
+            currency: '',
+            type: '',
+            period: ''
+          }
+        },
+        bonuses: [],
+        contactDetails: {
+          phone: '',
+          email: '',
+          www: ''
+        }
+      },
       createDate: new Date(2017, 6, 12)
     },
   ];
 
   back: Offer[] = [
     {
-      _id: 4,
+      _id: '4',
       position: 'Senior Java developer',
-      company: 'Comarch S.A.',
-      category: 'Backend',
+      company: {_id: '1', name: 'Comarch S.A.', logo: ''},
+      category: {_id: '1', name: 'Backend'},
       location: 'Rzeszów',
+      offerDetails: {
+        _id: '1',
+        description: '',
+        requirements: [],
+        terms: {
+          formOfEmployment: '',
+          jobTime: 100,
+          salary: {
+            amount: 1,
+            currency: '',
+            type: '',
+            period: ''
+          }
+        },
+        bonuses: [],
+        contactDetails: {
+          phone: '',
+          email: '',
+          www: ''
+        }
+      },
       createDate: new Date(2017, 9, 23)
     },
     {
-      _id: 5,
+      _id: '5',
       position: 'Junior Scala developer',
-      company: 'Comarch S.A.',
-      category: 'Backend',
+      company: {_id: '1', name: 'Comarch S.A.', logo: ''},
+      category: {_id: '1', name: 'Backend'},
       location: 'Rzeszów',
+      offerDetails: {
+        _id: '1',
+        description: '',
+        requirements: [],
+        terms: {
+          formOfEmployment: '',
+          jobTime: 100,
+          salary: {
+            amount: 1,
+            currency: '',
+            type: '',
+            period: ''
+          }
+        },
+        bonuses: [],
+        contactDetails: {
+          phone: '',
+          email: '',
+          www: ''
+        }
+      },
       createDate: new Date(2017, 5, 18)
     },
     {
-      _id: 6,
+      _id: '6',
       position: 'Python developer',
-      company: 'PGS Software',
-      category: 'Backend',
+      company: {_id: '1', name: 'PGS Software', logo: ''},
+      category: {_id: '1', name: 'Backend'},
       location: 'Rzeszów',
+      offerDetails: {
+        _id: '1',
+        description: '',
+        requirements: [],
+        terms: {
+          formOfEmployment: '',
+          jobTime: 100,
+          salary: {
+            amount: 1,
+            currency: '',
+            type: '',
+            period: ''
+          }
+        },
+        bonuses: [],
+        contactDetails: {
+          phone: '',
+          email: '',
+          www: ''
+        }
+      },
       createDate: new Date(2017, 4, 16)
     },
   ];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.offers = this.front;

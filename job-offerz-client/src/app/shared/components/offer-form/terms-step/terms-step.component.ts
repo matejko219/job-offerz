@@ -27,9 +27,11 @@ export class TermsStepComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup.patchValue({
-      formOfEmployment: this.formOfEmployment[0],
-      jobTime: '100',
-      salary: this.salary
+      terms: {
+        formOfEmployment: this.formOfEmployment[0],
+        jobTime: '100',
+        salary: this.salary
+      }
     });
   }
 

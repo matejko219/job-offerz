@@ -6,14 +6,14 @@
 
         <div>
           <mat-form-field fxFlex="100">
-            <input #title
-                   (keypress)="checkInputLength($event, titleMaxLength)"
+            <input #position
+                   (keypress)="checkInputLength($event, positionMaxLength)"
                    matInput
-                   formControlName="title"
+                   formControlName="position"
                    type="text"
-                   placeholder="Tytuł"
+                   placeholder="Stanowisko"
                    required>
-            <span class="length-limit">{{title?.value?.length}}/{{titleMaxLength}}</span>
+            <span class="length-limit">{{position?.value?.length}}/{{positionMaxLength}}</span>
           </mat-form-field>
         </div>
 
@@ -26,7 +26,7 @@
                 required
                 placeholder="Kategoria">
                 <mat-option *ngFor="let category of categories" [value]="category">
-                  {{ category }}
+                  {{ category.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
