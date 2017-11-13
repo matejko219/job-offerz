@@ -14,6 +14,8 @@ export class BonusesStepComponent implements OnInit {
   @Input('formGroup')
   formGroup: FormGroup;
 
+  formArray: FormArray;
+
   descMaxLength = OfferFormConsts.MAX_BONUS_DESC_LENGTH;
   checkInputLength = FormUtils.checkInputLength;
 
@@ -21,12 +23,13 @@ export class BonusesStepComponent implements OnInit {
               private snackBarService: SnackBarService) { }
 
   ngOnInit() {
+    this.formArray = this.getArrayControl();
   }
 
   addBonus() {
-    const control = this.getArrayControl();
-    if (control.length < OfferFormConsts.MAX_BONUS_ITEMS) {
-      control.push(
+    //const control = this.getArrayControl();
+    if (this.formArray.length < OfferFormConsts.MAX_BONUS_ITEMS) {
+      this.formArray.push(
         this.formBuilder.group({
           description: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_BONUS_DESC_LENGTH)])]
         })
@@ -37,8 +40,8 @@ export class BonusesStepComponent implements OnInit {
   }
 
   removeBonus(index: number) {
-    const control = this.getArrayControl();
-    control.removeAt(index);
+    //const control = this.getArrayControl();
+    this.formArray.removeAt(index);
   }
 
   private getArrayControl(): FormArray {

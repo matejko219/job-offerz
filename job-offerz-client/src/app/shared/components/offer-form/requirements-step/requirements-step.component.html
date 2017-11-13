@@ -10,20 +10,20 @@
 
         <mat-list>
           <mat-list-item class="mat-elevation-z3"
-                         *ngFor="let requirement of formGroup.controls.requirements.controls; let i = index">
+                         *ngFor="let requirement of formArray.controls; let i = index">
 
             <div matLine class="form-alert alert-padding" style="margin-bottom: 5px"
-                 *ngIf="requirement.controls?.name?.errors?.required && (requirement.controls?.name.dirty || requirement.controls?.name.touched)">
+                 *ngIf="requirement.get('name')?.errors?.required && (requirement.get('name').dirty || requirement.get('name').touched)">
               Nazwa jest wymagana
             </div>
 
             <div matLine class="form-alert alert-padding" style="margin-bottom: 5px"
-                 *ngIf="requirement.controls?.name?.errors?.maxlength && (requirement.controls?.name.dirty || requirement.controls?.name.touched)">
+                 *ngIf="requirement.get('name')?.errors?.maxlength && (requirement.get('name').dirty || requirement.get('name').touched)">
               Maksymalna długość nazwy to {{nameMaxLength}} znaków
             </div>
 
             <div matLine class="form-alert alert-padding"
-                 *ngIf="requirement.controls?.rate?.errors?.rateError && (requirement.controls?.rate.dirty || requirement.controls?.rate.touched)">
+                 *ngIf="requirement.get('rate')?.errors?.rateError && (requirement.get('rate').dirty || requirement.get('rate').touched)">
               Minimalna ilość gwiazdek to {{minStarsRate}}
             </div>
 

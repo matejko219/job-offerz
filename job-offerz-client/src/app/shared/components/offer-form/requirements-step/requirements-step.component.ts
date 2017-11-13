@@ -15,6 +15,8 @@ export class RequirementsStepComponent implements OnInit {
   @Input('formGroup')
   formGroup: FormGroup;
 
+  formArray: FormArray;
+
   nameMaxLength = OfferFormConsts.MAX_REQ_NAME_LENGTH;
   checkInputLength = FormUtils.checkInputLength;
   minStarsRate = 1;
@@ -23,12 +25,13 @@ export class RequirementsStepComponent implements OnInit {
               private snackBarService: SnackBarService) { }
 
   ngOnInit() {
+    this.formArray = this.getArrayControl();
   }
 
   addRequirement() {
-    const control = this.getArrayControl();
-    if (control.length < OfferFormConsts.MAX_REQ_ITEMS) {
-      control.push(
+    //const control = this.getArrayControl();
+    if (this.formArray.length < OfferFormConsts.MAX_REQ_ITEMS) {
+      this.formArray.push(
         this.formBuilder.group({
           name: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_REQ_NAME_LENGTH)])],
           rate: [1, Validators.compose([Validators.required, createStarRateValidator(this.minStarsRate)])]
@@ -40,8 +43,8 @@ export class RequirementsStepComponent implements OnInit {
   }
 
   removeRequirement(index: number) {
-    const control = this.getArrayControl();
-    control.removeAt(index);
+    //const control = this.getArrayControl();
+    this.formArray.removeAt(index);
   }
 
   private getArrayControl(): FormArray {

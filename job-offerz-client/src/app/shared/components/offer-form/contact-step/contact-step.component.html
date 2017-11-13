@@ -3,11 +3,11 @@
     <form [formGroup]="formGroup">
       <div fxLayout="column" fxFlex="100" formGroupName="contactDetails">
 
-        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.phone?.errors?.required && (formGroup.controls?.contactDetails?.controls?.phone.dirty || formGroup.controls?.contactDetails?.controls?.phone.touched)">
+        <div class="form-alert alert-padding" *ngIf="formGroup.get('contactDetails.phone')?.errors?.required && (formGroup.get('contactDetails.phone').dirty || formGroup.get('contactDetails.phone').touched)">
           Telefon jest wymagany
         </div>
 
-        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.phone?.errors?.validPhone && (formGroup.controls?.contactDetails?.controls?.phone.dirty || formGroup.controls?.contactDetails?.controls?.phone.touched)">
+        <div class="form-alert alert-padding" *ngIf="formGroup.get('contactDetails.phone')?.errors?.validPhone && (formGroup.get('contactDetails.phone').dirty || formGroup.get('contactDetails.phone').touched)">
           Niepoprawny numer telefonu
         </div>
 
@@ -21,11 +21,11 @@
           </mat-form-field>
         </div>
 
-        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.email?.errors?.required && (formGroup.controls?.contactDetails?.controls?.email.dirty || formGroup.controls?.contactDetails?.controls?.email.touched)">
+        <div class="form-alert alert-padding" *ngIf="formGroup.get('contactDetails.email')?.errors?.required && (formGroup.get('contactDetails.email').dirty || formGroup.get('contactDetails.email').touched)">
           Email jest wymagany
         </div>
 
-        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.email?.errors?.email && (formGroup.controls?.contactDetails?.controls?.email.dirty || formGroup.controls?.contactDetails?.controls?.email.touched)">
+        <div class="form-alert alert-padding" *ngIf="formGroup.get('contactDetails.email')?.errors?.email && (formGroup.get('contactDetails.email').dirty || formGroup.get('contactDetails.email').touched)">
           Niepoprawny adres email
         </div>
 
@@ -39,7 +39,7 @@
           </mat-form-field>
         </div>
 
-        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.www?.errors?.validUrl && (formGroup.controls?.contactDetails?.controls?.www.dirty || formGroup.controls?.contactDetails?.controls?.www.touched)">
+        <div class="form-alert alert-padding" *ngIf="formGroup.get('contactDetails.www')?.errors?.validUrl && (formGroup.get('contactDetails.www').dirty || formGroup.get('contactDetails.www').touched)">
           Niepoprawny adres www
         </div>
 
