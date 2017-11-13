@@ -17,6 +17,7 @@ export class RequirementsStepComponent implements OnInit {
 
   nameMaxLength = OfferFormConsts.MAX_REQ_NAME_LENGTH;
   checkInputLength = FormUtils.checkInputLength;
+  minStarsRate = 1;
 
   constructor(private formBuilder: FormBuilder,
               private snackBarService: SnackBarService) { }
@@ -30,7 +31,7 @@ export class RequirementsStepComponent implements OnInit {
       control.push(
         this.formBuilder.group({
           name: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_REQ_NAME_LENGTH)])],
-          rate: [1, Validators.compose([Validators.required, createStarRateValidator(1)])]
+          rate: [1, Validators.compose([Validators.required, createStarRateValidator(this.minStarsRate)])]
         })
       );
     } else {

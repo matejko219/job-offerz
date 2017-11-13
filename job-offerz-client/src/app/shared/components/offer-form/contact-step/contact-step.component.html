@@ -3,6 +3,14 @@
     <form [formGroup]="formGroup">
       <div fxLayout="column" fxFlex="100" formGroupName="contactDetails">
 
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.phone?.errors?.required && (formGroup.controls?.contactDetails?.controls?.phone.dirty || formGroup.controls?.contactDetails?.controls?.phone.touched)">
+          Telefon jest wymagany
+        </div>
+
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.phone?.errors?.validPhone && (formGroup.controls?.contactDetails?.controls?.phone.dirty || formGroup.controls?.contactDetails?.controls?.phone.touched)">
+          Niepoprawny numer telefonu
+        </div>
+
         <div>
           <mat-form-field fxFlex="100">
             <input matInput
@@ -13,6 +21,14 @@
           </mat-form-field>
         </div>
 
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.email?.errors?.required && (formGroup.controls?.contactDetails?.controls?.email.dirty || formGroup.controls?.contactDetails?.controls?.email.touched)">
+          Email jest wymagany
+        </div>
+
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.email?.errors?.email && (formGroup.controls?.contactDetails?.controls?.email.dirty || formGroup.controls?.contactDetails?.controls?.email.touched)">
+          Niepoprawny adres email
+        </div>
+
         <div>
           <mat-form-field fxFlex="100">
             <input matInput
@@ -21,6 +37,10 @@
                    placeholder="Email"
                    required>
           </mat-form-field>
+        </div>
+
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls?.contactDetails?.controls?.www?.errors?.validUrl && (formGroup.controls?.contactDetails?.controls?.www.dirty || formGroup.controls?.contactDetails?.controls?.www.touched)">
+          Niepoprawny adres www
         </div>
 
         <div>

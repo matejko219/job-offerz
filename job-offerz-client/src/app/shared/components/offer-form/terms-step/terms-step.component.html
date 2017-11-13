@@ -30,6 +30,10 @@
           </mat-slider>
         </div>
 
+        <div class="form-alert alert-padding" *ngIf="formGroup.invalid && (formGroup.dirty || formGroup.touched)">
+          Minimalna wartość wynagrodzenia to 0
+        </div>
+
         <div formGroupName="salary">
           <mat-form-field fxFlex="100">
             <input matInput

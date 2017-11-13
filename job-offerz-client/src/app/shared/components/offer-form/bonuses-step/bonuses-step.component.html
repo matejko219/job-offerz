@@ -13,6 +13,16 @@
           <mat-list-item class="mat-elevation-z3"
                          *ngFor="let bonus of formGroup.controls.bonuses.controls; let i = index">
 
+            <div matLine class="form-alert alert-padding"
+                 *ngIf="bonus.controls?.description?.errors?.required && (bonus.controls?.description.dirty || bonus.controls?.description.touched)">
+              Opis jest wymagany
+            </div>
+
+            <div matLine class="form-alert alert-padding"
+                 *ngIf="bonus.controls?.description?.errors?.maxlength && (bonus.controls?.description.dirty || bonus.controls?.description.touched)">
+              Maksymalna długość opisu to {{descMaxLength}} znaków
+            </div>
+
             <div matLine fxLayout="row" fxFlex="100">
               <div fxFlex="50" style="padding-top: 10px">
                 Dodatek {{i + 1}}

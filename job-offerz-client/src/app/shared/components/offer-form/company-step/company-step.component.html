@@ -3,6 +3,10 @@
     <form [formGroup]="formGroup" [fxHide]="showCompanyForm">
       <div fxLayout="column" fxLayoutGap="10px" fxFlex="100">
 
+        <div class="form-alert alert-padding" *ngIf="companyAutoCtrl?.errors?.optionHasId && (companyAutoCtrl.dirty || companyAutoCtrl.touched)">
+          Wartość musi pochodzić z listy podpowiedzi. Jeśli nie znajdziesz firmy to możesz ją dodać.
+        </div>
+
         <div>
           <mat-form-field fxFlex="100">
             <input matInput

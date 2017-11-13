@@ -1,6 +1,14 @@
 <form [formGroup]="formGroup">
   <div fxLayout="column" fxLayoutGap="10px" fxFlex="100">
 
+    <div class="form-alert alert-padding" *ngIf="formGroup.controls.name?.errors?.required && (formGroup.controls.name.dirty || formGroup.controls.name.touched)">
+      Nazwa jest wymagana
+    </div>
+
+    <div class="form-alert alert-padding" *ngIf="formGroup.controls.name?.errors?.maxlength && (formGroup.controls.name.dirty || formGroup.controls.name.touched)">
+      Maksymalna długość nazwy to {{nameMaxLength}} znaków
+    </div>
+
     <div>
       <mat-form-field fxFlex="100">
         <input #name
@@ -12,6 +20,10 @@
                required>
         <span class="length-limit">{{name?.value?.length}}/{{nameMaxLength}}</span>
       </mat-form-field>
+    </div>
+
+    <div class="form-alert alert-padding" *ngIf="isImageInputClicked && !formGroup.valid && formGroup.hasError('required', ['logo'])">
+      Logo jest wymagane
     </div>
 
     <span class="field-placeholder required"

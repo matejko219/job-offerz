@@ -4,6 +4,14 @@
 
       <div fxLayout="column" fxFlex="100">
 
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls.position?.errors?.required && (formGroup.controls.position.dirty || formGroup.controls.position.touched)">
+          Stanowisko jest wymagane
+        </div>
+
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls.position?.errors?.maxlength && (formGroup.controls.position.dirty || formGroup.controls.position.touched)">
+          Maksymalna długość stanowiska to {{positionMaxLength}} znaków
+        </div>
+
         <div>
           <mat-form-field fxFlex="100">
             <input #position
@@ -15,6 +23,18 @@
                    required>
             <span class="length-limit">{{position?.value?.length}}/{{positionMaxLength}}</span>
           </mat-form-field>
+        </div>
+
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls.category?.errors?.required && (formGroup.controls.category.dirty || formGroup.controls.category.touched)">
+          Kategoria jest wymagana
+        </div>
+
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls.location?.errors?.required && (formGroup.controls.location.dirty || formGroup.controls.location.touched)">
+          Miejscowość jest wymagana
+        </div>
+
+        <div class="form-alert alert-padding" *ngIf="formGroup.controls.location?.errors?.maxlength && (formGroup.controls.location.dirty || formGroup.controls.location.touched)">
+          Maksymalna długość miejscowości to {{locationMaxLength}} znaków
         </div>
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="10px">
