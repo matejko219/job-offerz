@@ -24,4 +24,22 @@ router.post('/', (req, res, next) => {
     });
 });
 
+/**
+ * GET /api/offers
+ * @param
+ * @return lista dokumentów kolekcji Offer
+ */
+router.get('/', (req, res, next) => {
+    Offer.find({})
+        .populate('category')
+        .populate('company')
+        .exec((err, offers) => {
+            if (err) {
+                return handleError('Błąd podczas pobierania listy ofert.', 500, next);
+            } else {
+                return res.json(offers);
+            }
+        });
+});
+
 module.exports = router;

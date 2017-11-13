@@ -50,7 +50,7 @@ router.get('/', (req, res, next) => {
         } else {
             return res.json(categories);
         }
-    })
+    });
 });
 
 module.exports = router;

@@ -80,45 +80,7 @@ export class OfferFormComponent implements OnInit {
       bonuses: this.bonusesFormGroup,
       contactDetails: this.contactFormGroup,
     });
-
-    // this.setInitialValues();
   }
-
-  // setInitialValues() {
-  //   const offer = {
-  //     _id: '1',
-  //     position: 'Senior frontend developer (Angular4)',
-  //     company: {_id: '1', name: 'Comarch S.A.', logo: ''},
-  //     category: {_id: '1', name: 'Frontend'},
-  //     location: 'Rzeszów',
-  //     offerDetails: {
-  //       _id: '1',
-  //       description: 'test',
-  //       requirements: [
-  //         {name: 'Angular', rate: 2}
-  //       ],
-  //       terms: {
-  //         formOfEmployment: 'Umowa o pracę',
-  //         jobTime: 100,
-  //         salary: {
-  //           amount: 1,
-  //           currency: 'PLN',
-  //           type: 'netto',
-  //           period: 'miesięcznie'
-  //         }
-  //       },
-  //       bonuses: [
-  //         {description: 'Multisport'}
-  //       ],
-  //       contactDetails: {
-  //         phone: '881342392',
-  //         email: 'test@test.pl',
-  //         www: 'www.test.pl'
-  //       }
-  //     },
-  //     createDate: new Date(2017, 9, 28)
-  //   };
-  // }
 
   submit() {
     const offerDetails: OfferDetails = {
@@ -134,8 +96,7 @@ export class OfferFormComponent implements OnInit {
       ...this.companyFormGroup.getRawValue(),
       offerDetails
     };
-
-    console.log(offer);
+    
     this.onSubmit.next(offer);
   }
 

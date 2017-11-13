@@ -62,7 +62,7 @@ router.get('/', (req, res, next) => {
         } else {
             return res.json(companies);
         }
-    })
+    });
 });
 
 module.exports = router;
