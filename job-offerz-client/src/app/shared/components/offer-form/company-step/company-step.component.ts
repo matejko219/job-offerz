@@ -37,7 +37,7 @@ export class CompanyStepComponent implements OnInit, OnDestroy {
         if (value && value !== '') {
           const name = value.name || value;
 
-          this.companyService.getAllByName(name).subscribe((companies) => {
+          this.companyService.getAllByName(name).subscribe((companies: Company[]) => {
               this.filteredCompanies = companies;
           }, err => {
             this.snackBarService.error(err);

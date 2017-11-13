@@ -9,7 +9,8 @@ const Company = require('../../models/company');
  * @return dokument kolekcji Company utworzony po operacji zapisu
  */
 router.post('/', (req, res, next) => {
-    const name = req.body.name;
+    const newCompany = req.body;
+    const name = newCompany.name;
     if (!name || name === '') {
         return handleError('Parametr name jest wymagany.', 400, next);
     }
@@ -32,10 +33,7 @@ router.post('/', (req, res, next) => {
           return handleError('Firma o podanej nazwie już istnieje.', 500, next);
         } else {
 
-            new Company({
-                name: name,
-                logo: logo
-            }).save((err, company) =>{
+            new Company(newCompany).save((err, company) =>{
                 if (err) {
                     return handleError('Błąd podczas zapisu firmy.', 500, next);
                 }

@@ -7,7 +7,6 @@ import {ContactDetails} from "./contact-details";
  * Created by DELL on 2017-11-12.
  */
 export class OfferDetails {
-  _id: string;
   description: string;
   requirements?: Requirement[];
   terms: Terms;

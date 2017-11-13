@@ -10,5 +10,7 @@ router.use('/', require('./security'));
 // Set REST API routes
 router.use('/users', require('./users'));
 router.use('/companies', require('./companies'));
+router.use('/categories', require('./categories'));
+router.use('/offers', require('./offers'));
 
 module.exports = router;

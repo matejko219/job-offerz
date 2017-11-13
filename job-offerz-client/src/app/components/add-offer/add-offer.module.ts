@@ -5,6 +5,8 @@ import { AddOfferRoutingModule } from './add-offer-routing.module';
 import { AddOfferComponent } from './add-offer.component';
 import {SharedModule} from "../../shared/modules/shared.module";
 import {CompanyService} from "../../services/company.service";
+import {CategoryService} from "../../services/category.service";
+import {OfferService} from "../../services/offer.service";
 
 @NgModule({
   imports: [
@@ -13,6 +15,6 @@ import {CompanyService} from "../../services/company.service";
     SharedModule
   ],
   declarations: [AddOfferComponent],
-  providers: [CompanyService]
+  providers: [CompanyService, CategoryService, OfferService]
 })
 export class AddOfferModule { }

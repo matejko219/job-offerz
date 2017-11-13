@@ -32,7 +32,6 @@ export class MyOffersComponent implements OnInit {
       category: {_id: '1', name: 'Frontend'},
       location: 'Rzeszów',
       offerDetails: {
-        _id: '1',
         description: '',
         requirements: [],
         terms: {
@@ -61,7 +60,6 @@ export class MyOffersComponent implements OnInit {
       category: {_id: '1', name: 'Frontend'},
       location: 'Rzeszów',
       offerDetails: {
-        _id: '1',
         description: '',
         requirements: [],
         terms: {
@@ -90,7 +88,6 @@ export class MyOffersComponent implements OnInit {
       category: {_id: '1', name: 'Frontend'},
       location: 'Rzeszów',
       offerDetails: {
-        _id: '1',
         description: '',
         requirements: [],
         terms: {
@@ -122,7 +119,6 @@ export class MyOffersComponent implements OnInit {
       category: {_id: '1', name: 'Backend'},
       location: 'Rzeszów',
       offerDetails: {
-        _id: '1',
         description: '',
         requirements: [],
         terms: {
@@ -151,7 +147,6 @@ export class MyOffersComponent implements OnInit {
       category: {_id: '1', name: 'Backend'},
       location: 'Rzeszów',
       offerDetails: {
-        _id: '1',
         description: '',
         requirements: [],
         terms: {
@@ -180,7 +175,6 @@ export class MyOffersComponent implements OnInit {
       category: {_id: '1', name: 'Backend'},
       location: 'Rzeszów',
       offerDetails: {
-        _id: '1',
         description: '',
         requirements: [],
         terms: {

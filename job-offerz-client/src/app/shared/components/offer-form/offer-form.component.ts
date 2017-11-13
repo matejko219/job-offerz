@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {OfferFormConsts} from "../../../utils/offer-form-consts";
 import {validPhoneFactory} from "../../../directives/valid-phone.directive";
@@ -21,6 +21,9 @@ export class OfferFormComponent implements OnInit {
   termsFormGroup: FormGroup;
   bonusesFormGroup: FormGroup;
   contactFormGroup: FormGroup;
+
+  @Output()
+  onSubmit: EventEmitter<Offer> = new EventEmitter<Offer>();
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -133,6 +136,7 @@ export class OfferFormComponent implements OnInit {
     };
 
     console.log(offer);
+    this.onSubmit.next(offer);
   }
 
 }
