@@ -21,6 +21,9 @@ import {BonusesStepComponent} from "../components/offer-form/bonuses-step/bonuse
 import {RequirementsStepComponent} from "../components/offer-form/requirements-step/requirements-step.component";
 import {StarRateComponent} from "../components/star-rate/star-rate.component";
 import {StarHoverDirective} from "../components/star-rate/directives/star-hover.directive";
+import {CompanyService} from "../../services/company.service";
+import {CategoryService} from "../../services/category.service";
+import {OfferService} from "../../services/offer.service";
 
 @NgModule({
   imports: [
@@ -68,6 +71,11 @@ import {StarHoverDirective} from "../components/star-rate/directives/star-hover.
     RequirementsStepComponent,
     StarRateComponent,
     StarHoverDirective
+  ],
+  providers: [
+    CompanyService,
+    CategoryService,
+    OfferService
   ]
 })
 export class SharedModule { }

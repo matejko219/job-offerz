@@ -15,6 +15,6 @@ import {OfferService} from "../../services/offer.service";
     SharedModule
   ],
   declarations: [AddOfferComponent],
-  providers: [CompanyService, CategoryService, OfferService]
+  providers: []
 })
 export class AddOfferModule { }
