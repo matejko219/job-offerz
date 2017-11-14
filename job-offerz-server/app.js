@@ -14,7 +14,8 @@ const bluebird = require('bluebird');
 const app = express();
 
 // database connection
-mongoose.connect(config.dbUrl, { useMongoClient: true, promiseLibrary: bluebird });
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.dbUrl, { useMongoClient: true });
 mongoose.set('debug', app.get('env') === 'development');
 initDbScript();
 
