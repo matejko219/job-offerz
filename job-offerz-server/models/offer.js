@@ -2,9 +2,10 @@
  * Created by DELL on 2017-11-13.
  */
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Offer', new Schema({
+const schema = new Schema({
     position: { type: String, required: true },
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     location: { type: String, required: true },
@@ -34,5 +35,11 @@ module.exports = mongoose.model('Offer', new Schema({
             www: { type: String },
         }
     },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     createDate: { type: Date, default: Date.now }
-}));
+});
+
+schema.plugin(mongoosePaginate);
+
+module.exports = mongoose.model('Offer', schema);
+

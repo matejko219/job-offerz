@@ -131,7 +131,7 @@ router.use(jwtGuard);
 router.get('/logout', (req, res, next) =>{
     GrantedToken.remove({user: req.decodedUser._id}, err =>{
         if (err) handleError('Błąd podczas wylogowywania', 500, next);
-        else return res.json({
+        else res.json({
             success: true
         });
     });

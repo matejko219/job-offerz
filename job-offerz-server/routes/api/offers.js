@@ -13,15 +13,16 @@ const Offer = require('../../models/offer');
  */
 router.post('/', (req, res, next) => {
     const offer = req.body;
+    offer.user = req.decodedUser._id;
 
-    new Offer(offer).save((err, offer) => {
-        if (err) {
+    new Offer(offer)
+        .save()
+        .then(offer => {
+            res.json(offer);
+        }).catch((err) => {
             console.log(err.stack);
-            return handleError('Błąd podczas zapisu oferty.', 500, next);
-        }
-
-        return res.json(offer);
-    });
+            handleError('Błąd podczas zapisu oferty.', 500, next);
+        });
 });
 
 /**
@@ -30,15 +31,20 @@ router.post('/', (req, res, next) => {
  * @return lista dokumentów kolekcji Offer
  */
 router.get('/', (req, res, next) => {
-    Offer.find({})
-        .populate('category')
-        .populate('company')
-        .exec((err, offers) => {
-            if (err) {
-                return handleError('Błąd podczas pobierania listy ofert.', 500, next);
-            } else {
-                return res.json(offers);
-            }
+    const query   = {};
+    const options = {
+        sort: { createDate: -1 },
+        populate: ['category', 'company'],
+        lean: true,
+        page: 1,
+        limit: 10
+    };
+
+    Offer.paginate(query, options)
+        .then(offers => {
+            res.json(offers);
+        }).catch((err) => {
+            handleError('Błąd podczas pobierania ofert.', 500, next);
         });
 });
 

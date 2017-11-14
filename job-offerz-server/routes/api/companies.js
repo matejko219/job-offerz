@@ -30,15 +30,13 @@ router.post('/', (req, res, next) => {
         }
 
         if (company) {
-          return handleError('Firma o podanej nazwie już istnieje.', 500, next);
+          handleError('Firma o podanej nazwie już istnieje.', 500, next);
         } else {
 
             new Company(newCompany).save((err, company) =>{
                 if (err) {
-                    return handleError('Błąd podczas zapisu firmy.', 500, next);
-                }
-
-                return res.json(company);
+                    handleError('Błąd podczas zapisu firmy.', 500, next);
+                } else res.json(company);
             });
         }
     });
@@ -58,9 +56,9 @@ router.get('/', (req, res, next) => {
 
     Company.find(query, (err, companies) => {
         if (err) {
-            return handleError('Błąd podczas pobierania listy firm.', 500, next);
+            handleError('Błąd podczas pobierania listy firm.', 500, next);
         } else {
-            return res.json(companies);
+            res.json(companies);
         }
     });
 });

@@ -9,11 +9,12 @@ const config = require('./config/config');
 const initDbScript = require('./config/init-db-script');
 const errorHandlers = require('./middlewares/error-handlers');
 const appRoutes = require('./routes');
+const bluebird = require('bluebird');
 
 const app = express();
 
 // database connection
-mongoose.connect(config.dbUrl, { useMongoClient: true, promiseLibrary: global.Promise });
+mongoose.connect(config.dbUrl, { useMongoClient: true, promiseLibrary: bluebird });
 mongoose.set('debug', app.get('env') === 'development');
 initDbScript();
 

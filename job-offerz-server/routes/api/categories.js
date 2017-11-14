@@ -24,15 +24,13 @@ router.post('/', (req, res, next) => {
         }
 
         if (category) {
-            return handleError('Kategoria o podanej nazwie już istnieje.', 500, next);
+            handleError('Kategoria o podanej nazwie już istnieje.', 500, next);
         } else {
 
             new Category(newCategory).save((err, category) =>{
                 if (err) {
-                    return handleError('Błąd podczas zapisu kategorii.', 500, next);
-                }
-
-                return res.json(category);
+                    handleError('Błąd podczas zapisu kategorii.', 500, next);
+                } else res.json(category);
             });
         }
     });
@@ -46,9 +44,9 @@ router.post('/', (req, res, next) => {
 router.get('/', (req, res, next) => {
     Category.find({}, (err, categories) => {
         if (err) {
-            return handleError('Błąd podczas pobierania listy kategorii.', 500, next);
+            handleError('Błąd podczas pobierania listy kategorii.', 500, next);
         } else {
-            return res.json(categories);
+            res.json(categories);
         }
     });
 });
