@@ -25,177 +25,177 @@ export class MyOffersComponent implements OnInit {
 
   offers: Offer[] = [];
   front: Offer[] = [
-    {
-      _id: '1',
-      position: 'Senior frontend developer (Angular4)',
-      company: {_id: '1', name: 'Comarch S.A.', logo: ''},
-      category: {_id: '1', name: 'Frontend'},
-      location: 'Rzeszów',
-      offerDetails: {
-        description: '',
-        requirements: [],
-        terms: {
-          formOfEmployment: '',
-          jobTime: 100,
-          salary: {
-            amount: 1,
-            currency: '',
-            type: '',
-            period: ''
-          }
-        },
-        bonuses: [],
-        contactDetails: {
-          phone: '',
-          email: '',
-          www: ''
-        }
-      },
-      createDate: new Date(2017, 9, 28)
-    },
-    {
-      _id: '2',
-      position: 'Junior frontend developer (React.js)',
-      company: {_id: '1', name: 'PGS Software', logo: ''},
-      category: {_id: '1', name: 'Frontend'},
-      location: 'Rzeszów',
-      offerDetails: {
-        description: '',
-        requirements: [],
-        terms: {
-          formOfEmployment: '',
-          jobTime: 100,
-          salary: {
-            amount: 1,
-            currency: '',
-            type: '',
-            period: ''
-          }
-        },
-        bonuses: [],
-        contactDetails: {
-          phone: '',
-          email: '',
-          www: ''
-        }
-      },
-      createDate: new Date(2017, 8, 22)
-    },
-    {
-      _id: '3',
-      position: 'Frontend developer (Vue.js)',
-      company: {_id: '1', name: 'Ailleron S.A.', logo: ''},
-      category: {_id: '1', name: 'Frontend'},
-      location: 'Rzeszów',
-      offerDetails: {
-        description: '',
-        requirements: [],
-        terms: {
-          formOfEmployment: '',
-          jobTime: 100,
-          salary: {
-            amount: 1,
-            currency: '',
-            type: '',
-            period: ''
-          }
-        },
-        bonuses: [],
-        contactDetails: {
-          phone: '',
-          email: '',
-          www: ''
-        }
-      },
-      createDate: new Date(2017, 6, 12)
-    },
+    // {
+    //   _id: '1',
+    //   position: 'Senior frontend developer (Angular4)',
+    //   company: {_id: '1', name: 'Comarch S.A.', logo: ''},
+    //   category: {_id: '1', name: 'Frontend'},
+    //   location: 'Rzeszów',
+    //   offerDetails: {
+    //     description: '',
+    //     requirements: [],
+    //     terms: {
+    //       formOfEmployment: '',
+    //       jobTime: 100,
+    //       salary: {
+    //         amount: 1,
+    //         currency: '',
+    //         type: '',
+    //         period: ''
+    //       }
+    //     },
+    //     bonuses: [],
+    //     contactDetails: {
+    //       phone: '',
+    //       email: '',
+    //       www: ''
+    //     }
+    //   },
+    //   createDate: new Date(2017, 9, 28)
+    // },
+    // {
+    //   _id: '2',
+    //   position: 'Junior frontend developer (React.js)',
+    //   company: {_id: '1', name: 'PGS Software', logo: ''},
+    //   category: {_id: '1', name: 'Frontend'},
+    //   location: 'Rzeszów',
+    //   offerDetails: {
+    //     description: '',
+    //     requirements: [],
+    //     terms: {
+    //       formOfEmployment: '',
+    //       jobTime: 100,
+    //       salary: {
+    //         amount: 1,
+    //         currency: '',
+    //         type: '',
+    //         period: ''
+    //       }
+    //     },
+    //     bonuses: [],
+    //     contactDetails: {
+    //       phone: '',
+    //       email: '',
+    //       www: ''
+    //     }
+    //   },
+    //   createDate: new Date(2017, 8, 22)
+    // },
+    // {
+    //   _id: '3',
+    //   position: 'Frontend developer (Vue.js)',
+    //   company: {_id: '1', name: 'Ailleron S.A.', logo: ''},
+    //   category: {_id: '1', name: 'Frontend'},
+    //   location: 'Rzeszów',
+    //   offerDetails: {
+    //     description: '',
+    //     requirements: [],
+    //     terms: {
+    //       formOfEmployment: '',
+    //       jobTime: 100,
+    //       salary: {
+    //         amount: 1,
+    //         currency: '',
+    //         type: '',
+    //         period: ''
+    //       }
+    //     },
+    //     bonuses: [],
+    //     contactDetails: {
+    //       phone: '',
+    //       email: '',
+    //       www: ''
+    //     }
+    //   },
+    //   createDate: new Date(2017, 6, 12)
+    // },
   ];
 
   back: Offer[] = [
-    {
-      _id: '4',
-      position: 'Senior Java developer',
-      company: {_id: '1', name: 'Comarch S.A.', logo: ''},
-      category: {_id: '1', name: 'Backend'},
-      location: 'Rzeszów',
-      offerDetails: {
-        description: '',
-        requirements: [],
-        terms: {
-          formOfEmployment: '',
-          jobTime: 100,
-          salary: {
-            amount: 1,
-            currency: '',
-            type: '',
-            period: ''
-          }
-        },
-        bonuses: [],
-        contactDetails: {
-          phone: '',
-          email: '',
-          www: ''
-        }
-      },
-      createDate: new Date(2017, 9, 23)
-    },
-    {
-      _id: '5',
-      position: 'Junior Scala developer',
-      company: {_id: '1', name: 'Comarch S.A.', logo: ''},
-      category: {_id: '1', name: 'Backend'},
-      location: 'Rzeszów',
-      offerDetails: {
-        description: '',
-        requirements: [],
-        terms: {
-          formOfEmployment: '',
-          jobTime: 100,
-          salary: {
-            amount: 1,
-            currency: '',
-            type: '',
-            period: ''
-          }
-        },
-        bonuses: [],
-        contactDetails: {
-          phone: '',
-          email: '',
-          www: ''
-        }
-      },
-      createDate: new Date(2017, 5, 18)
-    },
-    {
-      _id: '6',
-      position: 'Python developer',
-      company: {_id: '1', name: 'PGS Software', logo: ''},
-      category: {_id: '1', name: 'Backend'},
-      location: 'Rzeszów',
-      offerDetails: {
-        description: '',
-        requirements: [],
-        terms: {
-          formOfEmployment: '',
-          jobTime: 100,
-          salary: {
-            amount: 1,
-            currency: '',
-            type: '',
-            period: ''
-          }
-        },
-        bonuses: [],
-        contactDetails: {
-          phone: '',
-          email: '',
-          www: ''
-        }
-      },
-      createDate: new Date(2017, 4, 16)
-    },
+    // {
+    //   _id: '4',
+    //   position: 'Senior Java developer',
+    //   company: {_id: '1', name: 'Comarch S.A.', logo: ''},
+    //   category: {_id: '1', name: 'Backend'},
+    //   location: 'Rzeszów',
+    //   offerDetails: {
+    //     description: '',
+    //     requirements: [],
+    //     terms: {
+    //       formOfEmployment: '',
+    //       jobTime: 100,
+    //       salary: {
+    //         amount: 1,
+    //         currency: '',
+    //         type: '',
+    //         period: ''
+    //       }
+    //     },
+    //     bonuses: [],
+    //     contactDetails: {
+    //       phone: '',
+    //       email: '',
+    //       www: ''
+    //     }
+    //   },
+    //   createDate: new Date(2017, 9, 23)
+    // },
+    // {
+    //   _id: '5',
+    //   position: 'Junior Scala developer',
+    //   company: {_id: '1', name: 'Comarch S.A.', logo: ''},
+    //   category: {_id: '1', name: 'Backend'},
+    //   location: 'Rzeszów',
+    //   offerDetails: {
+    //     description: '',
+    //     requirements: [],
+    //     terms: {
+    //       formOfEmployment: '',
+    //       jobTime: 100,
+    //       salary: {
+    //         amount: 1,
+    //         currency: '',
+    //         type: '',
+    //         period: ''
+    //       }
+    //     },
+    //     bonuses: [],
+    //     contactDetails: {
+    //       phone: '',
+    //       email: '',
+    //       www: ''
+    //     }
+    //   },
+    //   createDate: new Date(2017, 5, 18)
+    // },
+    // {
+    //   _id: '6',
+    //   position: 'Python developer',
+    //   company: {_id: '1', name: 'PGS Software', logo: ''},
+    //   category: {_id: '1', name: 'Backend'},
+    //   location: 'Rzeszów',
+    //   offerDetails: {
+    //     description: '',
+    //     requirements: [],
+    //     terms: {
+    //       formOfEmployment: '',
+    //       jobTime: 100,
+    //       salary: {
+    //         amount: 1,
+    //         currency: '',
+    //         type: '',
+    //         period: ''
+    //       }
+    //     },
+    //     bonuses: [],
+    //     contactDetails: {
+    //       phone: '',
+    //       email: '',
+    //       www: ''
+    //     }
+    //   },
+    //   createDate: new Date(2017, 4, 16)
+    // },
   ];
 
   constructor() {

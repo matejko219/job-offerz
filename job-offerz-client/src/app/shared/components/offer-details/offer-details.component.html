@@ -1,12 +1,12 @@
 <mat-card>
 
   <mat-card-header>
-    <img mat-card-avatar src="assets/img/ca.png" alt="company logo">
-    <mat-card-title>Senior frontend developer (Angular4)</mat-card-title>
-    <mat-card-subtitle>@Comarch S.A.</mat-card-subtitle>
+    <img mat-card-avatar [src]="offer?.company?.logo" alt="company logo">
+    <mat-card-title>{{offer?.position}}</mat-card-title>
+    <mat-card-subtitle>@{{offer?.company?.name}}</mat-card-subtitle>
     <div fxFlex="auto" style="text-align: right;">
       <mat-icon color="primary">event</mat-icon>
-      <span>28.10.2017</span>
+      <span>{{offer?.createDate | date:'dd-MM-yyyy'}}</span>
       <app-fav-button [favEnabled]="authService.isUserLogged()"></app-fav-button>
     </div>
   </mat-card-header>
@@ -23,10 +23,7 @@
             <mat-card-title class="detail-group-title">Opis stanowiska</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            Poszukujemy doświadczonego frontend developera do pracy przy projekcie
-            związanym z przepisaniem aplikacji desktopowej na aplikację webową w
-            technologii Angular 4. Oferujemy stabilne zatrudnienie w firmie z
-            polskim kapitałem oraz pracę w zespole doświadczonych specjalistów.
+            {{offer?.offerDetails?.description}}
           </mat-card-content>
         </mat-card>
 
@@ -39,44 +36,9 @@
             <div fxLayout="row" fxLayout.lt-sm="column">
 
               <div class="requirements-wrap">
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">Angular4</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
-                </div>
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">TypeScript</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
-                </div>
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">ES6</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
-                </div>
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">HTML</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
-                </div>
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">CSS</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
-                </div>
-              </div>
-
-              <div class="requirements-wrap">
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">Język angielski</div>
-                  <app-star-rate [value]="2" [disabled]="true"></app-star-rate>
-                </div>
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">Praca w zespole</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
-                </div>
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">Komunikatywność</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
-                </div>
-                <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">Dyspozycyjność</div>
-                  <app-star-rate [value]="3" [disabled]="true"></app-star-rate>
+                <div *ngFor="let req of offer?.offerDetails?.requirements" class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                  <div class="detail-param">{{req?.name}}</div>
+                  <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
                 </div>
               </div>
 
@@ -97,22 +59,22 @@
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Forma zatrudnienia:</div>
-              <div>umowa o pracę</div>
+              <div>{{offer?.offerDetails?.terms?.formOfEmployment}}</div>
             </div>
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Wymiar etatu:</div>
-              <div>100%</div>
+              <div>{{offer?.offerDetails?.terms?.jobTime}}%</div>
             </div>
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Wynagrodzenie:</div>
-              <div>8000PLN netto / miesięcznie</div>
+              <div>{{offer?.offerDetails?.terms?.salary?.amount}}{{offer?.offerDetails?.terms?.salary?.currency}} {{offer?.offerDetails?.terms?.salary?.type}} / {{offer?.offerDetails?.terms?.salary?.period}}</div>
             </div>
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Miejsce pracy:</div>
-              <div>Rzeszów</div>
+              <div>{{offer?.location}}</div>
             </div>
 
           </mat-card-content>
@@ -125,12 +87,7 @@
             <mat-card-title class="detail-group-title">Dodatkowo</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="detail-param-wrap detail-param">Karta MultiSport</div>
-            <div class="detail-param-wrap detail-param">Prywatna opieka zdrowotna</div>
-            <div class="detail-param-wrap detail-param">Pokrycie kosztów szkoleń</div>
-            <div class="detail-param-wrap detail-param">2 do 3 LCD 23"</div>
-            <div class="detail-param-wrap detail-param">Konsola do gier dla pracowników</div>
-            <div class="detail-param-wrap detail-param"></div>
+            <div *ngFor="let bonus of offer?.offerDetails?.bonuses" class="detail-param-wrap detail-param">{{bonus?.description}}</div>
           </mat-card-content>
         </mat-card>
 
@@ -143,17 +100,17 @@
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Telefon:</div>
-              <div>555777999</div>
+              <div>{{offer?.offerDetails?.contactDetails?.phone}}</div>
             </div>
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Email:</div>
-              <div><a href="mailto:kariera@comarch.pl">kariera@comarch.pl</a></div>
+              <div><a href="{{offer?.offerDetails?.contactDetails?.email}}">{{offer?.offerDetails?.contactDetails?.email}}</a></div>
             </div>
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">WWW:</div>
-              <div><a target="_blank" href="https://www.comarch.pl/">https://www.comarch.pl/</a></div>
+              <div><a *ngIf="offer?.offerDetails?.contactDetails?.www" target="_blank" href="{{offer?.offerDetails?.contactDetails?.www}}">{{offer?.offerDetails?.contactDetails?.www}}</a></div>
             </div>
           </mat-card-content>
         </mat-card>

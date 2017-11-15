@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {BasicCrud} from "./basic-crud.interface";
 import {Offer} from "../models/offer";
 import {Observable} from "rxjs";
-import {Http} from "@angular/http";
+import {Http, URLSearchParams} from "@angular/http";
 import {HttpUtils} from "../utils/http-utils";
 
 @Injectable()
@@ -17,7 +17,8 @@ export class OfferService implements BasicCrud<Offer> {
   }
 
   get(_id: string): Observable<Offer> {
-    return undefined;
+    return this.http.get(`${this.baseUrl}/${_id}`)
+      .map(HttpUtils.mapResponse);
   }
 
   add(obj: Offer): Observable<Offer> {

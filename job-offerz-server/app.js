@@ -9,7 +9,6 @@ const config = require('./config/config');
 const initDbScript = require('./config/init-db-script');
 const errorHandlers = require('./middlewares/error-handlers');
 const appRoutes = require('./routes');
-const bluebird = require('bluebird');
 
 const app = express();
 
