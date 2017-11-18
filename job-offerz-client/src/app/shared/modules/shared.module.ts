@@ -24,6 +24,8 @@ import {StarHoverDirective} from "../components/star-rate/directives/star-hover.
 import {CompanyService} from "../../services/company.service";
 import {CategoryService} from "../../services/category.service";
 import {OfferService} from "../../services/offer.service";
+import {SplitEvenPipe} from "../components/offer-details/pipe/split-even.pipe";
+import {LinkifyPipe} from "../pipes/linkify.pipe";
 
 @NgModule({
   imports: [
@@ -51,7 +53,9 @@ import {OfferService} from "../../services/offer.service";
     BonusesStepComponent,
     RequirementsStepComponent,
     StarRateComponent,
-    StarHoverDirective
+    StarHoverDirective,
+    SplitEvenPipe,
+    LinkifyPipe
   ],
   exports: [
     MaterialModule,

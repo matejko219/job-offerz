@@ -1,7 +1,7 @@
 <mat-card>
 
   <mat-card-header>
-    <img mat-card-avatar [src]="offer?.company?.logo" alt="company logo">
+    <img *ngIf="offer?.company?.logo" mat-card-avatar [src]="offer?.company?.logo" alt="company logo">
     <mat-card-title>{{offer?.position}}</mat-card-title>
     <mat-card-subtitle>@{{offer?.company?.name}}</mat-card-subtitle>
     <div fxFlex="auto" style="text-align: right;">
@@ -33,16 +33,23 @@
             <mat-card-title class="detail-group-title">Wymagania</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div fxLayout="row" fxLayout.lt-sm="column">
 
-              <div class="requirements-wrap">
-                <div *ngFor="let req of offer?.offerDetails?.requirements" class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-                  <div class="detail-param">{{req?.name}}</div>
-                  <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
-                </div>
+            <div *ngFor="let requirements of (offer?.offerDetails?.requirements | splitEven)" fxLayout="row"
+                 fxLayout.lt-sm="column" class="requirements-wrap" fxFlex="100">
+
+              <div *ngFor="let req of requirements?.even" class="detail-param-wrap" fxLayout="row" fxFlex.gt-sm="50"
+                   fxFlex="100">
+                <div class="detail-param">{{req?.name}}</div>
+                <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
               </div>
 
+              <div *ngFor="let req of requirements?.odd" class="detail-param-wrap" fxLayout="row" fxFlex.gt-sm="50"
+                   fxFlex="100">
+                <div class="detail-param">{{req?.name}}</div>
+                <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+              </div>
             </div>
+
           </mat-card-content>
         </mat-card>
 
@@ -69,7 +76,9 @@
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Wynagrodzenie:</div>
-              <div>{{offer?.offerDetails?.terms?.salary?.amount}}{{offer?.offerDetails?.terms?.salary?.currency}} {{offer?.offerDetails?.terms?.salary?.type}} / {{offer?.offerDetails?.terms?.salary?.period}}</div>
+              <div>{{offer?.offerDetails?.terms?.salary?.amount}}{{offer?.offerDetails?.terms?.salary?.currency}}
+                {{offer?.offerDetails?.terms?.salary?.type}} / {{offer?.offerDetails?.terms?.salary?.period}}
+              </div>
             </div>
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
@@ -87,7 +96,9 @@
             <mat-card-title class="detail-group-title">Dodatkowo</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div *ngFor="let bonus of offer?.offerDetails?.bonuses" class="detail-param-wrap detail-param">{{bonus?.description}}</div>
+            <div *ngFor="let bonus of offer?.offerDetails?.bonuses" class="detail-param-wrap detail-param">
+              {{bonus?.description}}
+            </div>
           </mat-card-content>
         </mat-card>
 
@@ -105,12 +116,13 @@
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">Email:</div>
-              <div><a href="{{offer?.offerDetails?.contactDetails?.email}}">{{offer?.offerDetails?.contactDetails?.email}}</a></div>
+              <!--<div><a href="{{offer?.offerDetails?.contactDetails?.email}}">{{offer?.offerDetails?.contactDetails?.email}}</a>-->
+              <div [innerHtml]="offer?.offerDetails?.contactDetails?.email | linkify"></div>
             </div>
 
             <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
               <div class="detail-param">WWW:</div>
-              <div><a *ngIf="offer?.offerDetails?.contactDetails?.www" target="_blank" href="{{offer?.offerDetails?.contactDetails?.www}}">{{offer?.offerDetails?.contactDetails?.www}}</a></div>
+              <div [innerHtml]="offer?.offerDetails?.contactDetails?.www | linkify"></div>
             </div>
           </mat-card-content>
         </mat-card>
