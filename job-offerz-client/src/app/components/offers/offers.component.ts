@@ -30,7 +30,6 @@ export class OffersComponent implements OnInit {
   loadOffersPage() {
     this.offerService.getPage(this.pageRequest, this.selectedCategory._id, this.filters).subscribe((page) => {
       this.offers = page;
-      console.log(page.docs);
     });
   }
 

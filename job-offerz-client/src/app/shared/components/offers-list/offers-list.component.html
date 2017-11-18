@@ -3,7 +3,7 @@
     *ngFor="let offer of offers?.docs"
     class="mat-elevation-z3"
     [routerLink]="['/offers', offer._id]">
-    <img [ngClass.gt-sm]="'company-logo-big'" [ngClass.lt-sm]="'company-logo'" [ngClass.sm]="'company-logo'" mat-list-icon src="assets/img/ca.png"
+    <img [ngClass.gt-sm]="'company-logo-big'" [ngClass.lt-sm]="'company-logo'" [ngClass.sm]="'company-logo'" mat-list-icon [src]="offer?.company?.logo"
          alt="company logo">
     <h3 matLine> {{offer?.position}} </h3>
     <p matLine>

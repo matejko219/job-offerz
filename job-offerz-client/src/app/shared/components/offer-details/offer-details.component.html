@@ -37,16 +37,18 @@
             <div *ngFor="let requirements of (offer?.offerDetails?.requirements | splitEven)" fxLayout="row"
                  fxLayout.lt-sm="column" class="requirements-wrap" fxFlex="100">
 
-              <div *ngFor="let req of requirements?.even" class="detail-param-wrap" fxLayout="row" fxFlex.gt-sm="50"
-                   fxFlex="100">
-                <div class="detail-param">{{req?.name}}</div>
-                <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+              <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
+                <div *ngFor="let req of requirements?.even" class="detail-param-wrap" fxLayout="row">
+                  <div class="detail-param">{{req?.name}}</div>
+                  <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+                </div>
               </div>
 
-              <div *ngFor="let req of requirements?.odd" class="detail-param-wrap" fxLayout="row" fxFlex.gt-sm="50"
-                   fxFlex="100">
-                <div class="detail-param">{{req?.name}}</div>
-                <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+              <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
+                <div *ngFor="let req of requirements?.odd" class="detail-param-wrap" fxLayout="row">
+                  <div class="detail-param">{{req?.name}}</div>
+                  <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+                </div>
               </div>
             </div>
 

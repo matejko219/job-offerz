@@ -23,6 +23,11 @@ export class OffersFilterComponent implements OnInit {
     this.filters = new OfferFilters();
   }
 
+  clearFilter(field: string) {
+    this.filters[field] = '';
+    this.onFiltersSubmit();
+  }
+
   onFiltersSubmit() {
     this.filtersChange.next(this.filters);
   }
