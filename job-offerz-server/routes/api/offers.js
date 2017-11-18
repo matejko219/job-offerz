@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const handleError = require('../../middlewares/error-handlers').handleError;
 const Offer = require('../../models/offer');
+const Company = require('../../models/company');
 
 /**
  * POST /api/offers
@@ -20,9 +21,9 @@ router.post('/', (req, res, next) => {
         .then(offer => {
             res.json(offer);
         }).catch((err) => {
-            console.log(err.stack);
-            handleError('Błąd podczas zapisu oferty.', 500, next);
-        });
+        console.log(err.stack);
+        handleError('Błąd podczas zapisu oferty.', 500, next);
+    });
 });
 
 /**
@@ -31,19 +32,53 @@ router.post('/', (req, res, next) => {
  * @return strona dokumentów kolekcji Offer
  */
 router.get('/', (req, res, next) => {
-    const query   = {};
+    const query = {};
+    const companyQuery = {};
+
+    const category = req.query.category;
+    if (category && category !== '-1' && category !== '') query['category'] = category;
+
+    let location = req.query.location;
+    if (location && location !== '') {
+        location = location.replace(/\\/g, '');
+        query['location'] = new RegExp(location, 'i');
+    }
+
+    let position = req.query.position;
+    if (position && position !== '') {
+        position = position.replace(/\\/g, '');
+        query['position'] = new RegExp(position, 'i');
+    }
+
+    let company = req.query.company;
+    if (company && company !== '') {
+        company = company.replace(/\\/g, '');
+        companyQuery['name'] = new RegExp(company, 'i');
+    }
+
+    const sortField = req.query.sortField || 'createDate';
+    let sortDir = req.query.sortDir;
+    if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = -1;
+
     const options = {
-        sort: { createDate: -1 },
+        sort: {[sortField]: sortDir},
         populate: ['category', 'company'],
         lean: true,
-        page: 1,
-        limit: 10
+        page: +req.query.page || 1,
+        limit: +req.query.limit || 5
     };
 
-    Offer.paginate(query, options)
-        .then(offers => {
+    Company.find(companyQuery)
+        .then(companies => {
+            const _ids = companies.map(company => company._id);
+            query['company'] = { "$in": _ids };
+            return Offer.paginate(query, options);
+
+        }).then(offers => {
             res.json(offers);
+
         }).catch((err) => {
+            console.log(err.stack);
             handleError('Błąd podczas pobierania ofert.', 500, next);
         });
 });

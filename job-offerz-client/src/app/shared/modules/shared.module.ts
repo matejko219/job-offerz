@@ -26,6 +26,7 @@ import {CategoryService} from "../../services/category.service";
 import {OfferService} from "../../services/offer.service";
 import {SplitEvenPipe} from "../components/offer-details/pipe/split-even.pipe";
 import {LinkifyPipe} from "../pipes/linkify.pipe";
+import {CategoriesSelectorComponent} from "../components/categories-selector/categories-selector.component";
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import {LinkifyPipe} from "../pipes/linkify.pipe";
     StarRateComponent,
     StarHoverDirective,
     SplitEvenPipe,
-    LinkifyPipe
+    LinkifyPipe,
+    CategoriesSelectorComponent
   ],
   exports: [
     MaterialModule,
@@ -74,7 +76,8 @@ import {LinkifyPipe} from "../pipes/linkify.pipe";
     BonusesStepComponent,
     RequirementsStepComponent,
     StarRateComponent,
-    StarHoverDirective
+    StarHoverDirective,
+    CategoriesSelectorComponent
   ],
   providers: [
     CompanyService,

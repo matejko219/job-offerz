@@ -1,5 +1,7 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Offer} from "../../../models/offer";
+import {Page} from "../../../models/pagination/page";
+import {PageRequest} from "../../../models/pagination/page-request";
 
 @Component({
   selector: 'app-offers-list',
@@ -9,7 +11,7 @@ import {Offer} from "../../../models/offer";
 export class OffersListComponent implements OnInit {
 
   @Input('offers')
-  offers: Offer[] = [];
+  offers: Page<Offer>;
 
   @Input('editEnabled')
   editEnabled: boolean = false;
@@ -17,9 +19,19 @@ export class OffersListComponent implements OnInit {
   @Input('favEnabled')
   favEnabled: boolean = false;
 
+  @Output()
+  pageChange: EventEmitter<PageRequest> = new EventEmitter<PageRequest>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setPage({pageSize, pageIndex}) {
+    const pageRequest = new PageRequest();
+    pageRequest.limit = pageSize;
+    pageRequest.page = pageIndex + 1;
+    this.pageChange.next(pageRequest);
   }
 
 }

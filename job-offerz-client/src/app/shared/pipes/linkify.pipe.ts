@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-const linkify = require('linkifyjs');
-const linkifyHtml = require('linkifyjs/html');
+import linkifyStr from 'linkifyjs/string';
 
 @Pipe({
   name: 'linkify'
@@ -8,9 +7,7 @@ const linkifyHtml = require('linkifyjs/html');
 export class LinkifyPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    if (value) {
-      return linkifyHtml(value);
-    }
+    return value ? linkifyStr(value) : value;
   }
 
 }

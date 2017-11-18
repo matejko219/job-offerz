@@ -1,0 +1,3 @@
+<mat-tab-group (selectedIndexChange)="selectedIndexChange($event)">
+  <mat-tab *ngFor="let category of categories" [label]="category.name"></mat-tab>
+</mat-tab-group>

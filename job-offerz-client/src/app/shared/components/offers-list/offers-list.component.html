@@ -1,24 +1,24 @@
 <mat-list>
   <mat-list-item
-    *ngFor="let offer of offers"
+    *ngFor="let offer of offers?.docs"
     class="mat-elevation-z3"
     [routerLink]="['/offers', offer._id]">
     <img [ngClass.gt-sm]="'company-logo-big'" [ngClass.lt-sm]="'company-logo'" [ngClass.sm]="'company-logo'" mat-list-icon src="assets/img/ca.png"
          alt="company logo">
-    <h3 matLine> {{offer.position}} </h3>
+    <h3 matLine> {{offer?.position}} </h3>
     <p matLine>
-      <span> @{{offer.company.name}} </span>
+      <span> @{{offer?.company?.name}} </span>
     </p>
     <p matLine class="category-wrapper">
       <mat-icon color="warn">label_outline</mat-icon>
-      <span>{{offer.category.name}}</span>
+      <span>{{offer?.category?.name}}</span>
     </p>
     <div fxLayout="column" fxFlex.lt-sm="20">
       <div fxLayout="row" fxHide.lt-sm>
         <mat-icon color="accent">location_on</mat-icon>
-        <span style="margin-right: 5px;"> {{offer.location}} </span>
+        <span style="margin-right: 5px;"> {{offer?.location}} </span>
         <mat-icon color="accent">event</mat-icon>
-        <span> {{offer.createDate | date:'dd.MM.yyyy'}} </span>
+        <span> {{offer?.createDate | date:'dd.MM.yyyy'}} </span>
       </div>
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center" *ngIf="editEnabled || favEnabled">
 
@@ -45,7 +45,9 @@
     </div>
   </mat-list-item>
 </mat-list>
-<mat-paginator [length]="30"
-               [pageSize]="5"
-               [pageSizeOptions]="[5, 10]">
+<mat-paginator [length]="offers?.total"
+               [pageIndex]="offers?.page - 1"
+               [pageSize]="offers?.limit"
+               [pageSizeOptions]="[5, 10]"
+               (page)="setPage($event)">
 </mat-paginator>

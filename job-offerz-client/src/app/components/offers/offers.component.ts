@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Offer} from "../../models/offer";
 import {Category} from "../../models/category";
+import {OfferService} from "../../services/offer.service";
+import {PageRequest} from "../../models/pagination/page-request";
+import {Page} from "../../models/pagination/page";
+import {OfferFilters} from "../../models/filters/offer-filters";
 
 @Component({
   selector: 'app-offers',
@@ -9,201 +13,53 @@ import {Category} from "../../models/category";
 })
 export class OffersComponent implements OnInit {
 
-  categories: Category[] = [
-    {
-      _id: '1',
-      name: 'Frontend'
-    },
-    {
-      _id: '2',
-      name: 'Backend'
-    }
-  ];
+  offers: Page<Offer>;
+  pageRequest: PageRequest;
+  selectedCategory: Category;
+  filters: OfferFilters;
 
-  offers: Offer[] = [];
-  front: Offer[] = [
-    // {
-    //   _id: '1',
-    //   position: 'Senior frontend developer (Angular4)',
-    //   company: {_id: '1', name: 'Comarch S.A.', logo: ''},
-    //   category: {_id: '1', name: 'Frontend'},
-    //   location: 'Rzeszów',
-    //   offerDetails: {
-    //     description: '',
-    //     requirements: [],
-    //     terms: {
-    //       formOfEmployment: '',
-    //       jobTime: 100,
-    //       salary: {
-    //         amount: 1,
-    //         currency: '',
-    //         type: '',
-    //         period: ''
-    //       }
-    //     },
-    //     bonuses: [],
-    //     contactDetails: {
-    //       phone: '',
-    //       email: '',
-    //       www: ''
-    //     }
-    //   },
-    //   createDate: new Date(2017, 9, 28)
-    // },
-    // {
-    //   _id: '2',
-    //   position: 'Junior frontend developer (React.js)',
-    //   company: {_id: '1', name: 'PGS Software', logo: ''},
-    //   category: {_id: '1', name: 'Frontend'},
-    //   location: 'Rzeszów',
-    //   offerDetails: {
-    //     description: '',
-    //     requirements: [],
-    //     terms: {
-    //       formOfEmployment: '',
-    //       jobTime: 100,
-    //       salary: {
-    //         amount: 1,
-    //         currency: '',
-    //         type: '',
-    //         period: ''
-    //       }
-    //     },
-    //     bonuses: [],
-    //     contactDetails: {
-    //       phone: '',
-    //       email: '',
-    //       www: ''
-    //     }
-    //   },
-    //   createDate: new Date(2017, 8, 22)
-    // },
-    // {
-    //   _id: '3',
-    //   position: 'Frontend developer (Vue.js)',
-    //   company: {_id: '1', name: 'Ailleron S.A.', logo: ''},
-    //   category: {_id: '1', name: 'Frontend'},
-    //   location: 'Rzeszów',
-    //   offerDetails: {
-    //     description: '',
-    //     requirements: [],
-    //     terms: {
-    //       formOfEmployment: '',
-    //       jobTime: 100,
-    //       salary: {
-    //         amount: 1,
-    //         currency: '',
-    //         type: '',
-    //         period: ''
-    //       }
-    //     },
-    //     bonuses: [],
-    //     contactDetails: {
-    //       phone: '',
-    //       email: '',
-    //       www: ''
-    //     }
-    //   },
-    //   createDate: new Date(2017, 6, 12)
-    // },
-  ];
-
-  back: Offer[] = [
-    // {
-    //   _id: '4',
-    //   position: 'Senior Java developer',
-    //   company: {_id: '1', name: 'Comarch S.A.', logo: ''},
-    //   category: {_id: '1', name: 'Backend'},
-    //   location: 'Rzeszów',
-    //   offerDetails: {
-    //     description: '',
-    //     requirements: [],
-    //     terms: {
-    //       formOfEmployment: '',
-    //       jobTime: 100,
-    //       salary: {
-    //         amount: 1,
-    //         currency: '',
-    //         type: '',
-    //         period: ''
-    //       }
-    //     },
-    //     bonuses: [],
-    //     contactDetails: {
-    //       phone: '',
-    //       email: '',
-    //       www: ''
-    //     }
-    //   },
-    //   createDate: new Date(2017, 9, 23)
-    // },
-    // {
-    //   _id: '5',
-    //   position: 'Junior Scala developer',
-    //   company: {_id: '1', name: 'Comarch S.A.', logo: ''},
-    //   category: {_id: '1', name: 'Backend'},
-    //   location: 'Rzeszów',
-    //   offerDetails: {
-    //     description: '',
-    //     requirements: [],
-    //     terms: {
-    //       formOfEmployment: '',
-    //       jobTime: 100,
-    //       salary: {
-    //         amount: 1,
-    //         currency: '',
-    //         type: '',
-    //         period: ''
-    //       }
-    //     },
-    //     bonuses: [],
-    //     contactDetails: {
-    //       phone: '',
-    //       email: '',
-    //       www: ''
-    //     }
-    //   },
-    //   createDate: new Date(2017, 5, 18)
-    // },
-    // {
-    //   _id: '6',
-    //   position: 'Python developer',
-    //   company: {_id: '1', name: 'PGS Software', logo: ''},
-    //   category: {_id: '1', name: 'Backend'},
-    //   location: 'Rzeszów',
-    //   offerDetails: {
-    //     description: '',
-    //     requirements: [],
-    //     terms: {
-    //       formOfEmployment: '',
-    //       jobTime: 100,
-    //       salary: {
-    //         amount: 1,
-    //         currency: '',
-    //         type: '',
-    //         period: ''
-    //       }
-    //     },
-    //     bonuses: [],
-    //     contactDetails: {
-    //       phone: '',
-    //       email: '',
-    //       www: ''
-    //     }
-    //   },
-    //   createDate: new Date(2017, 4, 16)
-    // },
-  ];
-
-  constructor() { }
+  constructor(private offerService: OfferService) { }
 
   ngOnInit() {
-    this.offers = this.front;
+    this.filters = new OfferFilters();
+    this.pageRequest = new PageRequest();
+    this.pageRequest.sortField = 'createDate';
+    this.pageRequest.sortDir = -1;
   }
 
-  selectedIndexChange(tabIndex) {
-    if (tabIndex === 0) this.offers = this.front;
-    else this.offers = this.back;
+  loadOffersPage() {
+    this.offerService.getPage(this.pageRequest, this.selectedCategory._id, this.filters).subscribe((page) => {
+      this.offers = page;
+      console.log(page.docs);
+    });
+  }
+
+  onPageChange(pageRequest: PageRequest) {
+    this.pageRequest = pageRequest;
+    this.pageRequest.sortField = 'createDate';
+    this.pageRequest.sortDir = -1;
+    this.loadOffersPage();
+  }
+
+  onCategoryChange(category: Category) {
+   this.selectedCategory = category;
+   this.resetPageToFirst();
+   this.loadOffersPage();
+  }
+
+  onFiltersChange(filters: OfferFilters) {
+    this.filters = filters;
+    this.resetPageToFirst();
+    this.loadOffersPage();
+  }
+
+  onSortDirChange(dir: number) {
+    this.pageRequest.sortDir = dir;
+    this.loadOffersPage();
+  }
+
+  resetPageToFirst() {
+    this.pageRequest.page = 1;
   }
 
 }

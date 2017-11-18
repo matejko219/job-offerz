@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, Response} from "@angular/http";
-import {Credentials} from "../../models/credentials";
+import {Credentials} from "../../models/login/credentials";
 import {Observable, BehaviorSubject} from "rxjs";
 import 'rxjs/add/operator/map'
 import {AppConsts} from "../../utils/app-consts";

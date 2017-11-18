@@ -1,23 +1,36 @@
 <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="offer-filter">
-
+<form #filterForm="ngForm" (ngSubmit)="onFiltersSubmit()">
   <mat-input-container>
     <input matInput
+           [(ngModel)]="filters.position"
            type="text"
-           placeholder="Stanowisko, firma">
+           name="position"
+           placeholder="Stanowisko">
   </mat-input-container>
 
   <mat-input-container>
     <input matInput
+           [(ngModel)]="filters.company"
            type="text"
+           name="company"
+           placeholder="Firma">
+  </mat-input-container>
+
+  <mat-input-container>
+    <input matInput
+           [(ngModel)]="filters.location"
+           type="text"
+           name="location"
            placeholder="Lokalizacja">
   </mat-input-container>
 
   <button color="primary"
+          type="submit"
           mat-raised-button>
     Szukaj
   </button>
-
-  <mat-slide-toggle color="primary" [checked]="true">
+</form>
+  <mat-slide-toggle color="primary" [checked]="true" (change)="onSortDirChange($event)">
     Sortuj po dacie malejąco
   </mat-slide-toggle>
 </div>

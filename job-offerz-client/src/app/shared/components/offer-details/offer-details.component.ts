@@ -24,8 +24,7 @@ export class OfferDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params) => {
-      //this._id = params['id'];
-      this._id = '5a0ff135f2fd881314932d90';
+      this._id = params['id'];
       this.offerService.get(this._id).subscribe((offer) => {
           this.offer = offer;
       },err => {
