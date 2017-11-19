@@ -53,6 +53,7 @@ const getOffersQueryOptions = (req) => {
     if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = -1;
 
     const options = {
+        select: '-offerDetails',
         sort: {[sortField]: sortDir},
         populate: ['category', 'company'],
         lean: true,
