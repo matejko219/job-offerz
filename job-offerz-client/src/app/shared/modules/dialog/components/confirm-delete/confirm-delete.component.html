@@ -1,0 +1,20 @@
+<div fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+  <div class="mat-body">
+    {{msg}}
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10px">
+    <button
+      mat-button
+      (click)="dialogRef.close(false)">
+      Anuluj
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="dialogRef.close(true)">
+      Usuń
+    </button>
+  </div>
+</div>

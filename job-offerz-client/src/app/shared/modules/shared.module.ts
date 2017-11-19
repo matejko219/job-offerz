@@ -28,6 +28,7 @@ import {SplitEvenPipe} from "../components/offer-details/pipe/split-even.pipe";
 import {LinkifyPipe} from "../pipes/linkify.pipe";
 import {CategoriesSelectorComponent} from "../components/categories-selector/categories-selector.component";
 import {FavoriteOfferService} from "../../services/favorite-offer.service";
+import {DialogModule} from "./dialog/dialog.module";
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {FavoriteOfferService} from "../../services/favorite-offer.service";
     FormsModule,
     RouterModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule
   ],
   declarations: [
     OfferDetailsComponent,

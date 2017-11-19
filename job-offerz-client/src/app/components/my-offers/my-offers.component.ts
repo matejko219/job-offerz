@@ -8,6 +8,7 @@ import {OfferService} from "../../services/offer.service";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
 import {FavoriteOfferService} from "../../services/favorite-offer.service";
 import {AppConsts} from "../../utils/app-consts";
+import {DialogService} from "../../shared/services/dialog.service";
 
 @Component({
   selector: 'app-my-offers',
@@ -28,7 +29,9 @@ export class MyOffersComponent implements OnInit {
 
   constructor(private offerService: OfferService,
               private favoriteOfferService: FavoriteOfferService,
-              private snackBarService: SnackBarService) { }
+              private dialogService: DialogService,
+              private snackBarService: SnackBarService) {
+  }
 
   ngOnInit() {
     this.filters = new OfferFilters();
@@ -123,12 +126,16 @@ export class MyOffersComponent implements OnInit {
   }
 
   onDeleteAction(_id: string) {
-    this.offerService.remove(_id).subscribe((result) => {
-      this.snackBarService.success('Oferta została usunięta');
-      this.resetPageToFirst();
-      this.loadOffersPage();
-    }, err => {
-      this.snackBarService.error(err);
+    this.dialogService.confirmDelete('Czy napewno chcesz usunąć ofertę?').subscribe((result) => {
+      if (result) {
+        this.offerService.remove(_id).subscribe((result) => {
+          this.snackBarService.success('Oferta została usunięta');
+          this.resetPageToFirst();
+          this.loadOffersPage();
+        }, err => {
+          this.snackBarService.error(err);
+        });
+      }
     });
   }
 
