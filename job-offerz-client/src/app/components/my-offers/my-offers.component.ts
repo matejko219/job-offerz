@@ -6,6 +6,7 @@ import {PageRequest} from "../../models/pagination/page-request";
 import {OfferFilters} from "../../models/filters/offer-filters";
 import {OfferService} from "../../services/offer.service";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
+import {FavoriteOfferService} from "../../services/favorite-offer.service";
 
 @Component({
   selector: 'app-my-offers',
@@ -24,6 +25,7 @@ export class MyOffersComponent implements OnInit {
   loading: boolean = false;
 
   constructor(private offerService: OfferService,
+              private favoriteOfferService: FavoriteOfferService,
               private snackBarService: SnackBarService) { }
 
   ngOnInit() {

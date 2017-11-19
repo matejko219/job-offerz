@@ -27,6 +27,7 @@ import {OfferService} from "../../services/offer.service";
 import {SplitEvenPipe} from "../components/offer-details/pipe/split-even.pipe";
 import {LinkifyPipe} from "../pipes/linkify.pipe";
 import {CategoriesSelectorComponent} from "../components/categories-selector/categories-selector.component";
+import {FavoriteOfferService} from "../../services/favorite-offer.service";
 
 @NgModule({
   imports: [
@@ -82,7 +83,8 @@ import {CategoriesSelectorComponent} from "../components/categories-selector/cat
   providers: [
     CompanyService,
     CategoryService,
-    OfferService
+    OfferService,
+    FavoriteOfferService
   ]
 })
 export class SharedModule { }

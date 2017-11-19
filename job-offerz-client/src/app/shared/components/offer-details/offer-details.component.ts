@@ -5,6 +5,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {OfferService} from "../../../services/offer.service";
 import {Offer} from "../../../models/offer";
 import {SnackBarService} from "../../services/snack-bar.service";
+import {FavoriteOfferService} from "../../../services/favorite-offer.service";
 
 @Component({
   selector: 'app-offer-details',
@@ -17,9 +18,11 @@ export class OfferDetailsComponent implements OnInit, OnDestroy {
   _id: string;
   offer: Offer;
   loading: boolean = false;
+  isInMyFavorite: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private offerService: OfferService,
+              private favoriteOfferService: FavoriteOfferService,
               private snackBarService: SnackBarService,
               public authService: AuthenticationService) { }
 
@@ -30,11 +33,39 @@ export class OfferDetailsComponent implements OnInit, OnDestroy {
       this.offerService.get(this._id).subscribe((offer) => {
           this.offer = offer;
           this.loading = false;
+          this.checkIfFavorite();
       }, err => {
         this.snackBarService.error(err);
         this.loading = false;
       });
     })
+  }
+
+  checkIfFavorite() {
+    if (this.authService.isUserLogged()) {
+      this.favoriteOfferService.isInMyFavorites(this.offer._id).subscribe((result) => {
+          this.isInMyFavorite = result;
+      }, err => {
+        this.snackBarService.error(err);
+      });
+    }
+  }
+
+  onFavClick() {
+    if (this.isInMyFavorite) {
+      this.favoriteOfferService.removeFromFavorites(this.offer._id).subscribe((result) => {
+          this.isInMyFavorite = !result;
+      }, err => {
+        this.snackBarService.error(err);
+      });
+
+    } else {
+      this.favoriteOfferService.addToFavorites(this.offer._id).subscribe((result) => {
+        this.isInMyFavorite = result;
+      }, err => {
+        this.snackBarService.error(err);
+      });
+    }
   }
 
   ngOnDestroy() {

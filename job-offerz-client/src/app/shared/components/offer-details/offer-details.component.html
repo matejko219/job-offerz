@@ -16,7 +16,12 @@
       <div fxFlex="auto" style="text-align: right;">
         <mat-icon color="primary">event</mat-icon>
         <span>{{offer?.createDate | date:'dd-MM-yyyy'}}</span>
-        <app-fav-button [favEnabled]="authService.isUserLogged()"></app-fav-button>
+        <app-fav-button
+          [isInMyFavorite]="isInMyFavorite"
+          (favClick)="onFavClick()"
+          [favEnabled]="authService.isUserLogged()">
+
+        </app-fav-button>
       </div>
     </mat-card-header>
 
