@@ -7,6 +7,8 @@ const handleError = require('../../middlewares/error-handlers').handleError;
 const Offer = require('../../models/offer');
 const Company = require('../../models/company');
 const jwtGuard = require('../../middlewares/jwt-guard');
+const getOffersParams = require('../../middlewares/params-resolvers/get-offers-params');
+const requiredParams = require('../../middlewares/params-resolvers/required-params');
 
 /**
  * POST /api/offers
@@ -40,42 +42,10 @@ router.post('/', jwtGuard, (req, res, next) => {
  * @param sortDir - porządek sortowania. Domyślnie -1 czyli malejący.
  * @return strona dokumentów kolekcji Offer
  */
-router.get('/', (req, res, next) => {
-    const query = {};
-    const companyQuery = {};
-
-    const category = req.query.category;
-    if (category && category !== '-1' && category !== '') query['category'] = category;
-
-    let location = req.query.location;
-    if (location && location !== '') {
-        location = location.replace(/\\/g, '');
-        query['location'] = new RegExp(location, 'i');
-    }
-
-    let position = req.query.position;
-    if (position && position !== '') {
-        position = position.replace(/\\/g, '');
-        query['position'] = new RegExp(position, 'i');
-    }
-
-    let company = req.query.company;
-    if (company && company !== '') {
-        company = company.replace(/\\/g, '');
-        companyQuery['name'] = new RegExp(company, 'i');
-    }
-
-    const sortField = req.query.sortField || 'createDate';
-    let sortDir = +req.query.sortDir;
-    if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = -1;
-
-    const options = {
-        sort: {[sortField]: sortDir},
-        populate: ['category', 'company'],
-        lean: true,
-        page: +req.query.page || 1,
-        limit: +req.query.limit || 5
-    };
+router.get('/', getOffersParams, (req, res, next) => {
+    const companyQuery = req.offersParams.companyQuery;
+    const query = req.offersParams.query;
+    const options = req.offersParams.options;
 
     Company.find(companyQuery)
         .then(companies => {
@@ -105,43 +75,10 @@ router.get('/', (req, res, next) => {
  * @param sortDir - porządek sortowania. Domyślnie -1 czyli malejący.
  * @return strona dokumentów kolekcji Offer dodanych przez zalogowanego użytkownika
  */
-router.get('/added', jwtGuard, (req, res, next) => {
-    const user_id = req.decodedUser._id;
-    const query = {user: user_id};
-    const companyQuery = {};
-
-    const category = req.query.category;
-    if (category && category !== '-1' && category !== '') query['category'] = category;
-
-    let location = req.query.location;
-    if (location && location !== '') {
-        location = location.replace(/\\/g, '');
-        query['location'] = new RegExp(location, 'i');
-    }
-
-    let position = req.query.position;
-    if (position && position !== '') {
-        position = position.replace(/\\/g, '');
-        query['position'] = new RegExp(position, 'i');
-    }
-
-    let company = req.query.company;
-    if (company && company !== '') {
-        company = company.replace(/\\/g, '');
-        companyQuery['name'] = new RegExp(company, 'i');
-    }
-
-    const sortField = req.query.sortField || 'createDate';
-    let sortDir = +req.query.sortDir;
-    if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = -1;
-
-    const options = {
-        sort: {[sortField]: sortDir},
-        populate: ['category', 'company'],
-        lean: true,
-        page: +req.query.page || 1,
-        limit: +req.query.limit || 5
-    };
+router.get('/added', jwtGuard, getOffersParams, (req, res, next) => {
+    const companyQuery = req.offersParams.companyQuery;
+    const query = req.offersParams.query;
+    const options = req.offersParams.options;
 
     Company.find(companyQuery)
         .then(companies => {
@@ -163,12 +100,8 @@ router.get('/added', jwtGuard, (req, res, next) => {
  * @param _id dokumentu Offer
  * @return dokument kolekcji Offer
  */
-router.get('/:_id', (req, res, next) => {
-    const _id = req.param('_id');
-
-    if (!_id) {
-        return handleError('Parametr _id jest wymagany.', 400, next);
-    }
+router.get('/:_id', requiredParams(['params._id']), (req, res, next) => {
+    const _id = req.params._id;
 
     Offer.findOne({_id: _id})
         .populate('category')
@@ -184,9 +117,5 @@ router.get('/:_id', (req, res, next) => {
 
         });
 });
-
-const resolveGetOffersParams = (req) => {
-
-};
 
 module.exports = router;

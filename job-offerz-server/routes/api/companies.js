@@ -3,26 +3,19 @@ const router = express.Router();
 const handleError = require('../../middlewares/error-handlers').handleError;
 const Company = require('../../models/company');
 const jwtGuard = require('../../middlewares/jwt-guard');
+const requiredParams = require('../../middlewares/params-resolvers/required-params');
 
 /**
  * POST /api/companies
  * @param obiekt klasy Company
  * @return dokument kolekcji Company utworzony po operacji zapisu
  */
-router.post('/', jwtGuard, (req, res, next) => {
+router.post('/', jwtGuard, requiredParams(['body.name', 'body.logo']), (req, res, next) => {
     const newCompany = req.body;
     const name = newCompany.name;
-    if (!name || name === '') {
-        return handleError('Parametr name jest wymagany.', 400, next);
-    }
 
     if (name.includes('\\')) {
         return handleError('Nazwa nie może zawierać znaku "\\".', 400, next);
-    }
-
-    const logo = req.body.logo;
-    if (!logo || logo === '') {
-        return handleError('Parametr logo jest wymagany.', 400, next);
     }
 
     Company.findOne({name: name}, (err, company) => {

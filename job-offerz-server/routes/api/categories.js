@@ -6,18 +6,16 @@ const router = express.Router();
 const handleError = require('../../middlewares/error-handlers').handleError;
 const Category = require('../../models/category');
 const jwtGuard = require('../../middlewares/jwt-guard');
+const requiredParams = require('../../middlewares/params-resolvers/required-params');
 
 /**
  * POST /api/categories
  * @param obiekt klasy Category
  * @return dokument kolekcji Category utworzony po operacji zapisu
  */
-router.post('/', jwtGuard, (req, res, next) => {
+router.post('/', jwtGuard, requiredParams(['body.name']), (req, res, next) => {
     const newCategory = req.body;
     const name = newCategory.name;
-    if (!name || name === '') {
-        return handleError('Parametr name jest wymagany.', 400, next);
-    }
 
     Category.findOne({name: name}, (err, category) => {
         if (err) {

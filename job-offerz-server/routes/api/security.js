@@ -10,22 +10,16 @@ const handleError = require('../../middlewares/error-handlers').handleError;
 const BCryptService = require('../../services/bcrypt-service');
 const jwtGuard = require('../../middlewares/jwt-guard');
 const AuthoritiesConsts = require('../../models/utils/authorities-consts');
+const requiredParams = require('../../middlewares/params-resolvers/required-params');
 
 /**
  * POST /api/authenticate
  * @param obiekt klasy Credentials
  * @return wygenerowany token dostępu
  */
-router.post('/authenticate', (req, res, next) =>{
+router.post('/authenticate', requiredParams(['body.login', 'body.password']), (req, res, next) =>{
     const login = req.body.login;
-    if (!login || login === '') {
-        return handleError('Parametr login jest wymagany.', 400, next);
-    }
-
     const password = req.body.password;
-    if (!password || password === '') {
-        return handleError('Parametr hasło jest wymagany.', 400, next);
-    }
 
     User.findOne({$or: [{login: login}, {email: login}]}, (err, user) =>{
         if (err) {
@@ -78,21 +72,11 @@ router.post('/authenticate', (req, res, next) =>{
  * @param  obiekt klasy User
  * @return true jeśli operacja się powiodła
  */
-router.post('/signup', (req, res, next) =>{
+router.post('/signup', requiredParams(['body.login', 'body.password', 'body.email']), (req, res, next) =>{
     const login = req.body.login;
-    if (!login || login === '') {
-        return handleError('Parametr login jest wymagany.', 400, next);
-    }
-
     const password = req.body.password;
-    if (!password || password === '') {
-        return handleError('Parametr hasło jest wymagany.', 400, next);
-    }
-
     const email = req.body.email;
-    if (!email || email === '') {
-        return handleError('Parametr email jest wymagany.', 400, next);
-    }
+
 
     User.findOne({$or: [{login: login}, {email: email}]}, (err, user) =>{
         if (err) return handleError('Błąd podczas rejestracji użytkownika', 500, next);
