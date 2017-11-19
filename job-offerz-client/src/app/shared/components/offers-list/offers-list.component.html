@@ -37,6 +37,7 @@
                   matTooltip="Edytuj oferte"
                   [matTooltipPosition]="'above'"
                   aria-label="Edytuj oferte"
+                  (click)="onEditClick($event, offer._id)"
                   color="primary">
             <mat-icon color="warn">edit</mat-icon>
           </button>
@@ -46,6 +47,7 @@
                   matTooltip="Usuń oferte"
                   [matTooltipPosition]="'above'"
                   aria-label="Usuń oferte"
+                  (click)="onDeleteClick($event, offer._id)"
                   color="primary">
             <mat-icon color="warn">delete</mat-icon>
           </button>

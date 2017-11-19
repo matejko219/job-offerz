@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Offer} from "../../../models/offer";
 import {Page} from "../../../models/pagination/page";
 import {PageRequest} from "../../../models/pagination/page-request";
+import {AppConsts} from "../../../utils/app-consts";
 
 @Component({
   selector: 'app-offers-list',
@@ -26,7 +27,7 @@ export class OffersListComponent implements OnInit {
   pageChange: EventEmitter<PageRequest> = new EventEmitter<PageRequest>();
 
   @Output()
-  favClick: EventEmitter<string> = new EventEmitter<string>();
+  actionClick: EventEmitter<{_id: string, type: string}> = new EventEmitter<{_id: string, type: string}>();
 
   constructor() { }
 
@@ -41,7 +42,17 @@ export class OffersListComponent implements OnInit {
   }
 
   emitFavClick(_id: string) {
-    this.favClick.next(_id);
+    this.actionClick.next({_id, type: AppConsts.ACTION_FAVORITE});
+  }
+
+  onDeleteClick(event: Event, _id: string) {
+    event.stopPropagation();
+    this.actionClick.next({_id, type: AppConsts.ACTION_DELETE});
+  }
+
+  onEditClick(event: Event, _id: string) {
+    event.stopPropagation();
+    this.actionClick.next({_id, type: AppConsts.ACTION_EDIT});
   }
 
 }

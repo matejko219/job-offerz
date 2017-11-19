@@ -30,6 +30,28 @@ router.post('/', jwtGuard, (req, res, next) => {
 });
 
 /**
+ * DELETE /api/offers/:_id
+ * @param _id dokumentu Offer
+ * @return true jeśli usunięcie się udało
+ */
+router.delete('/:_id', jwtGuard, requiredParams(['params._id']), (req, res, next) => {
+    const offerToDelete = {
+        _id: req.params._id,
+        user: req.decodedUser._id
+    };
+
+    Offer.remove(offerToDelete, (err, deletedOffer) => {
+        if (err) {
+            handleError('Błąd podczas usuwania oferty.', 500, next);
+
+        } else if (deletedOffer.result.n == 0) {
+            handleError('Oferta nie została usunięta.', 500, next);
+
+        } else res.json(true);
+    });
+});
+
+/**
  * GET /api/offers
  * @param category - _id dokumentu kolekcji Category po którym ma dopsaować zwracane dane
  *                  lub -1 jeśli wszytskie.

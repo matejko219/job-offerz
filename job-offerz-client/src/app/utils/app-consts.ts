@@ -7,4 +7,7 @@ export class AppConsts {
   public static readonly MAX_FILE_SIZE = 25;
   public static readonly MAX_IMAGE_WIDTH = 200;
   public static readonly MAX_IMAGE_HEIGHT = 200;
+  public static readonly ACTION_FAVORITE = 'favorite';
+  public static readonly ACTION_DELETE = 'delete';
+  public static readonly ACTION_EDIT = 'edit';
 }

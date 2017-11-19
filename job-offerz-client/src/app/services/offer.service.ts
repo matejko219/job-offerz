@@ -46,7 +46,8 @@ export class OfferService implements BasicCrud<Offer> {
   }
 
   remove(_id: string): Observable<boolean> {
-    return undefined;
+    return this.http.delete(`${this.baseUrl}/${_id}`)
+      .map(HttpUtils.mapResponse);
   }
 
 }

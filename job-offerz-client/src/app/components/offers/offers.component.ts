@@ -42,9 +42,7 @@ export class OffersComponent implements OnInit {
   }
 
   onPageChange(pageRequest: PageRequest) {
-    this.pageRequest = pageRequest;
-    this.pageRequest.sortField = 'createDate';
-    this.pageRequest.sortDir = -1;
+    this.pageRequest = {...this.pageRequest, ...pageRequest};
     this.loadOffersPage();
   }
 

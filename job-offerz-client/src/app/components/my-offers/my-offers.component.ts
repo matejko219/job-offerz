@@ -7,6 +7,7 @@ import {OfferFilters} from "../../models/filters/offer-filters";
 import {OfferService} from "../../services/offer.service";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
 import {FavoriteOfferService} from "../../services/favorite-offer.service";
+import {AppConsts} from "../../utils/app-consts";
 
 @Component({
   selector: 'app-my-offers',
@@ -64,9 +65,7 @@ export class MyOffersComponent implements OnInit {
   }
 
   onPageChange(pageRequest: PageRequest) {
-    this.pageRequest = pageRequest;
-    this.pageRequest.sortField = 'createDate';
-    this.pageRequest.sortDir = -1;
+    this.pageRequest = {...this.pageRequest, ...pageRequest};
     this.loadOffersPage();
   }
 
@@ -97,7 +96,23 @@ export class MyOffersComponent implements OnInit {
     this.loadOffersPage();
   }
 
-  onFavClick(_id: string) {
+  onActionClick(action: {_id: string, type: string}) {
+    switch (action.type) {
+      case AppConsts.ACTION_FAVORITE:
+        this.onFavoriteAction(action._id);
+        break;
+      case AppConsts.ACTION_DELETE:
+        this.onDeleteAction(action._id);
+        break;
+      case AppConsts.ACTION_EDIT:
+        this.onEditAction(action._id);
+        break;
+      default:
+        console.log('Akcja nie wspierana');
+    }
+  }
+
+  onFavoriteAction(_id: string) {
     this.favoriteOfferService.removeFromFavorites(_id).subscribe((result) => {
       this.snackBarService.success('Usunięto z ulubionych');
       this.resetPageToFirst();
@@ -105,6 +120,20 @@ export class MyOffersComponent implements OnInit {
     }, err => {
       this.snackBarService.error(err);
     });
+  }
+
+  onDeleteAction(_id: string) {
+    this.offerService.remove(_id).subscribe((result) => {
+      this.snackBarService.success('Oferta została usunięta');
+      this.resetPageToFirst();
+      this.loadOffersPage();
+    }, err => {
+      this.snackBarService.error(err);
+    });
+  }
+
+  onEditAction(_id: string) {
+    this.snackBarService.info('Edycja jeszcze nie wspierana :)');
   }
 
 }
