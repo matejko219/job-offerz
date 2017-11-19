@@ -8,13 +8,13 @@
 
   <mat-card-content>
 
-    <mat-tab-group>
-      <mat-tab [label]="addedLabel" #addedTab>
+    <mat-tab-group (selectedIndexChange)="selectedModeChange($event)">
+      <mat-tab [label]="addedLabel">
         <ng-template mat-tab-label>
           <mat-icon color="primary">add</mat-icon> {{addedLabel}}
         </ng-template>
       </mat-tab>
-      <mat-tab [label]="favoriteLabel" #favoriteTab>
+      <mat-tab [label]="favoriteLabel">
         <ng-template mat-tab-label>
           <mat-icon color="primary">bookmark</mat-icon> {{favoriteLabel}}
         </ng-template>
@@ -26,7 +26,7 @@
 
     </app-offers-filter>
 
-    <div *ngIf="addedTab?.isActive" [routerLink]="['add']">
+    <div *ngIf="mode == 'added'" [routerLink]="['add']">
       <button mat-raised-button aria-label="Dodaj oferte" color="primary" fxFlex.lt-sm="100" fxFlex="25">
         <mat-icon>add</mat-icon>
         Dodaj oferte
@@ -39,8 +39,9 @@
       [offers]="offers"
       [loading]="loading"
       (pageChange)="onPageChange($event)"
-      [editEnabled]="addedTab?.isActive"
-      [favEnabled]="favoriteTab?.isActive">
+      [editEnabled]="mode == 'added'"
+      (favClick)="onFavClick($event)"
+      [favEnabled]="mode == 'favorite'">
     </app-offers-list>
 
   </mat-card-content>

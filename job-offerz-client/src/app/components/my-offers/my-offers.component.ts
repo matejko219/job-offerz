@@ -23,6 +23,7 @@ export class MyOffersComponent implements OnInit {
   selectedCategory: Category;
   filters: OfferFilters;
   loading: boolean = false;
+  mode: 'added' | 'favorite' = 'added';
 
   constructor(private offerService: OfferService,
               private favoriteOfferService: FavoriteOfferService,
@@ -37,7 +38,23 @@ export class MyOffersComponent implements OnInit {
 
   loadOffersPage() {
     this.loading = true;
+    if (this.mode == 'added') {
+      this.loadAdded();
+    } else this.loadFavorite();
+  }
+
+  loadAdded() {
     this.offerService.getAddedPage(this.pageRequest, this.selectedCategory._id, this.filters).subscribe((page) => {
+      this.offers = page;
+      this.loading = false;
+    }, err => {
+      this.snackBarService.error(err);
+      this.loading = false;
+    });
+  }
+
+  loadFavorite() {
+    this.favoriteOfferService.getPage(this.pageRequest, this.selectedCategory._id, this.filters).subscribe((page) => {
       this.offers = page;
       this.loading = false;
     }, err => {
@@ -72,6 +89,22 @@ export class MyOffersComponent implements OnInit {
 
   resetPageToFirst() {
     this.pageRequest.page = 1;
+  }
+
+  selectedModeChange(tabIndex: number) {
+    this.mode = tabIndex == 0 ? 'added' : 'favorite';
+    this.resetPageToFirst();
+    this.loadOffersPage();
+  }
+
+  onFavClick(_id: string) {
+    this.favoriteOfferService.removeFromFavorites(_id).subscribe((result) => {
+      this.snackBarService.success('Usunięto z ulubionych');
+      this.resetPageToFirst();
+      this.loadOffersPage();
+    }, err => {
+      this.snackBarService.error(err);
+    });
   }
 
 }

@@ -25,6 +25,9 @@ export class OffersListComponent implements OnInit {
   @Output()
   pageChange: EventEmitter<PageRequest> = new EventEmitter<PageRequest>();
 
+  @Output()
+  favClick: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {
@@ -35,6 +38,10 @@ export class OffersListComponent implements OnInit {
     pageRequest.limit = pageSize;
     pageRequest.page = pageIndex + 1;
     this.pageChange.next(pageRequest);
+  }
+
+  emitFavClick(_id: string) {
+    this.favClick.next(_id);
   }
 
 }

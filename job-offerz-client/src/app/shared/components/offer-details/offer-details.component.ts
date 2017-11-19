@@ -55,6 +55,7 @@ export class OfferDetailsComponent implements OnInit, OnDestroy {
     if (this.isInMyFavorite) {
       this.favoriteOfferService.removeFromFavorites(this.offer._id).subscribe((result) => {
           this.isInMyFavorite = !result;
+          this.snackBarService.success('Usunięto z ulubionych');
       }, err => {
         this.snackBarService.error(err);
       });
@@ -62,6 +63,7 @@ export class OfferDetailsComponent implements OnInit, OnDestroy {
     } else {
       this.favoriteOfferService.addToFavorites(this.offer._id).subscribe((result) => {
         this.isInMyFavorite = result;
+        this.snackBarService.success('Dodano do ulubionych');
       }, err => {
         this.snackBarService.error(err);
       });

@@ -24,7 +24,8 @@ export class FavButtonComponent implements OnInit {
   ngOnInit() {
   }
 
-  emitClick() {
+  emitClick(event: Event) {
+    event.stopPropagation();
     this.favClick.next();
   }
 

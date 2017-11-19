@@ -50,7 +50,12 @@
             <mat-icon color="warn">delete</mat-icon>
           </button>
 
-          <app-fav-button [favEnabled]="favEnabled"></app-fav-button>
+          <app-fav-button
+            (favClick)="emitFavClick(offer._id)"
+            [isInMyFavorite]="true"
+            [favEnabled]="favEnabled">
+
+          </app-fav-button>
         </div>
       </div>
     </mat-list-item>

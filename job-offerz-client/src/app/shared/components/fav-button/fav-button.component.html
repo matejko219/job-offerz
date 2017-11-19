@@ -2,7 +2,7 @@
         *ngIf="favEnabled"
         matTooltip="{{isInMyFavorite ? deleteLabel : addLabel}}"
         [matTooltipPosition]="'above'"
-        (click)="emitClick()"
+        (click)="emitClick($event)"
         color="primary">
   <mat-icon color="warn">{{isInMyFavorite ? 'bookmark' : 'bookmark_border'}}</mat-icon>
 </button>
