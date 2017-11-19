@@ -5,10 +5,10 @@ const express = require('express');
 const router = express.Router();
 const handleError = require('../../middlewares/error-handlers').handleError;
 const Offer = require('../../models/offer');
-const Company = require('../../models/company');
 const jwtGuard = require('../../middlewares/jwt-guard');
 const getOffersParams = require('../../middlewares/params-resolvers/get-offers-params');
 const requiredParams = require('../../middlewares/params-resolvers/required-params');
+const OffersService = require('../../services/offers-service');
 
 /**
  * POST /api/offers
@@ -42,25 +42,7 @@ router.post('/', jwtGuard, (req, res, next) => {
  * @param sortDir - porządek sortowania. Domyślnie -1 czyli malejący.
  * @return strona dokumentów kolekcji Offer
  */
-router.get('/', getOffersParams, (req, res, next) => {
-    const companyQuery = req.offersParams.companyQuery;
-    const query = req.offersParams.query;
-    const options = req.offersParams.options;
-
-    Company.find(companyQuery)
-        .then(companies => {
-            const _ids = companies.map(company => company._id);
-            query['company'] = { "$in": _ids };
-            return Offer.paginate(query, options);
-
-        }).then(offers => {
-            res.json(offers);
-
-        }).catch((err) => {
-            console.log(err.stack);
-            handleError('Błąd podczas pobierania ofert.', 500, next);
-        });
-});
+router.get('/', getOffersParams, OffersService.getOffersPage);
 
 /**
  * GET /api/offers/added
@@ -75,25 +57,7 @@ router.get('/', getOffersParams, (req, res, next) => {
  * @param sortDir - porządek sortowania. Domyślnie -1 czyli malejący.
  * @return strona dokumentów kolekcji Offer dodanych przez zalogowanego użytkownika
  */
-router.get('/added', jwtGuard, getOffersParams, (req, res, next) => {
-    const companyQuery = req.offersParams.companyQuery;
-    const query = req.offersParams.query;
-    const options = req.offersParams.options;
-
-    Company.find(companyQuery)
-        .then(companies => {
-            const _ids = companies.map(company => company._id);
-            query['company'] = { "$in": _ids };
-            return Offer.paginate(query, options);
-
-        }).then(offers => {
-            res.json(offers);
-
-        }).catch((err) => {
-            console.log(err.stack);
-            handleError('Błąd podczas pobierania ofert.', 500, next);
-        });
-});
+router.get('/added', jwtGuard, getOffersParams, OffersService.getOffersPage);
 
 /**
  * GET /api/offers/:_id
