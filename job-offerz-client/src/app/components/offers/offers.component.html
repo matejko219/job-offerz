@@ -16,6 +16,7 @@
     <app-categories-selector (categoryChange)="onCategoryChange($event)"></app-categories-selector>
 
     <app-offers-list [offers]="offers"
+                     [loading]="loading"
                      (pageChange)="onPageChange($event)">
 
     </app-offers-list>

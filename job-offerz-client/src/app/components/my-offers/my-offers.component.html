@@ -37,6 +37,7 @@
 
     <app-offers-list
       [offers]="offers"
+      [loading]="loading"
       (pageChange)="onPageChange($event)"
       [editEnabled]="addedTab?.isActive"
       [favEnabled]="favoriteTab?.isActive">

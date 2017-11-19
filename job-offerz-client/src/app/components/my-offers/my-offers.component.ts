@@ -5,6 +5,7 @@ import {Page} from "../../models/pagination/page";
 import {PageRequest} from "../../models/pagination/page-request";
 import {OfferFilters} from "../../models/filters/offer-filters";
 import {OfferService} from "../../services/offer.service";
+import {SnackBarService} from "../../shared/services/snack-bar.service";
 
 @Component({
   selector: 'app-my-offers',
@@ -20,8 +21,10 @@ export class MyOffersComponent implements OnInit {
   pageRequest: PageRequest;
   selectedCategory: Category;
   filters: OfferFilters;
+  loading: boolean = false;
 
-  constructor(private offerService: OfferService) { }
+  constructor(private offerService: OfferService,
+              private snackBarService: SnackBarService) { }
 
   ngOnInit() {
     this.filters = new OfferFilters();
@@ -31,8 +34,13 @@ export class MyOffersComponent implements OnInit {
   }
 
   loadOffersPage() {
-    this.offerService.getPage(this.pageRequest, this.selectedCategory._id, this.filters).subscribe((page) => {
+    this.loading = true;
+    this.offerService.getAddedPage(this.pageRequest, this.selectedCategory._id, this.filters).subscribe((page) => {
       this.offers = page;
+      this.loading = false;
+    }, err => {
+      this.snackBarService.error(err);
+      this.loading = false;
     });
   }
 

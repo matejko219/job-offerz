@@ -6,13 +6,14 @@ const router = express.Router();
 const handleError = require('../../middlewares/error-handlers').handleError;
 const Offer = require('../../models/offer');
 const Company = require('../../models/company');
+const jwtGuard = require('../../middlewares/jwt-guard');
 
 /**
  * POST /api/offers
  * @param obiekt klasy Offer
  * @return dokument kolekcji Offer utworzony po operacji zapisu
  */
-router.post('/', (req, res, next) => {
+router.post('/', jwtGuard, (req, res, next) => {
     const offer = req.body;
     offer.user = req.decodedUser._id;
 
@@ -28,7 +29,15 @@ router.post('/', (req, res, next) => {
 
 /**
  * GET /api/offers
- * @param
+ * @param category - _id dokumentu kolekcji Category po którym ma dopsaować zwracane dane
+ *                  lub -1 jeśli wszytskie.
+ * @param location - nazwa miejscowości do której przypisano oferte.
+ * @param position - nazwa stanowiska jakiego dotyczy oferta.
+ * @param company - nazwa firmy dla której mają zostać znalezione dane.
+ * @param page - numer strony zaczynając od 1. Domyślnie 1.
+ * @param limit - ile elementów na stronie. Domyślnie 5.
+ * @param sortField - pole po którym na nastąpić sortowanie. Domyślnie 'createDate'.
+ * @param sortDir - porządek sortowania. Domyślnie -1 czyli malejący.
  * @return strona dokumentów kolekcji Offer
  */
 router.get('/', (req, res, next) => {
@@ -57,7 +66,73 @@ router.get('/', (req, res, next) => {
     }
 
     const sortField = req.query.sortField || 'createDate';
-    let sortDir = req.query.sortDir;
+    let sortDir = +req.query.sortDir;
+    if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = -1;
+
+    const options = {
+        sort: {[sortField]: sortDir},
+        populate: ['category', 'company'],
+        lean: true,
+        page: +req.query.page || 1,
+        limit: +req.query.limit || 5
+    };
+
+    Company.find(companyQuery)
+        .then(companies => {
+            const _ids = companies.map(company => company._id);
+            query['company'] = { "$in": _ids };
+            return Offer.paginate(query, options);
+
+        }).then(offers => {
+            res.json(offers);
+
+        }).catch((err) => {
+            console.log(err.stack);
+            handleError('Błąd podczas pobierania ofert.', 500, next);
+        });
+});
+
+/**
+ * GET /api/offers/added
+ * @param category - _id dokumentu kolekcji Category po którym ma dopsaować zwracane dane
+ *                  lub -1 jeśli wszytskie.
+ * @param location - nazwa miejscowości do której przypisano oferte.
+ * @param position - nazwa stanowiska jakiego dotyczy oferta.
+ * @param company - nazwa firmy dla której mają zostać znalezione dane.
+ * @param page - numer strony zaczynając od 1. Domyślnie 1.
+ * @param limit - ile elementów na stronie. Domyślnie 5.
+ * @param sortField - pole po którym na nastąpić sortowanie. Domyślnie 'createDate'.
+ * @param sortDir - porządek sortowania. Domyślnie -1 czyli malejący.
+ * @return strona dokumentów kolekcji Offer dodanych przez zalogowanego użytkownika
+ */
+router.get('/added', jwtGuard, (req, res, next) => {
+    const user_id = req.decodedUser._id;
+    const query = {user: user_id};
+    const companyQuery = {};
+
+    const category = req.query.category;
+    if (category && category !== '-1' && category !== '') query['category'] = category;
+
+    let location = req.query.location;
+    if (location && location !== '') {
+        location = location.replace(/\\/g, '');
+        query['location'] = new RegExp(location, 'i');
+    }
+
+    let position = req.query.position;
+    if (position && position !== '') {
+        position = position.replace(/\\/g, '');
+        query['position'] = new RegExp(position, 'i');
+    }
+
+    let company = req.query.company;
+    if (company && company !== '') {
+        company = company.replace(/\\/g, '');
+        companyQuery['name'] = new RegExp(company, 'i');
+    }
+
+    const sortField = req.query.sortField || 'createDate';
+    let sortDir = +req.query.sortDir;
     if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = -1;
 
     const options = {
@@ -109,5 +184,9 @@ router.get('/:_id', (req, res, next) => {
 
         });
 });
+
+const resolveGetOffersParams = (req) => {
+
+};
 
 module.exports = router;

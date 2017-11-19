@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Offer} from "../../models/offer";
 import {OfferService} from "../../services/offer.service";
-import {Http} from "@angular/http";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
 
 @Component({

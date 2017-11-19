@@ -21,6 +21,12 @@ export class OfferService implements BasicCrud<Offer> {
       .map(HttpUtils.mapResponse);
   }
 
+  getAddedPage(pageRequest: PageRequest, category: string, filters: OfferFilters): Observable<Page<Offer>> {
+    const params = {...pageRequest, category, ...filters};
+    return this.http.get(`${this.baseUrl}/added`, {params})
+      .map(HttpUtils.mapResponse);
+  }
+
   getAll(): Observable<Offer[]> {
     return undefined;
   }

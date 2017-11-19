@@ -13,6 +13,9 @@ export class OffersListComponent implements OnInit {
   @Input('offers')
   offers: Page<Offer>;
 
+  @Input('loading')
+  loading: boolean = false;
+
   @Input('editEnabled')
   editEnabled: boolean = false;
 

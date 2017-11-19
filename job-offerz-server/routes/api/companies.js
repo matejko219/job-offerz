@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const handleError = require('../../middlewares/error-handlers').handleError;
 const Company = require('../../models/company');
+const jwtGuard = require('../../middlewares/jwt-guard');
 
 /**
  * POST /api/companies
  * @param obiekt klasy Company
  * @return dokument kolekcji Company utworzony po operacji zapisu
  */
-router.post('/', (req, res, next) => {
+router.post('/', jwtGuard, (req, res, next) => {
     const newCompany = req.body;
     const name = newCompany.name;
     if (!name || name === '') {
@@ -47,7 +48,7 @@ router.post('/', (req, res, next) => {
  * @param name  znaki zawierające się w nazwie dokumentu kolekcji Company. Parametr opcjonalny
  * @return lista dokumentów kolekcji Company pasujących do zapytania z parametrem name
  */
-router.get('/', (req, res, next) => {
+router.get('/', jwtGuard, (req, res, next) => {
     let name = req.query.name;
 
     if (name) name = name.replace(/\\/g, '');

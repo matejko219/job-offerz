@@ -121,14 +121,11 @@ router.post('/signup', (req, res, next) =>{
     });
 });
 
-// Set route jwt guard
-router.use(jwtGuard);
-
 /**
  * GET /api/logout
  * @return true jeśli wylogowywanie się powiodło
  */
-router.get('/logout', (req, res, next) =>{
+router.get('/logout', jwtGuard, (req, res, next) =>{
     GrantedToken.remove({user: req.decodedUser._id}, err =>{
         if (err) handleError('Błąd podczas wylogowywania', 500, next);
         else res.json({

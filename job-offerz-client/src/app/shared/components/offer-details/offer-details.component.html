@@ -1,138 +1,148 @@
-<mat-card>
+<div fxLayout="column">
+  <div fxFlex="100" fxLayoutAlign="center center">
+    <mat-progress-spinner
+      *ngIf="loading"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
 
-  <mat-card-header>
-    <img *ngIf="offer?.company?.logo" mat-card-avatar [src]="offer?.company?.logo" alt="company logo">
-    <mat-card-title>{{offer?.position}}</mat-card-title>
-    <mat-card-subtitle>@{{offer?.company?.name}}</mat-card-subtitle>
-    <div fxFlex="auto" style="text-align: right;">
-      <mat-icon color="primary">event</mat-icon>
-      <span>{{offer?.createDate | date:'dd-MM-yyyy'}}</span>
-      <app-fav-button [favEnabled]="authService.isUserLogged()"></app-fav-button>
-    </div>
-  </mat-card-header>
+  <mat-card *ngIf="offer">
 
-  <mat-card-content>
+    <mat-card-header>
+      <img *ngIf="offer?.company?.logo" mat-card-avatar [src]="offer?.company?.logo" alt="company logo">
+      <mat-card-title>{{offer?.position}}</mat-card-title>
+      <mat-card-subtitle>{{'@' + offer?.company?.name}}</mat-card-subtitle>
+      <div fxFlex="auto" style="text-align: right;">
+        <mat-icon color="primary">event</mat-icon>
+        <span>{{offer?.createDate | date:'dd-MM-yyyy'}}</span>
+        <app-fav-button [favEnabled]="authService.isUserLogged()"></app-fav-button>
+      </div>
+    </mat-card-header>
 
-    <div fxLayout="column" fxLayoutGap="20px">
+    <mat-card-content>
 
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+      <div fxLayout="column" fxLayoutGap="20px">
 
-        <mat-card fxFlex.gt-sm="50" fxFlex="100">
-          <mat-card-header class="details-header">
-            <mat-icon mat-card-avatar color="primary" class="avatar">description</mat-icon>
-            <mat-card-title class="detail-group-title">Opis stanowiska</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            {{offer?.offerDetails?.description}}
-          </mat-card-content>
-        </mat-card>
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
 
-        <mat-card fxFlex.gt-sm="50" fxFlex="100">
-          <mat-card-header class="details-header">
-            <mat-icon mat-card-avatar color="primary" class="avatar">assignment_turned_in</mat-icon>
-            <mat-card-title class="detail-group-title">Wymagania</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+          <mat-card fxFlex.gt-sm="50" fxFlex="100">
+            <mat-card-header class="details-header">
+              <mat-icon mat-card-avatar color="primary" class="avatar">description</mat-icon>
+              <mat-card-title class="detail-group-title">Opis stanowiska</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{offer?.offerDetails?.description}}
+            </mat-card-content>
+          </mat-card>
 
-            <div *ngFor="let requirements of (offer?.offerDetails?.requirements | splitEven)" fxLayout="row"
-                 fxLayout.lt-sm="column" class="requirements-wrap" fxFlex="100">
+          <mat-card fxFlex.gt-sm="50" fxFlex="100">
+            <mat-card-header class="details-header">
+              <mat-icon mat-card-avatar color="primary" class="avatar">assignment_turned_in</mat-icon>
+              <mat-card-title class="detail-group-title">Wymagania</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
 
-              <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
-                <div *ngFor="let req of requirements?.even" class="detail-param-wrap" fxLayout="row">
-                  <div class="detail-param">{{req?.name}}</div>
-                  <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+              <div *ngFor="let requirements of (offer?.offerDetails?.requirements | splitEven)" fxLayout="row"
+                   fxLayout.lt-sm="column" class="requirements-wrap" fxFlex="100">
+
+                <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
+                  <div *ngFor="let req of requirements?.even" class="detail-param-wrap" fxLayout="row">
+                    <div class="detail-param">{{req?.name}}</div>
+                    <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+                  </div>
+                </div>
+
+                <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
+                  <div *ngFor="let req of requirements?.odd" class="detail-param-wrap" fxLayout="row">
+                    <div class="detail-param">{{req?.name}}</div>
+                    <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+                  </div>
                 </div>
               </div>
 
-              <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
-                <div *ngFor="let req of requirements?.odd" class="detail-param-wrap" fxLayout="row">
-                  <div class="detail-param">{{req?.name}}</div>
-                  <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+
+          <mat-card fxFlex="33" fxFlex.lt-sm="100">
+            <mat-card-header class="details-header">
+              <mat-icon mat-card-avatar color="primary" class="avatar">attach_money</mat-icon>
+              <mat-card-title class="detail-group-title">Warunki zatrudnienia</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+              <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                <div class="detail-param">Forma zatrudnienia:</div>
+                <div>{{offer?.offerDetails?.terms?.formOfEmployment}}</div>
+              </div>
+
+              <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                <div class="detail-param">Wymiar etatu:</div>
+                <div>{{offer?.offerDetails?.terms?.jobTime}}%</div>
+              </div>
+
+              <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                <div class="detail-param">Wynagrodzenie:</div>
+                <div>{{offer?.offerDetails?.terms?.salary?.amount}}{{offer?.offerDetails?.terms?.salary?.currency}}
+                  {{offer?.offerDetails?.terms?.salary?.type}} / {{offer?.offerDetails?.terms?.salary?.period}}
                 </div>
               </div>
-            </div>
 
-          </mat-card-content>
-        </mat-card>
-
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
-
-        <mat-card fxFlex="33" fxFlex.lt-sm="100">
-          <mat-card-header class="details-header">
-            <mat-icon mat-card-avatar color="primary" class="avatar">attach_money</mat-icon>
-            <mat-card-title class="detail-group-title">Warunki zatrudnienia</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-
-            <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-              <div class="detail-param">Forma zatrudnienia:</div>
-              <div>{{offer?.offerDetails?.terms?.formOfEmployment}}</div>
-            </div>
-
-            <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-              <div class="detail-param">Wymiar etatu:</div>
-              <div>{{offer?.offerDetails?.terms?.jobTime}}%</div>
-            </div>
-
-            <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-              <div class="detail-param">Wynagrodzenie:</div>
-              <div>{{offer?.offerDetails?.terms?.salary?.amount}}{{offer?.offerDetails?.terms?.salary?.currency}}
-                {{offer?.offerDetails?.terms?.salary?.type}} / {{offer?.offerDetails?.terms?.salary?.period}}
+              <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                <div class="detail-param">Miejsce pracy:</div>
+                <div>{{offer?.location}}</div>
               </div>
-            </div>
 
-            <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-              <div class="detail-param">Miejsce pracy:</div>
-              <div>{{offer?.location}}</div>
-            </div>
+            </mat-card-content>
 
-          </mat-card-content>
+          </mat-card>
 
-        </mat-card>
+          <mat-card fxFlex="33" fxFlex.lt-sm="100">
+            <mat-card-header class="details-header">
+              <mat-icon mat-card-avatar color="primary" class="avatar">card_giftcard</mat-icon>
+              <mat-card-title class="detail-group-title">Dodatkowo</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div *ngFor="let bonus of offer?.offerDetails?.bonuses" class="detail-param-wrap detail-param">
+                {{bonus?.description}}
+              </div>
+            </mat-card-content>
+          </mat-card>
 
-        <mat-card fxFlex="33" fxFlex.lt-sm="100">
-          <mat-card-header class="details-header">
-            <mat-icon mat-card-avatar color="primary" class="avatar">card_giftcard</mat-icon>
-            <mat-card-title class="detail-group-title">Dodatkowo</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <div *ngFor="let bonus of offer?.offerDetails?.bonuses" class="detail-param-wrap detail-param">
-              {{bonus?.description}}
-            </div>
-          </mat-card-content>
-        </mat-card>
+          <mat-card fxFlex="33" fxFlex.lt-sm="100">
+            <mat-card-header class="details-header">
+              <mat-icon mat-card-avatar color="primary" class="avatar">contact_mail</mat-icon>
+              <mat-card-title class="detail-group-title">Kontakt</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
 
-        <mat-card fxFlex="33" fxFlex.lt-sm="100">
-          <mat-card-header class="details-header">
-            <mat-icon mat-card-avatar color="primary" class="avatar">contact_mail</mat-icon>
-            <mat-card-title class="detail-group-title">Kontakt</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+              <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                <div class="detail-param">Telefon:</div>
+                <div>{{offer?.offerDetails?.contactDetails?.phone}}</div>
+              </div>
 
-            <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-              <div class="detail-param">Telefon:</div>
-              <div>{{offer?.offerDetails?.contactDetails?.phone}}</div>
-            </div>
+              <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                <div class="detail-param">Email:</div>
+                <!--<div><a href="{{offer?.offerDetails?.contactDetails?.email}}">{{offer?.offerDetails?.contactDetails?.email}}</a>-->
+                <div [innerHtml]="offer?.offerDetails?.contactDetails?.email | linkify"></div>
+              </div>
 
-            <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-              <div class="detail-param">Email:</div>
-              <!--<div><a href="{{offer?.offerDetails?.contactDetails?.email}}">{{offer?.offerDetails?.contactDetails?.email}}</a>-->
-              <div [innerHtml]="offer?.offerDetails?.contactDetails?.email | linkify"></div>
-            </div>
+              <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
+                <div class="detail-param">WWW:</div>
+                <div [innerHtml]="offer?.offerDetails?.contactDetails?.www | linkify"></div>
+              </div>
+            </mat-card-content>
+          </mat-card>
 
-            <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
-              <div class="detail-param">WWW:</div>
-              <div [innerHtml]="offer?.offerDetails?.contactDetails?.www | linkify"></div>
-            </div>
-          </mat-card-content>
-        </mat-card>
+        </div>
 
       </div>
 
-    </div>
+    </mat-card-content>
 
-  </mat-card-content>
-
-</mat-card>
+  </mat-card>
+</div>

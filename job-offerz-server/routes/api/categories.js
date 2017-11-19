@@ -5,13 +5,14 @@ const express = require('express');
 const router = express.Router();
 const handleError = require('../../middlewares/error-handlers').handleError;
 const Category = require('../../models/category');
+const jwtGuard = require('../../middlewares/jwt-guard');
 
 /**
  * POST /api/categories
  * @param obiekt klasy Category
  * @return dokument kolekcji Category utworzony po operacji zapisu
  */
-router.post('/', (req, res, next) => {
+router.post('/', jwtGuard, (req, res, next) => {
     const newCategory = req.body;
     const name = newCategory.name;
     if (!name || name === '') {
@@ -38,7 +39,6 @@ router.post('/', (req, res, next) => {
 
 /**
  * GET /api/categories
- * @param
  * @return lista dokumentów kolekcji Category
  */
 router.get('/', (req, res, next) => {
