@@ -118,7 +118,6 @@ export class MyOffersComponent implements OnInit {
   onFavoriteAction(_id: string) {
     this.favoriteOfferService.removeFromFavorites(_id).subscribe((result) => {
       this.snackBarService.success('Usunięto z ulubionych');
-      this.resetPageToFirst();
       this.loadOffersPage();
     }, err => {
       this.snackBarService.error(err);
@@ -130,7 +129,6 @@ export class MyOffersComponent implements OnInit {
       if (result) {
         this.offerService.remove(_id).subscribe((result) => {
           this.snackBarService.success('Oferta została usunięta');
-          this.resetPageToFirst();
           this.loadOffersPage();
         }, err => {
           this.snackBarService.error(err);

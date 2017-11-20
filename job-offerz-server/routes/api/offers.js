@@ -89,7 +89,7 @@ router.get('/added', jwtGuard, getOffersParams, OffersService.getOffersPage);
 router.get('/:_id', requiredParams(['params._id']), (req, res, next) => {
     const _id = req.params._id;
 
-    Offer.findOne({_id: _id})
+    Offer.findById(_id)
         .populate('category')
         .populate('company')
         .exec((err, offer) => {
