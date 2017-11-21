@@ -7,24 +7,29 @@
     </mat-progress-spinner>
   </div>
 
-  <mat-list *ngIf="!loading">
-    <mat-list-item
+  <div *ngIf="!loading" fxLayout="column">
+    <div
       *ngFor="let offer of offers?.docs"
-      class="mat-elevation-z3"
+      class="mat-elevation-z3 offer-list-item"
       [routerLink]="['/offers', offer._id]">
-      <img [ngClass.gt-sm]="'company-logo-big'" [ngClass.lt-sm]="'company-logo'" [ngClass.sm]="'company-logo'"
-           mat-list-icon [src]="offer?.company?.logo"
-           alt="company logo">
-      <h3 matLine> {{offer?.position}} </h3>
-      <p matLine>
-        <span> {{'@' + offer?.company?.name}} </span>
-      </p>
-      <p matLine class="category-wrapper">
-        <mat-icon color="warn">label_outline</mat-icon>
-        <span>{{offer?.category?.name}}</span>
-      </p>
-      <div fxLayout="column" fxFlex.lt-sm="20">
-        <div fxLayout="row" fxHide.lt-sm>
+
+      <div fxLayout="row" fxLayoutGap="3px" fxFlex="80">
+        <img class="avatar company-logo-big" [ngClass.lt-sm]="'company-logo'"
+             [src]="offer?.company?.logo"
+             alt="company logo">
+
+        <div fxLayout="column">
+          <span class="position">{{offer?.position}}</span>
+          <span>{{'@' + offer?.company?.name}}</span>
+          <div class="category-wrapper">
+            <mat-icon color="warn">label_outline</mat-icon>
+            <span>{{offer?.category?.name}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center center">
           <mat-icon color="accent">location_on</mat-icon>
           <span style="margin-right: 5px;"> {{offer?.location}} </span>
           <mat-icon color="accent">event</mat-icon>
@@ -60,8 +65,8 @@
           </app-fav-button>
         </div>
       </div>
-    </mat-list-item>
-  </mat-list>
+    </div>
+  </div>
   <mat-paginator [length]="offers?.total"
                  [pageIndex]="offers?.page - 1"
                  [pageSize]="offers?.limit"

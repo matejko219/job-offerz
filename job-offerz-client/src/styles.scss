@@ -41,3 +41,8 @@ span.field-placeholder {
 span.field-placeholder.required::after {
   content: " *";
 }
+
+.list-item {
+  padding: 15px 15px 15px 15px;
+  margin-bottom: 5px;
+}
