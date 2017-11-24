@@ -12,6 +12,7 @@ import {JwtHelper} from "angular2-jwt";
 import {OnlyLoggedIn} from "./shared/guards/only-logged-in.service";
 import 'hammerjs';
 import {GestureConfig} from "@angular/material";
+import { EditOfferComponent } from './components/edit-offer/edit-offer.component';
 
 @NgModule({
   declarations: [

@@ -5,6 +5,7 @@ import {MyOffersComponent} from "./my-offers.component";
 const routes: Routes = [
   {path: '', component: MyOffersComponent},
   {path: 'add', loadChildren:  'app/components/add-offer/add-offer.module#AddOfferModule'},
+  {path: 'edit/:id', loadChildren:  'app/components/edit-offer/edit-offer.module#EditOfferModule'}
 ];
 
 @NgModule({

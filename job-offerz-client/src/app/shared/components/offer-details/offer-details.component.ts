@@ -38,7 +38,7 @@ export class OfferDetailsComponent implements OnInit, OnDestroy {
         this.snackBarService.error(err);
         this.loading = false;
       });
-    })
+    });
   }
 
   checkIfFavorite() {

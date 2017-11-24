@@ -16,6 +16,9 @@ export class CompanyStepComponent implements OnInit, OnDestroy {
   @Input('formGroup')
   formGroup: FormGroup;
 
+  @Input()
+  companyToEdit: Company;
+
   companyAutoCompleteSub: Subscription;
   companyAutoCtrl: FormControl;
   filteredCompanies: Company[];
@@ -44,6 +47,10 @@ export class CompanyStepComponent implements OnInit, OnDestroy {
           });
         } else this.filteredCompanies = null;
       });
+
+    if (this.companyToEdit) {
+      this.companyAutoCtrl.setValue(this.companyToEdit);
+    }
   }
 
   ngOnDestroy(): void {

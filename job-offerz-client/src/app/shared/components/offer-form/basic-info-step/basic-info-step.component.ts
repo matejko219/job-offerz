@@ -29,4 +29,8 @@ export class BasicInfoStepComponent implements OnInit {
     });
   }
 
+  compareCategory(category1: Category, category2: Category) {
+    return category1._id === category2._id;
+  }
+
 }

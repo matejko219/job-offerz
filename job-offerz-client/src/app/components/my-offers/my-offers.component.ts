@@ -9,6 +9,7 @@ import {SnackBarService} from "../../shared/services/snack-bar.service";
 import {FavoriteOfferService} from "../../services/favorite-offer.service";
 import {AppConsts} from "../../utils/app-consts";
 import {DialogService} from "../../shared/services/dialog.service";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-my-offers',
@@ -30,6 +31,8 @@ export class MyOffersComponent implements OnInit {
   constructor(private offerService: OfferService,
               private favoriteOfferService: FavoriteOfferService,
               private dialogService: DialogService,
+              private router: Router,
+              private route: ActivatedRoute,
               private snackBarService: SnackBarService) {
   }
 
@@ -138,7 +141,7 @@ export class MyOffersComponent implements OnInit {
   }
 
   onEditAction(_id: string) {
-    this.snackBarService.info('Edycja jeszcze nie wspierana :)');
+    this.router.navigate(['edit', _id], {relativeTo: this.route});
   }
 
 }

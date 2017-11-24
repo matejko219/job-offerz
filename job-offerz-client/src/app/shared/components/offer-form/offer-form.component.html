@@ -14,7 +14,8 @@
 
     <ng-template matStepLabel>Firma</ng-template>
 
-    <app-company-step [formGroup]="companyFormGroup"></app-company-step>
+    <app-company-step [companyToEdit]="offerToEdit?.company"
+                      [formGroup]="companyFormGroup"></app-company-step>
 
     <div fxLayoutAlign="end" style="padding-top: 20px">
       <button mat-button matStepperPrevious type="button">Wstecz</button>
@@ -38,7 +39,8 @@
 
     <ng-template matStepLabel>Wymagania</ng-template>
 
-    <app-requirements-step [formGroup]="requirementsFormGroup"></app-requirements-step>
+    <app-requirements-step [requirementsToEdit]="offerToEdit?.offerDetails?.requirements"
+                           [formGroup]="requirementsFormGroup"></app-requirements-step>
 
     <div fxLayoutAlign="end">
       <button mat-button matStepperPrevious type="button">Wstecz</button>
@@ -62,7 +64,8 @@
 
     <ng-template matStepLabel>Dodatki</ng-template>
 
-    <app-bonuses-step [formGroup]="bonusesFormGroup"></app-bonuses-step>
+    <app-bonuses-step [bonusesToEdit]="offerToEdit?.offerDetails?.bonuses"
+                      [formGroup]="bonusesFormGroup"></app-bonuses-step>
 
     <div fxLayoutAlign="end">
       <button mat-button matStepperPrevious type="button">Wstecz</button>
@@ -83,7 +86,7 @@
         color="primary"
         (click)="submit()"
         [disabled]="!formGroupsWrapper.valid"
-        type="button">Dodaj ofertę</button>
+        type="button">{{offerToEdit ? 'Zapisz zmiany' : 'Dodaj ofertę'}}</button>
     </div>
   </mat-step>
 

@@ -1,9 +1,10 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
 import {FormGroup, Validators, FormArray, FormBuilder} from "@angular/forms";
 import {OfferFormConsts} from "../../../../utils/offer-form-consts";
 import {SnackBarService} from "../../../services/snack-bar.service";
 import {FormUtils} from "../../../../utils/form-utils";
 import {createStarRateValidator} from "../../star-rate/star-rate.component";
+import {Requirement} from "../../../../models/requirement";
 
 @Component({
   selector: 'app-requirements-step',
@@ -14,6 +15,9 @@ export class RequirementsStepComponent implements OnInit {
 
   @Input('formGroup')
   formGroup: FormGroup;
+
+  @Input()
+  requirementsToEdit: Requirement[];
 
   formArray: FormArray;
 
@@ -26,15 +30,19 @@ export class RequirementsStepComponent implements OnInit {
 
   ngOnInit() {
     this.formArray = this.getArrayControl();
+    if (this.requirementsToEdit) {
+      this.requirementsToEdit.forEach(req => {
+        this.addRequirement(req.name, req.rate);
+      });
+    }
   }
 
-  addRequirement() {
-    //const control = this.getArrayControl();
+  addRequirement(name?: string, rate?: number) {
     if (this.formArray.length < OfferFormConsts.MAX_REQ_ITEMS) {
       this.formArray.push(
         this.formBuilder.group({
-          name: ['', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_REQ_NAME_LENGTH)])],
-          rate: [1, Validators.compose([Validators.required, createStarRateValidator(this.minStarsRate)])]
+          name: [name || '', Validators.compose([Validators.required, Validators.maxLength(OfferFormConsts.MAX_REQ_NAME_LENGTH)])],
+          rate: [rate || 1, Validators.compose([Validators.required, createStarRateValidator(this.minStarsRate)])]
         })
       );
     } else {
@@ -43,7 +51,6 @@ export class RequirementsStepComponent implements OnInit {
   }
 
   removeRequirement(index: number) {
-    //const control = this.getArrayControl();
     this.formArray.removeAt(index);
   }
 

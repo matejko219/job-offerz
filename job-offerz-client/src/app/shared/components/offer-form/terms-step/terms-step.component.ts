@@ -16,23 +16,9 @@ export class TermsStepComponent implements OnInit {
   salaryTypes = ['brutto', 'netto'];
   periods = ['miesiąc', 'tydzień', 'dzień', 'godzina'];
 
-  salary = {
-    amount: 0,
-    currency: 'PLN',
-    type: 'brutto',
-    period: 'miesiąc'
-  }
-
   constructor() { }
 
   ngOnInit() {
-    this.formGroup.patchValue({
-      terms: {
-        formOfEmployment: this.formOfEmployment[0],
-        jobTime: '100',
-        salary: this.salary
-      }
-    });
   }
 
 }

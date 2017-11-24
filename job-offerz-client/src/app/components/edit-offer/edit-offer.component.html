@@ -1,0 +1,27 @@
+<mat-card>
+
+  <mat-card-header>
+    <mat-icon mat-card-avatar color="primary" class="avatar">edit</mat-icon>
+    <mat-card-title>Formularz edycji oferty</mat-card-title>
+    <mat-card-subtitle>Edytuj oferte</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div fxFlex="100" fxLayoutAlign="center center" *ngIf="loading">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
+
+    <app-offer-form
+      *ngIf="offerToEdit"
+      [offerToEdit]="offerToEdit"
+      (onSubmit)="onSubmit($event)">
+
+    </app-offer-form>
+
+  </mat-card-content>
+
+</mat-card>

@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input, AfterViewInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {OfferFormConsts} from "../../../utils/offer-form-consts";
 import {validPhoneFactory} from "../../../directives/valid-phone.directive";
@@ -21,6 +21,9 @@ export class OfferFormComponent implements OnInit {
   termsFormGroup: FormGroup;
   bonusesFormGroup: FormGroup;
   contactFormGroup: FormGroup;
+
+  @Input()
+  offerToEdit: Offer;
 
   @Output()
   onSubmit: EventEmitter<Offer> = new EventEmitter<Offer>();
@@ -48,13 +51,13 @@ export class OfferFormComponent implements OnInit {
 
     this.termsFormGroup = this.formBuilder.group({
       terms: this.formBuilder.group({
-        formOfEmployment: ['', Validators.required],
-        jobTime: ['', Validators.required],
+        formOfEmployment: ['Umowa o pracę', Validators.required],
+        jobTime: ['100', Validators.required],
         salary: this.formBuilder.group({
-          amount: ['', Validators.compose([Validators.required, Validators.min(0)])],
-          currency: ['', Validators.required],
-          type: ['', Validators.required],
-          period: ['', Validators.required]
+          amount: ['0', Validators.compose([Validators.required, Validators.min(0)])],
+          currency: ['PLN', Validators.required],
+          type: ['brutto', Validators.required],
+          period: ['miesiąc', Validators.required]
         })
       })
     });
@@ -80,6 +83,10 @@ export class OfferFormComponent implements OnInit {
       bonuses: this.bonusesFormGroup,
       contactDetails: this.contactFormGroup,
     });
+
+    if (this.offerToEdit) {
+      this.patchOfferToForm();
+    }
   }
 
   submit() {
@@ -96,8 +103,16 @@ export class OfferFormComponent implements OnInit {
       ...this.companyFormGroup.getRawValue(),
       offerDetails
     };
-    
+
     this.onSubmit.next(offer);
+  }
+
+  patchOfferToForm() {
+    this.basicInfoFormGroup.patchValue(this.offerToEdit);
+    this.companyFormGroup.patchValue(this.offerToEdit);
+    this.descriptionFormGroup.patchValue(this.offerToEdit.offerDetails);
+    this.termsFormGroup.patchValue(this.offerToEdit.offerDetails);
+    this.contactFormGroup.patchValue(this.offerToEdit.offerDetails);
   }
 
 }
