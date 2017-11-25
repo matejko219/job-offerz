@@ -42,7 +42,8 @@ export class OfferService implements BasicCrud<Offer> {
   }
 
   update(obj: Offer): Observable<Offer> {
-    return undefined;
+    return this.http.put(this.baseUrl, obj)
+      .map(HttpUtils.mapResponse);
   }
 
   remove(_id: string): Observable<boolean> {

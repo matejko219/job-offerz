@@ -53,14 +53,14 @@
 
                 <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
                   <div *ngFor="let req of requirements?.even" class="detail-param-wrap" fxLayout="row">
-                    <div class="detail-param">{{req?.name}}</div>
+                    <div class="detail-param" fxFlex="50">{{req?.name}}</div>
                     <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
                   </div>
                 </div>
 
                 <div fxLayout="column" fxFlex.gt-sm="50" fxFlex="100">
                   <div *ngFor="let req of requirements?.odd" class="detail-param-wrap" fxLayout="row">
-                    <div class="detail-param">{{req?.name}}</div>
+                    <div class="detail-param" fxFlex="50">{{req?.name}}</div>
                     <app-star-rate [value]="req?.rate" [disabled]="true"></app-star-rate>
                   </div>
                 </div>

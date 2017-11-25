@@ -9,6 +9,7 @@ const jwtGuard = require('../../middlewares/jwt-guard');
 const getOffersParams = require('../../middlewares/params-resolvers/get-offers-params');
 const requiredParams = require('../../middlewares/params-resolvers/required-params');
 const OffersService = require('../../services/offers-service');
+const AuthoritiesConsts = require('../../models/utils/authorities-consts');
 
 /**
  * POST /api/offers
@@ -24,8 +25,46 @@ router.post('/', jwtGuard, (req, res, next) => {
         .then(offer => {
             res.json(offer);
         }).catch((err) => {
-        console.log(err.stack);
-        handleError('Błąd podczas zapisu oferty.', 500, next);
+            console.log(err.stack);
+            handleError('Błąd podczas zapisu oferty.', 500, next);
+    });
+});
+
+/**
+ * PUT /api/offers
+ * @param obiekt klasy Offer
+ * @return dokument kolekcji Offer po jego aktualizacji
+ */
+router.put('/', jwtGuard, (req, res, next) => {
+    const updatedOffer = req.body;
+    const decodedUser = req.decodedUser;
+
+    const offerToUpdate = {
+        _id: updatedOffer._id
+    };
+
+    if (decodedUser.authority !== AuthoritiesConsts.ROLE_ADMIN) {
+        if (decodedUser._id !== updatedOffer.user) {
+            return handleError('Brak uprawnień do edycji oferty.', 403, next);
+        } else offerToUpdate['user'] = decodedUser._id;
+    }
+
+    Offer.findOne(offerToUpdate)
+        .then(offer => {
+            if (!offer) handleError('Brak oferty o podanym _id.', 404, next);
+            else {
+                offer.set(updatedOffer);
+                offer.save()
+                    .then(offer => {
+                        res.json(offer);
+                    }).catch((err) => {
+                        console.log(err.stack);
+                        handleError('Błąd podczas zapisu zmian oferty.', 500, next);
+                });
+            }
+        }).catch(err => {
+            console.log(err.stack);
+            handleError('Błąd podczas edycji oferty.', 500, next);
     });
 });
 
@@ -35,10 +74,14 @@ router.post('/', jwtGuard, (req, res, next) => {
  * @return true jeśli usunięcie się udało
  */
 router.delete('/:_id', jwtGuard, requiredParams(['params._id']), (req, res, next) => {
+    const decodedUser = req.decodedUser;
     const offerToDelete = {
-        _id: req.params._id,
-        user: req.decodedUser._id
+        _id: req.params._id
     };
+
+    if (decodedUser.authority !== AuthoritiesConsts.ROLE_ADMIN) {
+        offerToDelete['user'] = decodedUser._id;
+    }
 
     Offer.remove(offerToDelete, (err, deletedOffer) => {
         if (err) {

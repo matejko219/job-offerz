@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Offer} from "../../models/offer";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
 import {OfferService} from "../../services/offer.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -18,6 +18,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   offerToEdit: Offer;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private offerService: OfferService,
               private snackBarService: SnackBarService) {
   }
@@ -25,12 +26,12 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params) => {
       this._id = params['id'];
-      this.loading = true;
       this.loadOffer();
     });
   }
 
   loadOffer() {
+    this.loading = true;
     this.offerService.get(this._id).subscribe((offerToEdit) => {
         this.offerToEdit = offerToEdit;
         this.loading = false;
@@ -41,8 +42,10 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(offer: Offer) {
+    offer = {...this.offerToEdit, ...offer};
     this.offerService.update(offer).subscribe((offer: Offer) => {
       this.snackBarService.success('Zapisano zmiany w ofercie');
+      this.router.navigate(['/offers', offer._id]);
     }, err => {
       this.snackBarService.error(err);
     });
