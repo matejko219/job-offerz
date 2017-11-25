@@ -20,6 +20,11 @@
     <span>Moje oferty</span>
   </mat-list-item>
 
+  <mat-list-item *ngIf="isUserLogged && hasUserAdminAuthority" [routerLink]="['/admin-panel']">
+    <mat-icon matListIcon color="primary">settings</mat-icon>
+    <span>Admin panel</span>
+  </mat-list-item>
+
   <mat-list-item *ngIf="!isUserLogged" [routerLink]="['/signup']">
     <mat-icon matListIcon color="primary">assignment_ind</mat-icon>
     <span>Rejestracja</span>

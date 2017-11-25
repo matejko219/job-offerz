@@ -2,6 +2,7 @@
   <mat-sidenav #sidenav mode="push" opened="false">
     <app-sidenav
       [isUserLogged]="authService.isUserLogged()"
+      [hasUserAdminAuthority]="authService.hasUserAdminAuthority()"
       [user]="user"
       (toggle)="sidenav.toggle()"
       (logout)="logout()">

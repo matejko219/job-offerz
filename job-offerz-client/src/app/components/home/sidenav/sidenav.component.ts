@@ -13,6 +13,9 @@ export class SidenavComponent implements OnInit {
   isUserLogged = false;
 
   @Input()
+  hasUserAdminAuthority = false;
+
+  @Input()
   user: Observable<User>;
 
   @Output()

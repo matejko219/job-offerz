@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map'
 import {AppConsts} from "../../utils/app-consts";
 import {JwtHelper} from "angular2-jwt";
 import {User} from "../../models/user";
+import {Authorities} from "../../utils/authorities-consts";
 
 @Injectable()
 export class AuthenticationService {
@@ -68,7 +69,15 @@ export class AuthenticationService {
 
   public isUserLogged(): boolean {
     const token = this.getToken();
-    return  (token && !this.jwtHelper.isTokenExpired(token));
+    return (token && !this.jwtHelper.isTokenExpired(token));
+  }
+
+  public hasUserAdminAuthority(): boolean {
+    const token = this.getToken();
+    if (token) {
+      const user: User = this.jwtHelper.decodeToken(token).user;
+      return (user && user.authority === Authorities.ROLE_ADMIN);
+    } else return false;
   }
 
   public getLoggedUser(): Observable<User> {

@@ -1,0 +1,42 @@
+<mat-card>
+
+  <mat-card-header>
+    <mat-icon mat-card-avatar color="primary" class="avatar">settings</mat-icon>
+    <mat-card-title>Zarządzanie aplikacją</mat-card-title>
+    <mat-card-subtitle>Admin panel</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <mat-tab-group (selectedIndexChange)="selectedModeChange($event)" [selectedIndex]="activatedTabIndex">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">local_offer</mat-icon> Oferty
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">bookmark</mat-icon> Kategorie
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">business</mat-icon> Firmy
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">person</mat-icon> Użytkownicy
+        </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+
+    <router-outlet></router-outlet>
+
+  </mat-card-content>
+
+</mat-card>
