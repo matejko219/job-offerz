@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {MatDialogModule} from "@angular/material";
-import {ConfirmDeleteComponent} from "./components/confirm-delete/confirm-delete.component";
+import {ConfirmDialogComponent} from "./components/confirm-dialog/confirm-dialog.component";
 import {DialogService} from "../../services/dialog.service";
 import {MaterialModule} from "../material.module";
 
@@ -10,13 +10,13 @@ import {MaterialModule} from "../material.module";
     MaterialModule
   ],
   declarations: [
-    ConfirmDeleteComponent
+    ConfirmDialogComponent
   ],
   providers: [
     DialogService
   ],
   entryComponents: [
-    ConfirmDeleteComponent
+    ConfirmDialogComponent
   ]
 })
 export class DialogModule { }

@@ -4,6 +4,7 @@ import {SnackBarService} from "../../shared/services/snack-bar.service";
 import {OfferService} from "../../services/offer.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {DialogService} from "../../shared/services/dialog.service";
 
 @Component({
   selector: 'app-edit-offer',
@@ -19,6 +20,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private dialogService: DialogService,
               private offerService: OfferService,
               private snackBarService: SnackBarService) {
   }
@@ -42,12 +44,16 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(offer: Offer) {
-    offer = {...this.offerToEdit, ...offer};
-    this.offerService.update(offer).subscribe((offer: Offer) => {
-      this.snackBarService.success('Zapisano zmiany w ofercie');
-      this.router.navigate(['/offers', offer._id]);
-    }, err => {
-      this.snackBarService.error(err);
+    this.dialogService.confirmUpdate().subscribe((result) => {
+      if (result) {
+        offer = {...this.offerToEdit, ...offer};
+        this.offerService.update(offer).subscribe((offer: Offer) => {
+          this.snackBarService.success('Zapisano zmiany w ofercie');
+          this.router.navigate(['/offers', offer._id]);
+        }, err => {
+          this.snackBarService.error(err);
+        });
+      }
     });
   }
 

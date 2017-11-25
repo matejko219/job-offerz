@@ -26,8 +26,8 @@
 
     </app-offers-filter>
 
-    <div *ngIf="mode == 'added'" [routerLink]="['add']">
-      <button mat-raised-button aria-label="Dodaj oferte" color="primary" fxFlex.lt-sm="100" fxFlex="25">
+    <div *ngIf="mode == 'added'">
+      <button [routerLink]="['add']" mat-raised-button aria-label="Dodaj oferte" color="primary" fxFlex.lt-sm="100" fxFlex="25">
         <mat-icon>add</mat-icon>
         Dodaj oferte
       </button>
