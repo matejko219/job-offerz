@@ -1,0 +1,38 @@
+<form #categoryForm="ngForm" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxFlex="100">
+
+    <div class="form-alert" *ngIf="name.errors && (name.dirty || name.touched || categoryForm.submitted)">
+      Nazwa jest wymagana
+    </div>
+
+    <div>
+      <mat-form-field fxFlex="100">
+        <input #name="ngModel"
+               matInput
+               type="text"
+               name="name"
+               placeholder="Nazwa kategorii"
+               [(ngModel)]="category.name"
+               required>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout.lt-sm="column" fxLayout="row" fxLayoutGap="10px">
+      <button mat-raised-button
+              aria-label="Dodaj"
+              color="primary"
+              type="submit"
+              [disabled]="!categoryForm.valid"
+              fxFlex="50">
+        <mat-icon>add</mat-icon>
+        Dodaj
+      </button>
+
+      <button mat-raised-button aria-label="Anuluj" color="primary" (click)="cancelAdd()" fxFlex="50">
+        <mat-icon>cancel</mat-icon>
+        Anuluj
+      </button>
+    </div>
+
+  </div>
+</form>

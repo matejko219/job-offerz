@@ -74,7 +74,7 @@ export class AuthenticationService {
 
   public hasUserAdminAuthority(): boolean {
     const token = this.getToken();
-    if (token) {
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
       const user: User = this.jwtHelper.decodeToken(token).user;
       return (user && user.authority === Authorities.ROLE_ADMIN);
     } else return false;

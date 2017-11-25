@@ -1,3 +1,50 @@
-<p>
-  categories-panel works!
-</p>
+<div fxLayoutAlign="center center">
+
+    <div *ngIf="showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
+      <app-category-form [category]="categoryToEdit"
+                         (cancel)="onCancelAdd()"></app-category-form>
+    </div>
+
+    <div *ngIf="!showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
+      <button mat-raised-button aria-label="Dodaj nową kategorię" color="primary" (click)="onAddNewClick()">
+        <mat-icon>add</mat-icon>
+        Dodaj nową kategorię
+      </button>
+
+      <div fxLayout="row" fxFlex="100" class="mat-elevation-z3 table-header">
+        <div fxFlex="10">#</div>
+        <div fxFlex="55">Nazwa</div>
+        <div fxFlex="35">Akcje</div>
+      </div>
+
+      <div *ngFor="let category of categories; let i = index" fxLayout="row" fxFlex="100"
+           class="mat-elevation-z3 table-row">
+        <div fxFlex="10" fxLayoutAlign="center center">{{i + 1}}</div>
+        <div fxFlex="55" fxLayoutAlign=" center">{{category.name}}</div>
+        <div fxFlex="35" fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="50">
+            <button mat-button
+                    matTooltip="Edytuj kategorię"
+                    [matTooltipPosition]="'above'"
+                    aria-label="Edytuj kategorię"
+                    (click)="onEditClick(category)"
+                    color="primary">
+              <mat-icon color="warn">edit</mat-icon>
+            </button>
+          </div>
+
+          <div fxFlex="50">
+            <button mat-button
+                    matTooltip="Aktywuj kategorię"
+                    [matTooltipPosition]="'above'"
+                    aria-label="Aktywuj kategorię"
+                    color="primary">
+              <mat-icon color="warn">visibility</mat-icon>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+</div>

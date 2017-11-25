@@ -46,3 +46,17 @@ span.field-placeholder.required::after {
   padding: 15px 15px 15px 15px;
   margin-bottom: 5px;
 }
+
+.table-header {
+  font-weight: bold;
+  margin: 10px 0 5px 0;
+  font-size: 18px;
+  padding: 5px;
+  text-align: center;
+}
+
+.table-row {
+  margin-bottom: 5px;
+  font-size: 16px;
+  padding: 5px;
+}
