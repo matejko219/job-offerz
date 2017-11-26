@@ -29,6 +29,8 @@ import {LinkifyPipe} from "../pipes/linkify.pipe";
 import {CategoriesSelectorComponent} from "../components/categories-selector/categories-selector.component";
 import {FavoriteOfferService} from "../../services/favorite-offer.service";
 import {DialogModule} from "./dialog/dialog.module";
+import {SortArrowComponent} from "../components/sort-arrow/sort-arrow.component";
+import {BasicFilterComponent} from "../components/basic-filter/basic-filter.component";
 
 @NgModule({
   imports: [
@@ -60,7 +62,9 @@ import {DialogModule} from "./dialog/dialog.module";
     StarHoverDirective,
     SplitEvenPipe,
     LinkifyPipe,
-    CategoriesSelectorComponent
+    CategoriesSelectorComponent,
+    SortArrowComponent,
+    BasicFilterComponent
   ],
   exports: [
     MaterialModule,
@@ -80,7 +84,9 @@ import {DialogModule} from "./dialog/dialog.module";
     RequirementsStepComponent,
     StarRateComponent,
     StarHoverDirective,
-    CategoriesSelectorComponent
+    CategoriesSelectorComponent,
+    SortArrowComponent,
+    BasicFilterComponent
   ],
   providers: [
     CompanyService,

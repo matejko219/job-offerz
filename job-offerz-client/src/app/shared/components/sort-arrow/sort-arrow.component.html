@@ -1,0 +1,7 @@
+<div (click)="changeSort()">
+  <ng-content></ng-content>
+  <i *ngIf="pageRequest?.sortField === name"
+     class="arrow"
+     [ngClass]="{'down': pageRequest?.sortDir === -1, 'up': pageRequest?.sortDir === 1}">
+  </i>
+</div>

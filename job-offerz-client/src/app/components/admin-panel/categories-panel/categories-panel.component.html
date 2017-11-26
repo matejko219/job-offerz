@@ -1,26 +1,49 @@
 <div fxLayoutAlign="center center">
 
-    <div *ngIf="showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
-      <app-category-form [category]="categoryToEdit"
-                         [mode]="mode"
-                         (submitEvent)="onSubmitCategory($event)"
-                         (cancel)="onCancelAdd()"></app-category-form>
+  <div *ngIf="showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
+    <app-category-form [category]="categoryToEdit"
+                       [mode]="mode"
+                       (submitEvent)="onSubmitCategory($event)"
+                       (cancel)="onCancelAdd()"></app-category-form>
+  </div>
+
+  <div *ngIf="!showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
+
+    <button mat-raised-button aria-label="Dodaj nową kategorię" color="primary" (click)="onAddNewClick()">
+      <mat-icon>add</mat-icon>
+      Dodaj nową kategorię
+    </button>
+
+    <app-basic-filter style="margin-top: 20px;"
+                      [placeholder]="'Nazwa'"
+                      (filterEvent)="filterChange($event)">
+
+    </app-basic-filter>
+
+    <div fxLayout="row" fxFlex="100" class="mat-elevation-z3 table-header">
+      <div fxFlex="10">#</div>
+      <div fxFlex="40">
+        <app-sort-arrow [name]="'name'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+          Nazwa
+        </app-sort-arrow>
+      </div>
+      <div fxFlex="30">
+        <app-sort-arrow [name]="'active'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+          Aktywna
+        </app-sort-arrow>
+      </div>
+      <div fxFlex="20">Edytuj</div>
     </div>
 
-    <div *ngIf="!showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
-      <button mat-raised-button aria-label="Dodaj nową kategorię" color="primary" (click)="onAddNewClick()">
-        <mat-icon>add</mat-icon>
-        Dodaj nową kategorię
-      </button>
+    <div *ngIf="loading" fxFlex="100" fxLayoutAlign="center center">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
 
-      <div fxLayout="row" fxFlex="100" class="mat-elevation-z3 table-header">
-        <div fxFlex="10">#</div>
-        <div fxFlex="40">Nazwa</div>
-        <div fxFlex="30">Aktywna</div>
-        <div fxFlex="20">Edytuj</div>
-      </div>
-
-      <div *ngFor="let category of categories; let i = index" fxLayout="row" fxFlex="100"
+    <div *ngIf="!loading" fxLayout="column">
+      <div *ngFor="let category of categories?.docs; let i = index" fxLayout="row" fxFlex="100"
            class="mat-elevation-z3 table-row">
         <div fxFlex="10" fxLayoutAlign="center center">{{i + 1}}</div>
         <div fxFlex="40" fxLayoutAlign=" center">{{category.name}}</div>
@@ -42,5 +65,13 @@
         </div>
       </div>
     </div>
+
+    <mat-paginator [length]="categories?.total"
+                   [pageIndex]="categories?.page - 1"
+                   [pageSize]="categories?.limit"
+                   [pageSizeOptions]="[5, 10]"
+                   (page)="setPage($event)">
+    </mat-paginator>
+  </div>
 
 </div>

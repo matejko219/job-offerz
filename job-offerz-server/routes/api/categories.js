@@ -82,4 +82,43 @@ router.get('/', (req, res, next) => {
     });
 });
 
+/**
+ * GET /api/categories/page
+ * @param name - nazwa po której filtrować kategorie
+ * @param page - numer strony zaczynając od 1. Domyślnie 1.
+ * @param limit - ile elementów na stronie. Domyślnie 5.
+ * @param sortField - pole po którym na nastąpić sortowanie. Domyślnie 'name'.
+ * @param sortDir - porządek sortowania. Domyślnie 1 czyli rosnący.
+ * @return strona dokumentów kolekcji Category
+ */
+router.get('/page', jwtGuard, adminGuard, (req, res, next) => {
+
+    const query = {};
+
+    let name = req.query.name;
+    if (name && name !== '') {
+        name = name.replace(/\\/g, '');
+        query['name'] = new RegExp(name, 'i');
+    }
+
+    const sortField = req.query.sortField || 'name';
+    let sortDir = +req.query.sortDir;
+    if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = 1;
+
+    const options = {
+        sort: {[sortField]: sortDir},
+        lean: true,
+        page: +req.query.page || 1,
+        limit: +req.query.limit || 5
+    };
+
+    Category.paginate(query, options)
+        .then(categories => {
+            res.json(categories);
+        }).catch(err => {
+            console.log(err.stack);
+            handleError('Błąd podczas pobierania kategorii.', 500, next);
+    });
+});
+
 module.exports = router;
