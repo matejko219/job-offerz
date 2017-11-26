@@ -8,8 +8,16 @@ import {Category} from "../../../../models/category";
 })
 export class CategoryFormComponent implements OnInit {
 
+  _category: Category = new Category();
+
   @Input()
-  category: Category = new Category();
+  set category(category: Category) {
+    this._category = {...category};
+  }
+
+  get category() {
+    return this._category;
+  }
 
   @Input()
   mode: 'add' | 'edit' = 'add';

@@ -62,7 +62,7 @@ router.delete('/:_id', jwtGuard, requiredParams(['params._id']), (req, res, next
         if (err) {
             handleError('Błąd podczas usuwania oferty z ulubionych.', 500, next);
         } else if (deletedFavorite.result.n == 0) {
-            handleError('Oferta nie była zapisana w ulubionych.', 500, next);
+            handleError('Oferta nie była zapisana w ulubionych.', 400, next);
         } else res.json(true);
     });
 });

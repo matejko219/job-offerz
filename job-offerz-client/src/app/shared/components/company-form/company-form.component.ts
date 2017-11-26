@@ -25,11 +25,20 @@ export class CompanyFormComponent implements OnInit {
   @Output('cancel')
   cancelEvent: EventEmitter<void> = new EventEmitter<void>();
 
-  @Output('add')
-  addEvent: EventEmitter<Company> = new EventEmitter<Company>();
+  @Output()
+  submitEvent: EventEmitter<Company> = new EventEmitter<Company>();
 
   @Input('initName')
   initName: string = '';
+
+  @Input()
+  companyToEdit: Company;
+
+  @Input()
+  mode: 'add' | 'edit' = 'add';
+
+  @Input()
+  adminPanel: boolean = false;
 
   nameMaxLength = OfferFormConsts.MAX_COMP_NAME_LENGTH;
   checkInputLength = FormUtils.checkInputLength;
@@ -39,17 +48,33 @@ export class CompanyFormComponent implements OnInit {
               private companyService: CompanyService) { }
 
   ngOnInit() {
+    if (this.companyToEdit) {
+      this.imagePreview = new Image();
+      this.imagePreview.src = this.companyToEdit.logo;
+    }
+
     this.formGroup = this.formBuilder.group({
-      name: [this.initName, Validators.compose([Validators.required, Validators.maxLength(this.nameMaxLength)])],
-      logo: ['', Validators.required]
+      name: [this.companyToEdit ? this.companyToEdit.name : this.initName, Validators.compose([Validators.required, Validators.maxLength(this.nameMaxLength)])],
+      logo: [this.companyToEdit ? this.companyToEdit.logo : '', Validators.required],
+      active: [this.companyToEdit ? this.companyToEdit.active : true, Validators.required]
     });
   }
 
   addCompany() {
     const company: Company = this.formGroup.getRawValue();
     this.companyService.add(company).subscribe((data: Company) => {
-      this.addEvent.next(data);
+      this.submitEvent.next(data);
       this.snackBarService.success('Dodano firme');
+    },err => {
+      this.snackBarService.error(err);
+    });
+  }
+
+  editCompany() {
+    const company: Company = {...this.companyToEdit, ...this.formGroup.getRawValue()};
+    this.companyService.update(company).subscribe((data: Company) => {
+      this.submitEvent.next(data);
+      this.snackBarService.success('Zaktualizowano firme');
     },err => {
       this.snackBarService.error(err);
     });

@@ -53,7 +53,7 @@ export class CategoriesPanelComponent extends AbstractPage implements OnInit {
     this.showForm = true;
   }
 
-  onSubmitCategory(category: Category) {
+  onSubmit(category: Category) {
     if (this.mode === 'add') {
       this.categoryService.add(category).subscribe((category) => {
         this.snackBarService.success('Dodano kategorię');

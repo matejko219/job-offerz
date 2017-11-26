@@ -45,7 +45,7 @@
     </form>
 
     <app-company-form *ngIf="showCompanyForm"
-                      (add)="onAddCompany($event)"
+                      (submitEvent)="onAddCompany($event)"
                       (cancel)="onCancelAdd()"
                       [initName]="newCompanyName">
     </app-company-form>

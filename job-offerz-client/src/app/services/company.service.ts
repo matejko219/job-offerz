@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {Company} from "../models/company";
 import {BasicCrud} from "./basic-crud.interface";
 import {HttpUtils} from "../utils/http-utils";
+import {PageRequest} from "../models/pagination/page-request";
+import {Page} from "../models/pagination/page";
 
 @Injectable()
 export class CompanyService implements BasicCrud<Company>{
@@ -11,6 +13,12 @@ export class CompanyService implements BasicCrud<Company>{
   baseUrl = '/companies';
 
   constructor(private http: Http) { }
+
+  getPage(pageRequest: PageRequest, name: string): Observable<Page<Company>> {
+    const params = {...pageRequest, name};
+    return this.http.get(`${this.baseUrl}/page`, {params})
+      .map(HttpUtils.mapResponse);
+  }
 
   getAll(name?: string): Observable<Company[]> {
     const params = name !== null ? {name} : {};
@@ -28,7 +36,8 @@ export class CompanyService implements BasicCrud<Company>{
   }
 
   update(obj: Company): Observable<Company> {
-    return undefined;
+    return this.http.put(this.baseUrl, obj)
+      .map(HttpUtils.mapResponse);
   }
 
   remove(_id: string): Observable<boolean> {

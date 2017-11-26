@@ -24,7 +24,7 @@ router.post('/', jwtGuard, adminGuard, requiredParams(['body.name']), (req, res,
         }
 
         if (category) {
-            handleError('Kategoria o podanej nazwie już istnieje.', 500, next);
+            handleError('Kategoria o podanej nazwie już istnieje.', 400, next);
         } else {
 
             new Category(newCategory).save((err, category) =>{
@@ -44,23 +44,31 @@ router.post('/', jwtGuard, adminGuard, requiredParams(['body.name']), (req, res,
 router.put('/', jwtGuard, adminGuard, (req, res, next) => {
     const updatedCategory = req.body;
 
-    Category.findOne({_id: updatedCategory._id})
+    Category.findOne({name: updatedCategory.name})
         .then(category => {
-            if (!category) handleError('Brak kategorii o podanym _id.', 404, next);
-            else {
-                category.set(updatedCategory);
-                category.save()
+            if (category && category._id != updatedCategory._id) {
+                handleError('Kategoria o podanej nazwie już istnieje.', 400, next);
+            } else {
+                Category.findOne({_id: updatedCategory._id})
                     .then(category => {
-                        res.json(category);
-                    }).catch((err) => {
-                    console.log(err.stack);
-                    handleError('Błąd podczas zapisu zmian kategorii.', 500, next);
-                });
+                        if (!category) handleError('Brak kategorii o podanym _id.', 404, next);
+                        else {
+                            category.set(updatedCategory);
+                            category.save()
+                                .then(category => {
+                                    res.json(category);
+                                }).catch((err) => {
+                                console.log(err.stack);
+                                handleError('Błąd podczas zapisu zmian kategorii.', 500, next);
+                            });
+                        }
+                    });
             }
         }).catch(err => {
         console.log(err.stack);
         handleError('Błąd podczas edycji kategorii.', 500, next);
     });
+
 });
 
 /**
