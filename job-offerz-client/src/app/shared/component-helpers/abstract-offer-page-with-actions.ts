@@ -58,6 +58,6 @@ export abstract class AbstractOfferPageWithActions extends AbstractOfferPage{
   }
 
   onEditAction(_id: string) {
-    this.router.navigate(['edit', _id], {relativeTo: this.route});
+    this.router.navigate(['/my-offers/edit', _id], {relativeTo: this.route});
   }
 }
