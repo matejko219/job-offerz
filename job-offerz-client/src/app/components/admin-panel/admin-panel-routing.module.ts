@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AdminPanelComponent} from "./admin-panel.component";
+import {OnlyAdmin} from "../../shared/guards/only-admin.service";
 
 const routes: Routes = [
   {
     path: '',
     component: AdminPanelComponent,
+    canActivateChild: [OnlyAdmin],
     children: [
       {
         path: 'offers',
@@ -24,8 +26,9 @@ const routes: Routes = [
         loadChildren: 'app/components/admin-panel/users-panel/users-panel.module#UsersPanelModule'
       },
       {
-        path: '**',
-        redirectTo: 'offers'
+        path: '',
+        redirectTo: 'offers',
+        pathMatch: 'full'
       }
     ]
   }

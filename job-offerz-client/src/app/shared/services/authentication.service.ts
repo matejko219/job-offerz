@@ -16,8 +16,7 @@ export class AuthenticationService {
 
   constructor(private http: Http, private jwtHelper: JwtHelper) {
     this.user = new BehaviorSubject<User>(new User());
-    this.token = this.getToken();
-    this.nextUserFromToken();
+    this.resolveTokenInStorage();
   }
 
   public authenticate(credentials: Credentials): Observable<boolean> {
@@ -33,6 +32,14 @@ export class AuthenticationService {
           return false;
         }
       });
+  }
+
+  private resolveTokenInStorage() {
+    const token = this.getToken();
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      this.token = token;
+      this.nextUserFromToken();
+    } else this.removeToken();
   }
 
   public logout(): Observable<boolean> {
@@ -69,12 +76,12 @@ export class AuthenticationService {
 
   public isUserLogged(): boolean {
     const token = this.getToken();
-    return (token && !this.jwtHelper.isTokenExpired(token));
+    return token !== null;
   }
 
   public hasUserAdminAuthority(): boolean {
     const token = this.getToken();
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
+    if (token) {
       const user: User = this.jwtHelper.decodeToken(token).user;
       return (user && user.authority === Authorities.ROLE_ADMIN);
     } else return false;

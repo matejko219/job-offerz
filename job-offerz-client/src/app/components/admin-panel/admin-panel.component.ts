@@ -42,9 +42,11 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   selectedModeChange(tabIndex: number) {
-    const selectedRoute = this.panelRoutes[tabIndex];
-    if (selectedRoute) {
-      this.router.navigate([selectedRoute], {relativeTo: this.route});
+    if (tabIndex !== this.activatedTabIndex) {
+      const selectedRoute = this.panelRoutes[tabIndex];
+      if (selectedRoute) {
+        this.router.navigate([selectedRoute], {relativeTo: this.route});
+      }
     }
   }
 

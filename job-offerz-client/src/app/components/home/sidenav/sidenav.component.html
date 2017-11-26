@@ -20,7 +20,7 @@
     <span>Moje oferty</span>
   </mat-list-item>
 
-  <mat-list-item *ngIf="isUserLogged && hasUserAdminAuthority" [routerLink]="['/admin-panel']">
+  <mat-list-item *ngIf="hasUserAdminAuthority" [routerLink]="['/admin-panel']">
     <mat-icon matListIcon color="primary">settings</mat-icon>
     <span>Admin panel</span>
   </mat-list-item>

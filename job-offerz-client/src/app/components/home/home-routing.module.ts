@@ -31,8 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'admin-panel',
-        loadChildren:  'app/components/admin-panel/admin-panel.module#AdminPanelModule',
-        canActivate: [OnlyAdmin]
+        loadChildren:  'app/components/admin-panel/admin-panel.module#AdminPanelModule'
       }
     ]
   },
