@@ -44,9 +44,9 @@ router.post('/', jwtGuard, requiredParams(['body.name', 'body.logo']), (req, res
 router.get('/', jwtGuard, (req, res, next) => {
     let name = req.query.name;
 
-    if (name) name = name.replace(/\\/g, '');
+    if (name !== null) name = name.replace(/\\/g, '');
 
-    const query = name ? {name: new RegExp(name, 'i')} : {};
+    const query = name !== null ? {name: new RegExp(name, 'i')} : {};
 
     Company.find(query, (err, companies) => {
         if (err) {

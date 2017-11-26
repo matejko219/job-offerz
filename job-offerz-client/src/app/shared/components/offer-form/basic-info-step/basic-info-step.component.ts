@@ -24,7 +24,7 @@ export class BasicInfoStepComponent implements OnInit {
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
-    this.categoryService.getAll().subscribe((categories: Category[]) => {
+    this.categoryService.getAll(true).subscribe((categories: Category[]) => {
         this.categories = categories;
     });
   }

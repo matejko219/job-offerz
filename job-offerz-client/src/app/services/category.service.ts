@@ -12,8 +12,9 @@ export class CategoryService implements BasicCrud<Category>{
 
   constructor(private http: Http) { }
 
-  getAll(): Observable<Category[]> {
-    return this.http.get(this.baseUrl)
+  getAll(active?: boolean): Observable<Category[]> {
+    const params = active !== null ? {active} : {};
+    return this.http.get(this.baseUrl, {params})
       .map(HttpUtils.mapResponse);
   }
 
@@ -27,7 +28,8 @@ export class CategoryService implements BasicCrud<Category>{
   }
 
   update(obj: Category): Observable<Category> {
-    return undefined;
+    return this.http.put(this.baseUrl, obj)
+      .map(HttpUtils.mapResponse);
   }
 
   remove(_id: string): Observable<boolean> {

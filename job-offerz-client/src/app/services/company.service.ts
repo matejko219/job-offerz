@@ -12,15 +12,9 @@ export class CompanyService implements BasicCrud<Company>{
 
   constructor(private http: Http) { }
 
-  getAll(): Observable<Company[]> {
-    return this.http.get(this.baseUrl)
-      .map(HttpUtils.mapResponse);
-  }
-
-  getAllByName(name: string): Observable<Company[]> {
-    const params = new URLSearchParams();
-    params.append('name', name);
-    return this.http.get(this.baseUrl, {params: params})
+  getAll(name?: string): Observable<Company[]> {
+    const params = name !== null ? {name} : {};
+    return this.http.get(this.baseUrl, {params})
       .map(HttpUtils.mapResponse);
   }
 

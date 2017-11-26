@@ -17,9 +17,9 @@ export class CategoriesSelectorComponent implements OnInit {
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
-    this.categoryService.getAll().subscribe((categories) => {
+    this.categoryService.getAll(true).subscribe((categories) => {
         this.categories = [
-          {_id: '-1', name: 'Wszystkie'},
+          {_id: '-1', name: 'Wszystkie', active: true},
           ...categories
         ];
     })

@@ -17,9 +17,15 @@
       </mat-form-field>
     </div>
 
+    <mat-slide-toggle color="primary"
+                      name="active"
+                      [(ngModel)]="category.active">
+      Aktywna
+    </mat-slide-toggle>
+
     <div fxLayout.lt-sm="column" fxLayout="row" fxLayoutGap="10px">
       <button mat-raised-button
-              aria-label="Dodaj"
+              *ngIf="mode === 'add'"
               color="primary"
               type="submit"
               [disabled]="!categoryForm.valid"
@@ -28,7 +34,17 @@
         Dodaj
       </button>
 
-      <button mat-raised-button aria-label="Anuluj" color="primary" (click)="cancelAdd()" fxFlex="50">
+      <button mat-raised-button
+              *ngIf="mode === 'edit'"
+              color="primary"
+              type="submit"
+              [disabled]="!categoryForm.valid"
+              fxFlex="50">
+        <mat-icon>save</mat-icon>
+        Zapisz
+      </button>
+
+      <button mat-raised-button aria-label="Anuluj" color="primary" (click)="cancel()" fxFlex="50">
         <mat-icon>cancel</mat-icon>
         Anuluj
       </button>

@@ -11,8 +11,14 @@ export class CategoryFormComponent implements OnInit {
   @Input()
   category: Category = new Category();
 
+  @Input()
+  mode: 'add' | 'edit' = 'add';
+
   @Output('cancel')
   cancelEvent: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  submitEvent: EventEmitter<Category> = new EventEmitter<Category>();
 
   constructor() { }
 
@@ -20,10 +26,10 @@ export class CategoryFormComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.submitEvent.next(this.category);
   }
 
-  cancelAdd() {
+  cancel() {
     this.category = new Category();
     this.cancelEvent.next();
   }
