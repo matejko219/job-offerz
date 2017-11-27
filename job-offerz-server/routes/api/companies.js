@@ -102,7 +102,7 @@ router.get('/', jwtGuard, (req, res, next) => {
 
 /**
  * GET /api/companies/page
- * @param name - nazwa po której filtrować firmy
+ * @param filter - wartość po której filtrować firmy
  * @param page - numer strony zaczynając od 1. Domyślnie 1.
  * @param limit - ile elementów na stronie. Domyślnie 5.
  * @param sortField - pole po którym na nastąpić sortowanie. Domyślnie 'name'.

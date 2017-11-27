@@ -96,7 +96,7 @@ router.get('/', (req, res, next) => {
 
 /**
  * GET /api/categories/page
- * @param name - nazwa po której filtrować kategorie
+ * @param filter - wartość po której filtrować kategorie
  * @param page - numer strony zaczynając od 1. Domyślnie 1.
  * @param limit - ile elementów na stronie. Domyślnie 5.
  * @param sortField - pole po którym na nastąpić sortowanie. Domyślnie 'name'.

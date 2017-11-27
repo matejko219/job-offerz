@@ -17,8 +17,6 @@ import {UserService} from "../../services/user.service";
     SignupComponent,
     MatchPasswordDirective
   ],
-  providers: [
-    UserService
-  ]
+  providers: []
 })
 export class SignupModule { }

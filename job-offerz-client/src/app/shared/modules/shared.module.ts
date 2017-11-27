@@ -31,6 +31,7 @@ import {FavoriteOfferService} from "../../services/favorite-offer.service";
 import {DialogModule} from "./dialog/dialog.module";
 import {SortArrowComponent} from "../components/sort-arrow/sort-arrow.component";
 import {BasicFilterComponent} from "../components/basic-filter/basic-filter.component";
+import {UserService} from "../../services/user.service";
 
 @NgModule({
   imports: [
@@ -92,6 +93,7 @@ import {BasicFilterComponent} from "../components/basic-filter/basic-filter.comp
     CompanyService,
     CategoryService,
     OfferService,
+    UserService,
     FavoriteOfferService
   ]
 })
