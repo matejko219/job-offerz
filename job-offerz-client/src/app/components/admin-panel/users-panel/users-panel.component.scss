@@ -1,3 +1,53 @@
-.responsive-header {
-  font-weight: bold;
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr { border: 1px solid #ccc; }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  td:nth-of-type(1):before { content: "#"; text-align: left;}
+  td:nth-of-type(1) { text-align: center;}
+
+  td:nth-of-type(2):before { content: "Login"; text-align: left;}
+  td:nth-of-type(2) { text-align: center;}
+
+  td:nth-of-type(3):before { content: "Email"; text-align: left;}
+  td:nth-of-type(3) { text-align: center;}
+
+  td:nth-of-type(4):before { content: "Rola"; text-align: left;}
+  td:nth-of-type(4) { text-align: center;}
+
+  td:nth-of-type(5):before { content: "Utworzono"; text-align: left;}
+  td:nth-of-type(5) { text-align: center;}
+
+  td:nth-of-type(6):before { content: "Aktywny"; text-align: left;}
+  td:nth-of-type(6) { text-align: center;}
+
+  td:nth-of-type(7):before { content: "Akcje"; text-align: left;}
+  td:nth-of-type(7) { text-align: center;}
 }

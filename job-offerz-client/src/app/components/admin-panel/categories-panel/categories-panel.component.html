@@ -20,50 +20,48 @@
 
     </app-basic-filter>
 
-    <div fxLayout="row" fxFlex="100" class="mat-elevation-z3 table-header">
-      <div fxFlex="10">#</div>
-      <div fxFlex="40">
-        <app-sort-arrow [name]="'name'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
-          Nazwa
-        </app-sort-arrow>
-      </div>
-      <div fxFlex="30">
-        <app-sort-arrow [name]="'active'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
-          Aktywna
-        </app-sort-arrow>
-      </div>
-      <div fxFlex="20"></div>
-    </div>
+    <table>
+      <thead>
+        <th>#</th>
+        <th>
+          <app-sort-arrow [name]="'name'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+            Nazwa
+          </app-sort-arrow>
+        </th>
+        <th>
+          <app-sort-arrow [name]="'active'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+            Aktywna
+          </app-sort-arrow>
+        </th>
+        <th>Akcje</th>
+      </thead>
+
+      <tbody *ngIf="!loading">
+
+      <tr *ngFor="let category of params?.docs; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{category?.name}}</td>
+        <td style="text-align: center"><mat-icon color="primary">{{category?.active ? 'check_box' : 'check_box_outline_blank'}}</mat-icon></td>
+        <td style="text-align: center">
+          <button mat-button
+                  matTooltip="Edytuj kategorię"
+                  [matTooltipPosition]="'above'"
+                  aria-label="Edytuj kategorię"
+                  (click)="onEditClick(category)"
+                  color="primary">
+            <mat-icon color="warn">edit</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
 
     <div *ngIf="loading" fxFlex="100" fxLayoutAlign="center center">
       <mat-progress-spinner
         color="primary"
         mode="indeterminate">
       </mat-progress-spinner>
-    </div>
-
-    <div *ngIf="!loading" fxLayout="column">
-      <div *ngFor="let category of params?.docs; let i = index" fxLayout="row" fxFlex="100"
-           class="mat-elevation-z3 table-row">
-        <div fxFlex="10" fxLayoutAlign="center center">{{i + 1}}</div>
-        <div fxFlex="40" fxLayoutAlign=" center">{{category?.name}}</div>
-        <div fxFlex="30" fxLayoutAlign="center center">
-          <mat-icon color="primary">{{category?.active ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
-        </div>
-        <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
-          <div fxFlex="100">
-            <button mat-button
-                    matTooltip="Edytuj kategorię"
-                    [matTooltipPosition]="'above'"
-                    aria-label="Edytuj kategorię"
-                    (click)="onEditClick(category)"
-                    color="primary">
-              <mat-icon color="warn">edit</mat-icon>
-            </button>
-          </div>
-
-        </div>
-      </div>
     </div>
 
     <mat-paginator [length]="params?.total"

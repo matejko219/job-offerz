@@ -47,28 +47,21 @@ span.field-placeholder.required::after {
   margin-bottom: 5px;
 }
 
-.table-header {
-  font-weight: bold;
-  margin: 10px 0 5px 0;
-  font-size: 18px;
-  padding: 5px;
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #f0f0f0;
+}
+
+th {
   text-align: center;
-}
-
-.table-header-small {
-  font-size: 16px;
-}
-
-.table-row {
-  margin-bottom: 5px;
-  font-size: 16px;
-  padding: 5px;
-}
-
-.table-row-small {
-  font-size: 14px;
-}
-
-.action-icon-small {
-  font-size: 20px;
 }

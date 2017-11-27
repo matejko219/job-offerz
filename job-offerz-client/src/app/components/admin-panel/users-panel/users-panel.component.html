@@ -20,36 +20,69 @@
 
     </app-basic-filter>
 
-    <div fxHide.lt-sm="true" fxLayout="row" fxFlex="100" class="mat-elevation-z3 table-header"
-         ngClass.sm="table-header-small">
-      <div fxFlex="5">#</div>
-      <div fxFlex="20">
-        <app-sort-arrow [name]="'login'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
-          Login
-        </app-sort-arrow>
-      </div>
-      <div fxFlex="50">
-        <app-sort-arrow [name]="'email'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
-          Email
-        </app-sort-arrow>
-      </div>
-      <div fxFlex="25">
-        <app-sort-arrow [name]="'authority'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
-          Rola
-        </app-sort-arrow>
-      </div>
-      <div fxFlex="25">
-        <app-sort-arrow [name]="'createDate'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
-          Utworzono
-        </app-sort-arrow>
-      </div>
-      <div fxFlex="20">
-        <app-sort-arrow [name]="'active'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
-          Aktywny
-        </app-sort-arrow>
-      </div>
-      <div fxFlex="20"></div>
-    </div>
+    <table>
+      <thead>
+        <th>#</th>
+        <th>
+          <app-sort-arrow [name]="'login'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+            Login
+          </app-sort-arrow>
+        </th>
+        <th>
+          <app-sort-arrow [name]="'email'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+            Email
+          </app-sort-arrow>
+        </th>
+        <th>
+          <app-sort-arrow [name]="'authority'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+            Rola
+          </app-sort-arrow>
+        </th>
+        <th>
+          <app-sort-arrow [name]="'createDate'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+            Utworzono
+          </app-sort-arrow>
+        </th>
+        <th>
+          <app-sort-arrow [name]="'active'" [pageRequest]="pageRequest" (sortChange)="sortChange()">
+            Aktywny
+          </app-sort-arrow>
+        </th>
+        <th>Akcje</th>
+      </thead>
+
+      <tbody *ngIf="!loading">
+
+      <tr *ngFor="let user of params?.docs; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{user?.login}}</td>
+        <td>{{user?.email}}</td>
+        <td style="text-align: center">{{user?.authority}}</td>
+        <td style="text-align: center">{{user?.createDate | date:'dd-MM-yy'}}</td>
+        <td style="text-align: center"><mat-icon color="primary">{{user?.active ? 'check_box' : 'check_box_outline_blank'}}</mat-icon></td>
+        <td style="text-align: center">
+          <button mat-button
+                  matTooltip="Edytuj użytkownika"
+                  [matTooltipPosition]="'above'"
+                  aria-label="Edytuj użytkownika"
+                  (click)="onEditClick(user)"
+                  color="primary">
+            <mat-icon color="warn">edit</mat-icon>
+          </button>
+
+          <button mat-button
+                  matTooltip="Usuń użytkownika"
+                  [matTooltipPosition]="'above'"
+                  aria-label="Usuń użytkownika"
+                  (click)="onDeleteClick(user)"
+                  color="primary">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
 
     <div *ngIf="loading" fxFlex="100" fxLayoutAlign="center center">
       <mat-progress-spinner
@@ -58,76 +91,13 @@
       </mat-progress-spinner>
     </div>
 
-    <div *ngIf="!loading" fxLayout="column" fxFlex="100">
-      <div *ngFor="let user of params?.docs; let i = index" fxLayout="row" fxLayout.lt-sm="column" fxFlex="100"
-           class="mat-elevation-z3 table-row" ngClass.sm="table-row-small">
-
-        <div fxLayout="row" fxFlex="5">
-          <div fxShow.lt-sm="true" fxHide="true" class="responsive-header">#</div>
-          <div fxFlex="100" fxLayoutAlign="center center" fxLayoutAlign.lt-sm=" center">{{i + 1}}</div>
-        </div>
-
-        <div fxLayout="row" fxFlex="20">
-          <div fxShow.lt-sm="true" fxHide="true" class="responsive-header">Login: </div>
-          <div fxFlex="100" fxLayoutAlign=" center">{{user?.login}}</div>
-        </div>
-
-        <div fxLayout="row" fxFlex="50">
-          <div fxShow.lt-sm="true" fxHide="true" class="responsive-header">Email: </div>
-          <div fxFlex="100" fxLayoutAlign=" center">{{user?.email}}</div>
-        </div>
-
-        <div fxLayout="row" fxFlex="25">
-          <div fxShow.lt-sm="true" fxHide="true" class="responsive-header">Rola: </div>
-          <div fxFlex="100" fxLayoutAlign="center center" fxLayoutAlign.lt-sm=" center">{{user?.authority}}</div>
-        </div>
-
-        <div fxLayout="row" fxFlex="25">
-          <div fxShow.lt-sm="true" fxHide="true" class="responsive-header">Utworzono: </div>
-          <div fxFlex="100" fxLayoutAlign="center center" fxLayoutAlign.lt-sm=" center">{{user?.createDate | date:'dd-MM-yyyy'}}
-          </div>
-        </div>
-
-        <div fxLayout="row" fxFlex="20">
-          <div fxShow.lt-sm="true" fxHide="true" class="responsive-header">Aktywny: </div>
-          <div fxFlex="100" fxLayoutAlign="center center" fxLayoutAlign.lt-sm=" center">
-            <mat-icon color="primary" ngClass.sm="action-icon-small">{{user?.active ? 'check_box' :
-              'check_box_outline_blank'}}
-            </mat-icon>
-          </div>
-        </div>
-
-        <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-sm=" center">
-          <div fxFlex="100" fxLayout="row">
-            <button mat-button
-                    matTooltip="Edytuj użytkownika"
-                    [matTooltipPosition]="'above'"
-                    aria-label="Edytuj użytkownika"
-                    (click)="onEditClick(user)"
-                    color="primary">
-              <mat-icon ngClass.sm="action-icon-small" color="warn">edit</mat-icon>
-            </button>
-
-            <button mat-button
-                    matTooltip="Usuń użytkownika"
-                    [matTooltipPosition]="'above'"
-                    aria-label="Usuń użytkownika"
-                    (click)="onDeleteClick(user)"
-                    color="primary">
-              <mat-icon color="warn" ngClass.sm="action-icon-small">delete</mat-icon>
-            </button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
     <mat-paginator [length]="params?.total"
                    [pageIndex]="params?.page - 1"
                    [pageSize]="params?.limit"
                    [pageSizeOptions]="[5, 10]"
                    (page)="setPage($event)">
     </mat-paginator>
+
   </div>
 
 </div>
