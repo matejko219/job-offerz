@@ -15,7 +15,7 @@ export class CategoryFormComponent implements OnInit {
     if (category) this._category = {...category};
   }
 
-  get category() {
+  get category(): Category {
     return this._category;
   }
 

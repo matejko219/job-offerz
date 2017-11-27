@@ -1,10 +1,12 @@
 <div fxLayoutAlign="center center">
 
-  <div *ngIf="showForm" fxLayout="column" fxFlex.gt-sm="80" fxFlex="100" style="margin-top: 10px;">
-    <!--<app-category-form [category]="paramToEdit"-->
-    <!--[mode]="mode"-->
-    <!--(submitEvent)="onSubmit($event)"-->
-    <!--(cancel)="onCancelAdd()"></app-category-form>-->
+  <div *ngIf="showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
+    <app-user-form (submitEvent)="onSubmit($event)"
+                   [user]="paramToEdit"
+                   (cancel)="onCancelAdd()"
+                   [mode]="mode">
+
+    </app-user-form>
   </div>
 
   <div *ngIf="!showForm" fxLayout="column" fxFlex.gt-sm="80" fxFlex="100" style="margin-top: 10px;">

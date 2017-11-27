@@ -32,6 +32,8 @@ import {DialogModule} from "./dialog/dialog.module";
 import {SortArrowComponent} from "../components/sort-arrow/sort-arrow.component";
 import {BasicFilterComponent} from "../components/basic-filter/basic-filter.component";
 import {UserService} from "../../services/user.service";
+import {UserFormComponent} from "../components/user-form/user-form.component";
+import {MatchPasswordDirective} from "../../directives/match-password.directive";
 
 @NgModule({
   imports: [
@@ -65,7 +67,9 @@ import {UserService} from "../../services/user.service";
     LinkifyPipe,
     CategoriesSelectorComponent,
     SortArrowComponent,
-    BasicFilterComponent
+    BasicFilterComponent,
+    UserFormComponent,
+    MatchPasswordDirective
   ],
   exports: [
     MaterialModule,
@@ -87,7 +91,9 @@ import {UserService} from "../../services/user.service";
     StarHoverDirective,
     CategoriesSelectorComponent,
     SortArrowComponent,
-    BasicFilterComponent
+    BasicFilterComponent,
+    UserFormComponent,
+    MatchPasswordDirective
   ],
   providers: [
     CompanyService,

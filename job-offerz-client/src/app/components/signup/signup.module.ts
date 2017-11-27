@@ -14,8 +14,7 @@ import {UserService} from "../../services/user.service";
     SharedModule
   ],
   declarations: [
-    SignupComponent,
-    MatchPasswordDirective
+    SignupComponent
   ],
   providers: []
 })

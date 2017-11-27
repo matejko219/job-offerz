@@ -11,9 +11,6 @@ import {SnackBarService} from "../../shared/services/snack-bar.service";
 })
 export class SignupComponent implements OnInit {
 
-  user: User = new User();
-  repeatPasswd: string = '';
-
   constructor(private userService: UserService,
               private router: Router,
               private snackBarService: SnackBarService) { }
@@ -21,8 +18,8 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit() {
-    this.userService.signup(this.user).subscribe((result) => {
+  onSubmit(user: User) {
+    this.userService.signup(user).subscribe((result) => {
       if (result) {
         this.snackBarService.success('Utworzono nowe konto');
         this.router.navigate(['/login']);

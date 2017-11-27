@@ -9,4 +9,5 @@ export class User {
   email: string;
   authority: Authority;
   createDate: Date;
+  active: boolean;
 }

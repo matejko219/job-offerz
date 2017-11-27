@@ -1,0 +1,142 @@
+<form #userForm="ngForm" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxFlex="100">
+
+    <div class="form-alert alert-padding"
+         *ngIf="login?.errors?.required && (login.dirty || login.touched || userForm.submitted)">
+      Login jest wymagany
+    </div>
+    <div class="form-alert alert-padding"
+         *ngIf="email?.errors?.required && (email.dirty || email.touched || userForm.submitted)">
+      Email jest wymagany
+    </div>
+    <div class="form-alert alert-padding"
+         *ngIf="email?.errors?.email && (email.dirty || email.touched || userForm.submitted)">
+      Email niepoprawny
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50" fxFlex.lt-sm="100" fxLayoutGap.sm="20px"
+         fxLayoutGap.gt-sm="20px">
+
+      <div fxFlex="50" fxFlex.lt-sm="100">
+        <mat-form-field fxFlex="100">
+          <input #login="ngModel"
+                 matInput
+                 type="text"
+                 name="login"
+                 placeholder="Login"
+                 [(ngModel)]="user.login"
+                 required>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" fxFlex.lt-sm="100">
+        <mat-form-field fxFlex="100">
+          <input #email="ngModel"
+                 matInput
+                 type="email"
+                 name="email"
+                 placeholder="Email"
+                 [(ngModel)]="user.email"
+                 required
+                 email>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div class="form-alert alert-padding"
+         *ngIf="password?.errors?.required && (password.dirty || password.touched || userForm.submitted)">
+      Hasło jest wymagane
+    </div>
+    <div class="form-alert alert-padding"
+         *ngIf="repeatPassword?.errors?.matchPassword && (repeatPassword.dirty || repeatPassword.touched || userForm.submitted)">
+      Hasła nie zgadzają się
+    </div>
+
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50" fxFlex.lt-sm="100" fxLayoutGap.sm="20px"
+         fxLayoutGap.gt-sm="20px">
+
+      <div fxFlex="50" fxFlex.lt-sm="100">
+        <mat-form-field fxFlex="100">
+          <input #password="ngModel"
+                 matInput
+                 type="password"
+                 name="password"
+                 placeholder="Hasło"
+                 [(ngModel)]="user.password"
+                 [required]="mode !== 'edit'">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" fxFlex.lt-sm="100">
+        <mat-form-field fxFlex="100">
+          <input #repeatPassword="ngModel"
+                 matInput
+                 type="password"
+                 name="repeatPassword"
+                 placeholder="Powtórz hasło"
+                 [(ngModel)]="repeatPasswd"
+                 required="false"
+                 [matchPassword]="mode !== 'edit'">
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50" fxFlex.lt-sm="100" fxLayoutGap.sm="20px"
+         fxLayoutGap.gt-sm="20px">
+
+      <mat-slide-toggle color="primary"
+                        *ngIf="mode !== 'register'"
+                        name="active"
+                        [(ngModel)]="user.active">
+        Aktywny
+      </mat-slide-toggle>
+
+      <mat-select *ngIf="mode !== 'register'"
+                  name="authority"
+                  [(ngModel)]="user.authority"
+                  placeholder="Rola">
+
+        <mat-option *ngFor="let authority of authorities" [value]="authority">
+          {{authority}}
+        </mat-option>
+
+      </mat-select>
+
+    </div>
+
+    <div fxlayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+      <button color="primary"
+              *ngIf="mode !== 'edit'"
+              fxFlex="50"
+              mat-raised-button
+              [disabled]="userForm.invalid"
+              type="submit">
+        <mat-icon *ngIf="mode !== 'register'">add</mat-icon>
+        {{buttonLabels[mode]}}
+      </button>
+
+      <button mat-raised-button
+              *ngIf="mode === 'edit'"
+              color="primary"
+              type="submit"
+              [disabled]="userForm.invalid"
+              fxFlex="50">
+        <mat-icon>save</mat-icon>
+        Zapisz
+      </button>
+
+      <button color="primary"
+              (click)="cancelForm()"
+              *ngIf="mode !== 'register'"
+              fxFlex="50"
+              mat-raised-button>
+        <mat-icon>cancel</mat-icon>
+        Anuluj
+      </button>
+    </div>
+  </div>
+</form>

@@ -35,11 +35,13 @@ export class UserService implements BasicPage<User>, BasicCrud<User>{
   }
 
   update(obj: User): Observable<User> {
-    return undefined;
+    return this.http.put(this.baseUrl, obj)
+      .map(HttpUtils.mapResponse);
   }
 
   remove(_id: string): Observable<boolean> {
-    return undefined;
+    return this.http.delete(`${this.baseUrl}/${_id}`)
+      .map(HttpUtils.mapResponse);
   }
 
   public signup(user: User): Observable<boolean> {
