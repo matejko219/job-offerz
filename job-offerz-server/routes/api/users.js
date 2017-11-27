@@ -10,14 +10,6 @@ const AuthoritiesConsts = require('../../models/utils/authorities-consts');
 const handleError = require('../../middlewares/error-handlers').handleError;
 
 /**
- *  GET /api/users
- *  @return użytkownik zarejestrowany w tokenie
- *  */
-router.get('/', jwtGuard, (req, res, next) => {
-    res.json(req.decodedUser);
-});
-
-/**
  * PUT /api/users
  * @param obiekt klasy User
  * @return dokument kolekcji User po aktualizacji
@@ -55,6 +47,7 @@ router.put('/', jwtGuard, requiredParams(['body.login', 'body.email']), (req, re
                     user.set(updatedUser)
                         .save()
                         .then(user => {
+                            user.password = null;
                             res.json(user);
                         }).catch((err) => {
                         console.log(err.stack);

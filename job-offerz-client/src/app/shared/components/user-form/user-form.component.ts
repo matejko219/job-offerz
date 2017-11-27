@@ -20,10 +20,14 @@ export class UserFormComponent implements OnInit {
     return this._user;
   }
 
+  @Input()
   repeatPasswd: string = '';
 
   @Input()
   mode: 'add' | 'edit' | 'register' = 'register';
+
+  @Input()
+  profileEdit: boolean = false;
 
   buttonLabels = {
     add: 'Dodaj',
@@ -46,6 +50,7 @@ export class UserFormComponent implements OnInit {
 
   onSubmit() {
     this.submitEvent.next(this.user);
+    //this.repeatPasswd = '';
   }
 
   cancelForm() {

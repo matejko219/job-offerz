@@ -1,6 +1,6 @@
 <mat-nav-list (click)="emitToggle()">
 
-  <mat-list-item *ngIf="isUserLogged">
+  <mat-list-item *ngIf="isUserLogged" [routerLink]="['/user-profile']">
     <mat-icon matListIcon color="primary">person</mat-icon>
     <span>Witaj {{(user | async)?.login}}</span>
   </mat-list-item>

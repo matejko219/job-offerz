@@ -6,7 +6,7 @@ const config = require('../config/config');
 
 const JwtService = {
     generateToken: (user) => {
-        user.password = '';
+        user.password = null;
         const payload = {
             user
         };

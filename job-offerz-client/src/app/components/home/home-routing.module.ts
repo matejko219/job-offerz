@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from "./home.component";
 import {OnlyLoggedOut} from "../../shared/guards/only-logged-out.service";
 import {OnlyLoggedIn} from "../../shared/guards/only-logged-in.service";
-import {OnlyAdmin} from "../../shared/guards/only-admin.service";
 
 const routes: Routes = [
   { path: '',
@@ -32,6 +31,11 @@ const routes: Routes = [
       {
         path: 'admin-panel',
         loadChildren:  'app/components/admin-panel/admin-panel.module#AdminPanelModule'
+      },
+      {
+        path: 'user-profile',
+        loadChildren:  'app/components/user-profile/user-profile.module#UserProfileModule',
+        canActivate: [OnlyLoggedIn]
       }
     ]
   },

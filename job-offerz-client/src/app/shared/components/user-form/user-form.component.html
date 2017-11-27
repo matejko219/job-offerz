@@ -77,14 +77,14 @@
                  name="repeatPassword"
                  placeholder="Powtórz hasło"
                  [(ngModel)]="repeatPasswd"
-                 required="false"
-                 [matchPassword]="mode !== 'edit'">
+                 [required]="mode !== 'edit' || (password.value != null && (password.value !== ''))"
+                 [matchPassword]="mode !== 'edit' || (password.value != null && (password.value !== ''))">
         </mat-form-field>
       </div>
 
     </div>
 
-    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50" fxFlex.lt-sm="100" fxLayoutGap.sm="20px"
+    <div *ngIf="!profileEdit" fxLayout="row" fxLayout.lt-sm="column" fxFlex="50" fxFlex.lt-sm="100" fxLayoutGap.sm="20px"
          fxLayoutGap.gt-sm="20px">
 
       <mat-slide-toggle color="primary"

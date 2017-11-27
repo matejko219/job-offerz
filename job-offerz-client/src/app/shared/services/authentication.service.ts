@@ -67,7 +67,12 @@ export class AuthenticationService {
 
   private nextUserFromToken() {
     const token = this.getToken();
-    if (token) this.user.next(this.jwtHelper.decodeToken(token).user);
+    const user: User = this.jwtHelper.decodeToken(token).user;
+    if (token) this.user.next(user);
+  }
+
+  public nextUser(user: User) {
+    this.user.next(user);
   }
 
   public getToken(): string {
