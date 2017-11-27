@@ -6,7 +6,7 @@ const environments = {
         dbUrl: 'mongodb://localhost:27017/project-ai'
     },
     production: {
-        dbUrl: 'mongodb://localhost:27017/project-ai'
+        dbUrl: 'mongodb://jobofferzadm:aiprzpasswd@ds227035.mlab.com:27035/job-offerz'
     }
 };
 
