@@ -6,16 +6,17 @@ import {BasicCrud} from "./basic-crud.interface";
 import {HttpUtils} from "../utils/http-utils";
 import {PageRequest} from "../models/pagination/page-request";
 import {Page} from "../models/pagination/page";
+import {BasicPage} from "./basic-page.interface";
 
 @Injectable()
-export class CompanyService implements BasicCrud<Company>{
+export class CompanyService implements BasicCrud<Company>, BasicPage<Company> {
 
   baseUrl = '/companies';
 
   constructor(private http: Http) { }
 
-  getPage(pageRequest: PageRequest, name: string): Observable<Page<Company>> {
-    const params = {...pageRequest, name};
+  getPage(pageRequest: PageRequest, filter: string): Observable<Page<Company>> {
+    const params = {...pageRequest, filter};
     return this.http.get(`${this.baseUrl}/page`, {params})
       .map(HttpUtils.mapResponse);
   }

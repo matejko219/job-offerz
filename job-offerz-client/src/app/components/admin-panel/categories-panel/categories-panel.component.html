@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center center">
 
   <div *ngIf="showForm" fxLayout="column" fxFlex="40" fxFlex.sm="60" fxFlex.lt-sm="100" style="margin-top: 10px;">
-    <app-category-form [category]="categoryToEdit"
+    <app-category-form [category]="paramToEdit"
                        [mode]="mode"
                        (submitEvent)="onSubmit($event)"
                        (cancel)="onCancelAdd()"></app-category-form>
@@ -43,7 +43,7 @@
     </div>
 
     <div *ngIf="!loading" fxLayout="column">
-      <div *ngFor="let category of categories?.docs; let i = index" fxLayout="row" fxFlex="100"
+      <div *ngFor="let category of params?.docs; let i = index" fxLayout="row" fxFlex="100"
            class="mat-elevation-z3 table-row">
         <div fxFlex="10" fxLayoutAlign="center center">{{i + 1}}</div>
         <div fxFlex="40" fxLayoutAlign=" center">{{category?.name}}</div>
@@ -66,9 +66,9 @@
       </div>
     </div>
 
-    <mat-paginator [length]="categories?.total"
-                   [pageIndex]="categories?.page - 1"
-                   [pageSize]="categories?.limit"
+    <mat-paginator [length]="params?.total"
+                   [pageIndex]="params?.page - 1"
+                   [pageSize]="params?.limit"
                    [pageSizeOptions]="[5, 10]"
                    (page)="setPage($event)">
     </mat-paginator>

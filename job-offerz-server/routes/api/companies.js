@@ -5,6 +5,7 @@ const Company = require('../../models/company');
 const jwtGuard = require('../../middlewares/jwt-guard');
 const adminGuard = require('../../middlewares/admin-guard');
 const requiredParams = require('../../middlewares/params-resolvers/required-params');
+const getBasicPageParams = require('../../middlewares/params-resolvers/basic-page-params');
 
 /**
  * POST /api/companies
@@ -42,7 +43,7 @@ router.post('/', jwtGuard, requiredParams(['body.name', 'body.logo']), (req, res
  * @param obiekt klasy Company
  * @return dokument kolekcji Company po aktualizacji
  */
-router.put('/', jwtGuard, adminGuard, (req, res, next) => {
+router.put('/', jwtGuard, adminGuard, requiredParams(['body.name', 'body.logo']), (req, res, next) => {
     const updatedCompany = req.body;
 
     Company.findOne({name: updatedCompany.name})
@@ -63,7 +64,10 @@ router.put('/', jwtGuard, adminGuard, (req, res, next) => {
                                 handleError('Błąd podczas zapisu zmian firmy.', 500, next);
                             });
                         }
-                    });
+                    }).catch(err => {
+                    console.log(err.stack);
+                    handleError('Błąd podczas edycji firmy.', 500, next);
+                });
             }
         }).catch(err => {
         console.log(err.stack);
@@ -105,25 +109,20 @@ router.get('/', jwtGuard, (req, res, next) => {
  * @param sortDir - porządek sortowania. Domyślnie 1 czyli rosnący.
  * @return strona dokumentów kolekcji Company
  */
-router.get('/page', jwtGuard, adminGuard, (req, res, next) => {
+router.get('/page', jwtGuard, adminGuard, getBasicPageParams('name'), (req, res, next) => {
 
     const query = {};
 
-    let name = req.query.name;
-    if (name && name !== '') {
-        name = name.replace(/\\/g, '');
-        query['name'] = new RegExp(name, 'i');
+    const filter = req.basicPageParams.filter;
+    if (filter) {
+        query['name'] = filter;
     }
 
-    const sortField = req.query.sortField || 'name';
-    let sortDir = +req.query.sortDir;
-    if (!sortDir || (sortDir !== 1 && sortDir !== -1)) sortDir = 1;
-
     const options = {
-        sort: {[sortField]: sortDir},
+        sort: req.basicPageParams.sort,
         lean: true,
-        page: +req.query.page || 1,
-        limit: +req.query.limit || 5
+        page: req.basicPageParams.page,
+        limit: req.basicPageParams.limit,
     };
 
     Company.paginate(query, options)

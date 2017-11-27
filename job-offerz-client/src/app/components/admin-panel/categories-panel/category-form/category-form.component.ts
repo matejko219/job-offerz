@@ -12,7 +12,7 @@ export class CategoryFormComponent implements OnInit {
 
   @Input()
   set category(category: Category) {
-    this._category = {...category};
+    if (category) this._category = {...category};
   }
 
   get category() {
