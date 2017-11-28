@@ -15,6 +15,7 @@ export abstract class AbstractOfferPage {
   loading: boolean = false;
 
   constructor() {
+    this.offers = new Page<Offer>();
     this.filters = new OfferFilters();
     this.pageRequest = new PageRequest();
     this.pageRequest.sortField = 'createDate';

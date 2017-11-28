@@ -14,6 +14,7 @@ export abstract class AbstractPanelPage<T> {
   mode: 'add' | 'edit' = 'add';
 
   constructor(initSortField: string) {
+    this.params = new Page<T>();
     this.pageRequest = new PageRequest();
     this.pageRequest.sortField = initSortField;
     this.pageRequest.sortDir = 1;
