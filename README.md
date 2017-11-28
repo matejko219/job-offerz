@@ -15,7 +15,7 @@ F1A-DU-L3
 
 Quick Start
 ===
-Aplikacja dostępna pod adresem jobofferz.pl (W przypadku gdy wygaśnie domena aplikacja dostępna pod adresem https://sleepy-river-80611.herokuapp.com/).
+Aplikacja dostępna pod adresem http://jobofferz.pl (W przypadku gdy wygaśnie domena aplikacja dostępna pod adresem https://sleepy-river-80611.herokuapp.com/).
 
 Instalacja
 ---
@@ -48,3 +48,15 @@ cd job-offerz-client && npm run start
 ```
 
 Aplikacja kliencka natomiast widoczna jest pod adresem `http://localhost:4200` i wykorzystuje `WDS` dzięki czemu możemy "na żywo" pracować nad kodem aplikacji.
+
+Tryb produkcyjny
+---
+Przed uruchomieniem aplikacji należy upewnić się że w katalogu `job-offerz-server/public` znajduje się zbudowana aplikacja Angular. W przeciwnym wypadku w głównym katalogu gdzie znajduje się repozytorium wykonujemy komende.
+```
+npm run build
+```
+Następnie uruchamiamy serwer aplikacji za pomocą komendy
+```
+npm run start
+```
+Aplikacja w trybie produkcyjnym dostpęna jest pod adresem `http://localhost:3000`. Numer portu może być zdefiniowany za pomocą zmiennej środowiskowej `PORT`. Gdy zmienna nie istnieje to domyślnie aplikacja uruchamia się na porcie `3000`. W tym trybie aplikacja wykorzystuje bazę na zewnętrznym serwerze `mLab`. W trybie produkcyjnym zarówno aplikacja kliencka jak i REST API wystawione są na tym samym porcie.
