@@ -30,8 +30,12 @@ router.post('/authenticate', requiredParams(['body.login', 'body.password']), (r
             console.log('User: ' + login + ' not found');
             return handleError('Błąd autentykacji. Użytkownik nie istnieje.', 400, next);
         } else {
-            if (!BCryptService.compareHash(password, user.password)) {
+            if (!user.active) {
+                return handleError('Konto użytkownika nieaktynwe.', 400, next);
+
+            } else if (!BCryptService.compareHash(password, user.password)) {
                 return handleError('Błąd autentykacji. Złe hasło.', 400, next);
+
             } else {
                 let generatedToken;
                 try {
