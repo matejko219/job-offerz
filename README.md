@@ -15,7 +15,7 @@ F1A-DU-L3
 
 Quick Start
 ===
-Aktualnie aplikacja korzysta tylko z lokalnej bazy. Przed wdrożeniem aplikacji na serwer zostanie dodana obsługa bazy na zewnętrznym serwerze.
+Aplikacja dostępna pod adresem jobofferz.pl (W przypadku gdy wygaśnie domena aplikacja dostępna pod adresem https://sleepy-river-80611.herokuapp.com/).
 
 Instalacja
 ---
