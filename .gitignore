@@ -1,4 +1,4 @@
 node_modules
 .idea
 npm-debug.log
-/job-offerz-server/public
+#job-offerz-server/public
