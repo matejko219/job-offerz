@@ -17,8 +17,8 @@ const JwtService = {
             });
         } catch (err) {
             console.log('JWT not generated: ' + err.message);
-            const err = new Error('JWT not generated.');
-            throw err;
+            const error = new Error('JWT not generated.');
+            throw error;
         }
     },
     verifyToken: (token, callback) => {
