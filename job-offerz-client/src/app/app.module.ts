@@ -1,5 +1,5 @@
 import {BrowserModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
-import {NgModule, Injector} from '@angular/core';
+import {NgModule, Injector, LOCALE_ID} from '@angular/core';
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -25,6 +25,7 @@ import {OnlyAdmin} from "./shared/guards/only-admin.service";
     AppRoutingModule
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: "pl-PL"},
     AuthenticationService,
     JwtHelper,
     OnlyLoggedOut,
