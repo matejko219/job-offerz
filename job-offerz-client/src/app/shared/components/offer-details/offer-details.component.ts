@@ -74,4 +74,8 @@ export class OfferDetailsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  decimalFormat(amount: number): string {
+    return amount % 1 !== 0 ? '1.2-2' : '1.0-0';
+  }
+
 }

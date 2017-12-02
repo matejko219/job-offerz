@@ -92,7 +92,7 @@
 
               <div class="detail-param-wrap" fxLayout="row" fxLayout.lt-sm="column">
                 <div class="detail-param">Wynagrodzenie:</div>
-                <div>{{offer?.offerDetails?.terms?.salary?.amount | number:'1.2-2'}} {{offer?.offerDetails?.terms?.salary?.currency}}
+                <div>{{offer?.offerDetails?.terms?.salary?.amount | number:decimalFormat(offer?.offerDetails?.terms?.salary?.amount)}} {{offer?.offerDetails?.terms?.salary?.currency}}
                   {{offer?.offerDetails?.terms?.salary?.type}} / {{offer?.offerDetails?.terms?.salary?.period}}
                 </div>
               </div>
