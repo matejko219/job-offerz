@@ -3,10 +3,11 @@ import {
   MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatFormFieldModule,
   MatInputModule, MatButtonModule, MatSnackBarModule, MatCardModule, MatPaginatorModule, MatTabsModule,
   MatSlideToggleModule, MatTooltipModule, MatStepperModule, MatSelectModule, MatAutocompleteModule, MatSliderModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatPaginatorIntl
 } from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {SnackBarService} from "../services/snack-bar.service";
+import {MatPaginatorIntlPl} from "./mat-paginator-intl-pl";
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import {SnackBarService} from "../services/snack-bar.service";
     MatProgressSpinnerModule
   ],
   providers: [
-    SnackBarService
+    SnackBarService,
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPl}
   ]
 })
 export class MaterialModule { }
