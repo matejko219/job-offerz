@@ -33,6 +33,10 @@ router.put('/', jwtGuard, requiredParams(['body.login', 'body.email']), (req, re
             }
         });
 
+        if (decodedUser.authority !== AuthoritiesConsts.ROLE_ADMIN) {
+            delete updatedUser.authority;
+        }
+
         if (decodedUser.authority !== AuthoritiesConsts.ROLE_ADMIN && decodedUser._id !== updatedUser._id) {
             return handleError('Brak uprawnień do edycji użytkownika.', 403, next);
         } else {
