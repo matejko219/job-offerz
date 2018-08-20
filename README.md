@@ -8,11 +8,6 @@ Wykorzystany stos technologiczny to MEAN stack:
 - Angular 4
 - Node.js
 
-Wykonanie:  
-Mateusz Tumidajewicz  
-F1A-DU-L3  
-139284
-
 Quick Start
 ===
 Aplikacja dostępna pod adresem http://jobofferz.pl (W przypadku gdy wygaśnie domena aplikacja dostępna pod adresem https://sleepy-river-80611.herokuapp.com/).
